@@ -31,4 +31,18 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
+  static TextStyle subtitle = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.text,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+    ),
+  );
+  static TextStyle title = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.text,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+  );
 }
