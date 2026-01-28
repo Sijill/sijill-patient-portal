@@ -21,18 +21,14 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: Builder(
-        builder: (context) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            initialRoute: token == true
-                ? AppRoutes.signInScreen
-                : AppRoutes.onboardingsScreen,
-            routes: AppRoutes.routeScreen,
-            theme: AppTheme.lightTheme,
-            themeMode: ThemeMode.light,
-          );
-        },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: token == true
+            ? AppRoutes.signInScreen
+            : AppRoutes.onboardingsScreen,
+        routes: AppRoutes.routeScreen,
+        theme: AppTheme.lightTheme,
+        themeMode: ThemeMode.light,
       ),
     );
   }
