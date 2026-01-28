@@ -57,7 +57,7 @@ class ReviewScreen extends StatelessWidget {
                     children: [
                       Text(
                         "Review images and ensure",
-                        style: AppStyle.boldBlack24,
+                        style: AppStyle.boldBlack20,
                         textAlign: TextAlign.center,
                       ),
                       Text(
@@ -67,6 +67,7 @@ class ReviewScreen extends StatelessWidget {
                       ).setVerticalPadding(context, 0.01),
                       SizedBox(height: height * 0.02),
                       CustomedButton(
+                        horizontal: width * 0.001,
                         text: "View ID Front",
                         backgroundColor: AppColors.white,
                         textColor: AppColors.black,
@@ -75,6 +76,7 @@ class ReviewScreen extends StatelessWidget {
                       ),
                       SizedBox(height: height * 0.015),
                       CustomedButton(
+                        horizontal: width * 0.001,
                         text: "View ID Back",
                         backgroundColor: AppColors.white,
                         textColor: AppColors.black,
@@ -83,6 +85,7 @@ class ReviewScreen extends StatelessWidget {
                       ),
                       SizedBox(height: height * 0.015),
                       CustomedButton(
+                        horizontal: width * 0.001,
                         text: "View Selfie",
                         backgroundColor: AppColors.white,
                         textColor: AppColors.black,

@@ -101,7 +101,7 @@ class _CustomedTakePhotoState extends State<CustomedTakePhoto> {
                     children: [
                       Text(
                         widget.title,
-                        style: AppStyle.boldBlack24,
+                        style: AppStyle.boldBlack20,
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: height * 0.008),
@@ -144,7 +144,7 @@ class _CustomedTakePhotoState extends State<CustomedTakePhoto> {
                                   child: Image.file(_image!, fit: BoxFit.fill),
                                 ),
                         ),
-                      ).setVerticalPadding(context, 0.01),
+                      ).setVerticalPadding(context, 0.001),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

@@ -27,66 +27,68 @@ class ForgetPassword extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.transparent,
         body: SafeArea(
-          child: ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.w),
-                padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                decoration: BoxDecoration(
-                  color: AppColors.authContainerColor,
-                  borderRadius: BorderRadius.circular(40.r),
-                  border: Border.all(
-                    color: AppColors.authBorderColor,
-                    width: 1.5.w,
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.01,
-                    vertical: height * 0.04,
-                  ),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Forget Password", style: AppStyle.boldBlack24),
-                        SizedBox(height: height * 0.03),
-                        ClipRRect(
-                          borderRadius: BorderRadiusGeometry.circular(16.r),
-                          clipBehavior: Clip.antiAlias,
-                          child: Image.asset(
-                            AppAssets.forgetPasswordImg,
-                            height: height * 0.3,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        SizedBox(height: height * 0.003),
-                        CustomTextField(
-                          onValidate: (val) {
-                            return AppValidators.validateEmail(val);
-                          },
-                          hint: "Email",
-                          hintColor: AppColors.black,
-                          prefixIcon: Icon(
-                            Icons.mail,
-                            color: AppColors.blueLight,
-                          ),
-                        ).setOnlyPadding(context, 0.015, 0.0, 0.0, 0.0),
-                        SizedBox(height: height * 0.02),
-                        CustomedButton(
-                          text: "Verify Email",
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {}
-                          },
-                        ),
-                      ],
+          child: SingleChildScrollView(
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                  decoration: BoxDecoration(
+                    color: AppColors.authContainerColor,
+                    borderRadius: BorderRadius.circular(40.r),
+                    border: Border.all(
+                      color: AppColors.authBorderColor,
+                      width: 1.5.w,
                     ),
                   ),
-                ),
-              ).setVerticalPadding(context, 0.12),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.01,
+                      vertical: height * 0.04,
+                    ),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text("Forget Password", style: AppStyle.boldBlack24),
+                          SizedBox(height: height * 0.03),
+                          ClipRRect(
+                            borderRadius: BorderRadiusGeometry.circular(16.r),
+                            clipBehavior: Clip.antiAlias,
+                            child: Image.asset(
+                              AppAssets.forgetPasswordImg,
+                              height: height * 0.3,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          SizedBox(height: height * 0.003),
+                          CustomTextField(
+                            onValidate: (val) {
+                              return AppValidators.validateEmail(val);
+                            },
+                            hint: "Email",
+                            hintColor: AppColors.black,
+                            prefixIcon: Icon(
+                              Icons.mail,
+                              color: AppColors.blueLight,
+                            ),
+                          ).setOnlyPadding(context, 0.015, 0.0, 0.0, 0.0),
+                          SizedBox(height: height * 0.02),
+                          CustomedButton(
+                            text: "Verify Email",
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {}
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ).setVerticalPadding(context, 0.12),
+              ),
             ),
           ),
         ),

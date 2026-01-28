@@ -81,6 +81,13 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
+  static TextStyle meduimBlue15 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.blueLight,
+      fontSize: 15.sp,
+      fontWeight: FontWeight.w500,
+    ),
+  );
   static TextStyle meduimGray16 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.gray,
@@ -99,6 +106,13 @@ class AppStyle {
     textStyle: TextStyle(
       color: AppColors.white,
       fontSize: 20.sp,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+  static TextStyle boldWhite18 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.white,
+      fontSize: 18.sp,
       fontWeight: FontWeight.bold,
     ),
   );

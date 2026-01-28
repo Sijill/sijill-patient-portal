@@ -116,7 +116,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           Row(
                             children: [
                               Transform.scale(
-                                scale: 0.9,
+                                scale: 0.9.sp,
                                 child: Checkbox(
                                   value: rememberMe,
                                   activeColor: AppColors.blueLight,
@@ -129,7 +129,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                               Text(
                                 "Remember Me",
-                                style: AppStyle.meduimBlack16,
+                                style: AppStyle.meduimBlack14,
                               ),
                             ],
                           ),
@@ -143,11 +143,12 @@ class _SignInScreenState extends State<SignInScreen> {
                             },
                             child: Text(
                               "Forget Password ?",
-                              style: AppStyle.mediumBlue16,
+                              style: AppStyle.meduimBlue15,
                             ),
                           ),
                         ],
                       ),
+
                       SizedBox(height: height * 0.01),
                       CustomedButton(
                         text: "Submit",

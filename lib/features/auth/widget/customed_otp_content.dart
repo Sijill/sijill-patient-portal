@@ -44,69 +44,71 @@ class _CustomedOtpContentState extends State<CustomedOtpContent> {
       child: Scaffold(
         backgroundColor: AppColors.transparent,
         body: SafeArea(
-          child: ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: width * 0.04),
-                padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.04,
-                  vertical: height * 0.01,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.authContainerColor,
-                  borderRadius: BorderRadius.circular(40.r),
-                  border: Border.all(
-                    color: AppColors.authBorderColor,
-                    width: 1.5,
-                  ),
-                ),
-                child: Padding(
+          child: SingleChildScrollView(
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: width * 0.04),
                   padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.01,
-                    vertical: height * 0.04,
+                    horizontal: width * 0.04,
+                    vertical: height * 0.01,
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        "Enter the code sent to your email",
-                        style: AppStyle.boldBlack24,
-                        textAlign: TextAlign.center,
-                      ).setVerticalPadding(context, 0.01),
-                      SizedBox(height: height * 0.02),
-                      CustomedOtpPinCodeTextfield(
-                        otpController: otpController,
-                        validator: widget.validator,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Nothing Yet?", style: AppStyle.boldBlack20),
-                          TextButton(
-                            onPressed: () {
-                              widget.resendCode();
-                            },
-                            child: Text(
-                              "Resend Code",
-                              style: AppStyle.boldPrimary16,
+                  decoration: BoxDecoration(
+                    color: AppColors.authContainerColor,
+                    borderRadius: BorderRadius.circular(40.r),
+                    border: Border.all(
+                      color: AppColors.authBorderColor,
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.01,
+                      vertical: height * 0.04,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Enter the code sent to your email",
+                          style: AppStyle.boldBlack24,
+                          textAlign: TextAlign.center,
+                        ).setVerticalPadding(context, 0.01),
+                        SizedBox(height: height * 0.02),
+                        CustomedOtpPinCodeTextfield(
+                          otpController: otpController,
+                          validator: widget.validator,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Nothing Yet?", style: AppStyle.boldBlack20),
+                            TextButton(
+                              onPressed: () {
+                                widget.resendCode();
+                              },
+                              child: Text(
+                                "Resend Code",
+                                style: AppStyle.boldPrimary16,
+                              ),
                             ),
-                          ),
-                        ],
-                      ).setVerticalPadding(context, 0.001),
-                      SizedBox(height: height * 0.02),
-                      CustomedButton(
-                        text: "Verify",
-                        onPressed: () {
-                          widget.navigateScreen();
-                        },
-                      ),
-                    ],
+                          ],
+                        ).setVerticalPadding(context, 0.001),
+                        SizedBox(height: height * 0.02),
+                        CustomedButton(
+                          text: "Verify",
+                          onPressed: () {
+                            widget.navigateScreen();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ).setVerticalPadding(context, 0.16),
+                ).setVerticalPadding(context, 0.16),
+              ),
             ),
           ),
         ),
