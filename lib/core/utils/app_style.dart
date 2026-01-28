@@ -144,4 +144,54 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
+
+  static TextStyle meduimBlack18 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.black,
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+    ),
+  );
+
+  static TextStyle meduimBlueLight16 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      fontStyle: FontStyle.italic,
+      color: AppColors.blueLight,
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+      decoration: TextDecoration.underline,
+      decorationThickness: 1.2,
+      decorationColor: AppColors.blueLight,
+    ),
+  );
+
+  static TextStyle boldBlack16 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.black,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+
+  static TextStyle boldGrey14 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.grey,
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+  static TextStyle meduimRed12 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.red,
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+    ),
+  );
+  static TextStyle meduimRed14 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.red,
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+    ),
+  );
 }

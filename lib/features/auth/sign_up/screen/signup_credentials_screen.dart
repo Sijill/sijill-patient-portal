@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/Padding.dart';
@@ -9,37 +10,38 @@ import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_auth_button.dart';
-import 'package:sijil_patient_portal/features/auth/widget/customed_drop_down_bottun.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpCredentialsScreen extends StatefulWidget {
+  const SignUpCredentialsScreen({super.key});
+
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignUpCredentialsScreen> createState() =>
+      _SignUpCredentialsScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  bool obscure = true;
   @override
   void dispose() {
-    fNameController.dispose();
-    mNameController.dispose();
-    lNameController.dispose();
-    emailController.dispose();
     super.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
   }
-
-  final _formKey = GlobalKey<FormState>();
-  final fNameController = TextEditingController();
-  final mNameController = TextEditingController();
-  final lNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
-
-  String? gender;
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.sizeOf(context).height;
-    var width = MediaQuery.sizeOf(context).width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -57,9 +59,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                    margin: EdgeInsets.symmetric(horizontal: width * 0.04),
                     padding: EdgeInsets.symmetric(
-                      horizontal: width * 0.04,
+                      horizontal: width * 0.02,
                       vertical: height * 0.04,
                     ),
                     decoration: BoxDecoration(
@@ -71,14 +73,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.01,
-                        vertical: 0.4,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.02),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             "Create an Account",
@@ -92,84 +90,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(height: height * 0.02),
                           CustomTextField(
                             onValidate: (val) {
-                              return AppValidators.validateFullName(val);
+                              return AppValidators.validateEmail(val);
                             },
-                            controller: fNameController,
-                            hint: "First Name",
+                            controller: emailController,
+                            hint: "Email",
                             hintColor: AppColors.black,
-                            prefixIcon: Icon(
-                              Icons.person,
+                            prefixIcon: const Icon(
+                              Icons.mail,
                               color: AppColors.blueLight,
                             ),
-                          ).setVerticalPadding(context, 0.001),
-                          CustomTextField(
-                            onValidate: (val) {
-                              return AppValidators.validateFullName(val);
-                            },
-                            controller: mNameController,
-                            hint: "Middle Name",
-                            hintColor: AppColors.black,
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: AppColors.blueLight,
-                            ),
-                          ).setVerticalPadding(context, 0.015),
-                          CustomTextField(
-                            onValidate: (val) {
-                              return AppValidators.validateFullName(val);
-                            },
-                            controller: lNameController,
-                            hint: "Last Name",
-                            hintColor: AppColors.black,
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: AppColors.blueLight,
-                            ),
-                          ).setVerticalPadding(context, 0.001),
-                          SizedBox(height: height * 0.004),
-                          CustomedDropDownBottun(
-                            onChanged: (val) {
-                              setState(() {
-                                gender = val;
-                              });
-                            },
-                            gender: gender,
-                          ),
-                          CustomTextField(
-                            controller: dateController,
-                            hint: "Date Of Birth",
-                            hintColor: AppColors.black,
-                            enabled: true,
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                firstDate: DateTime(1900),
-                                lastDate: DateTime.now(),
-                                initialDate: DateTime.now(),
-                              );
-
-                              if (pickedDate != null) {
-                                dateController.text =
-                                    "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-                              }
-                            },
-                            prefixIcon: Icon(
-                              Icons.calendar_month_rounded,
-                              color: AppColors.blueLight,
-                            ),
-                            onValidate: (val) {
-                              return AppValidators.validateDate(val);
-                            },
                           ).setVerticalPadding(context, 0.005),
-
                           CustomTextField(
                             onValidate: (val) {
-                              return AppValidators.validateNationalID(val);
+                              return AppValidators.validatePassword(val);
                             },
-                            hint: "National ID",
+                            controller: passwordController,
+                            isPassword: true,
+                            maxLines: 1,
+                            hint: "Password",
+                            hintColor: AppColors.black,
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: AppColors.blueLight,
+                            ),
+                          ).setVerticalPadding(context, 0.01),
+                          CustomTextField(
+                            onValidate: (val) {
+                              return AppValidators.validateConfirmPassword(
+                                val,
+                                passwordController.text,
+                              );
+                            },
+                            controller: confirmPasswordController,
+                            isPassword: true,
+                            maxLines: 1,
+                            hint: "Confirm Password",
+                            hintColor: AppColors.black,
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: AppColors.blueLight,
+                            ),
+                          ).setVerticalPadding(context, 0.01),
+                          CustomTextField(
+                            onValidate: (val) {
+                              return AppValidators.validatePhoneNumber(val);
+                            },
+                            hint: "Phone Number",
                             hintColor: AppColors.black,
                             prefixIcon: Icon(
-                              Icons.numbers_outlined,
+                              Icons.phone,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.01),
@@ -183,12 +152,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 },
                                 icon: Icons.arrow_back_ios_new_outlined,
                               ),
+
                               CustomedAuthButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Navigator.of(context).pushNamed(
-                                      AppRoutes.signUpCredentialsScreen,
-                                    );
+                                    Navigator.of(
+                                      context,
+                                    ).pushNamed(AppRoutes.takeFrontPhotoScreen);
                                   }
                                 },
                               ),
@@ -197,7 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ],
                       ),
                     ),
-                  ).setVerticalPadding(context, 0.08),
+                  ).setVerticalPadding(context, 0.12),
                 ),
               ),
             ),
