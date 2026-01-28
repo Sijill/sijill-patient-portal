@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 extension PaddingtoWidget on Widget {
-  Widget setHorizontalPadding(BuildContext context, double value,
-      {bool enableMediaQuery = true}) {
-
+  Widget setHorizontalPadding(
+    BuildContext context,
+    double value, {
+    bool enableMediaQuery = true,
+  }) {
     var mediaQuery = MediaQuery.of(context);
 
     return Padding(
@@ -14,8 +16,11 @@ extension PaddingtoWidget on Widget {
     );
   }
 
-  Widget setVerticalPadding(BuildContext context, double value,
-      {bool enableMediaQuery = true}) {
+  Widget setVerticalPadding(
+    BuildContext context,
+    double value, {
+    bool enableMediaQuery = true,
+  }) {
     var mediaQuery = MediaQuery.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -26,13 +31,17 @@ extension PaddingtoWidget on Widget {
   }
 
   Widget setHorizontalAndVerticalPadding(
-      BuildContext context, double widthValue, double heightValue,
-      {bool enableMediaQuery = true}) {
+    BuildContext context,
+    double widthValue,
+    double heightValue, {
+    bool enableMediaQuery = true,
+  }) {
     var mediaQuery = MediaQuery.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal:
-        enableMediaQuery ? mediaQuery.size.width * widthValue : widthValue,
+        horizontal: enableMediaQuery
+            ? mediaQuery.size.width * widthValue
+            : widthValue,
         vertical: enableMediaQuery
             ? mediaQuery.size.height * heightValue
             : heightValue,
@@ -42,8 +51,13 @@ extension PaddingtoWidget on Widget {
   }
 
   Widget setOnlyPadding(
-      BuildContext context, double top, double down, double right, double left,
-      {bool enableMediaQuery = true}) {
+    BuildContext context,
+    double top,
+    double down,
+    double right,
+    double left, {
+    bool enableMediaQuery = true,
+  }) {
     var mediaQuery = MediaQuery.of(context);
     return Padding(
       padding: EdgeInsets.only(

@@ -6,5 +6,10 @@ class AppColors {
   static const Color white = Color(0xFFFDFEFF);
   static const Color transparent = Colors.transparent;
   static const Color background = Color(0xFFF2F6FF);
-  static const Color text = Color(0xFF000000);
+  static const Color black = Colors.black;
+  static const Color grey = Colors.grey;
+  static Color green = Colors.greenAccent.shade100;
+  static const Color red = Color(0xFFCC0000);
+  static Color authContainerColor = Colors.blue.withOpacity(0.10);
+  static Color authBorderColor = Colors.white.withOpacity(0.5);
 }

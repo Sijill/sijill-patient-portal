@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'app_colors.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -26,7 +28,6 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final InputDecoration? decoration;
 
-
   const CustomTextField({
     super.key,
     this.controller,
@@ -43,7 +44,7 @@ class CustomTextField extends StatefulWidget {
     this.onEditingComplete,
     this.onSaved,
     this.onTap,
-    this.readOnly=false,
+    this.readOnly = false,
     this.decoration,
     this.maxLines,
     this.minLines,
@@ -57,10 +58,10 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.textDirection,
     this.edgeInsets = const EdgeInsets.only(
-      top: 16,
+      top: 12,
       left: 5,
       right: 5,
-      bottom: 16,
+      bottom: 12,
     ),
     this.hintColor = Colors.white,
   });
@@ -97,88 +98,60 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
-      style: widget.textStyle ??
-          theme.textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF222222), fontWeight: FontWeight.w500),
+      style: widget.textStyle ?? AppStyle.boldBlack16,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: widget.action ?? TextInputAction.done,
       focusNode: widget.focusNode,
       cursorColor: theme.primaryColor,
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: theme.textTheme.bodyMedium?.copyWith(
-          color: const Color(0xFF777777),
-          fontWeight: FontWeight.w500,
-        ),
+        labelStyle: AppStyle.meduimBlack18,
         prefixIconConstraints: const BoxConstraints(minWidth: 56),
         suffixIcon: widget.isPassword ?? false
             ? InkWell(
-          onTap: () {
-            setState(() {
-              obscureText = !obscureText;
-            });
-          },
-          child: Icon(
-            obscureText
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
-            color: Colors.grey,
-          ),
-        )
+                onTap: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
+                child: Icon(
+                  obscureText
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: Colors.grey,
+                ),
+              )
             : widget.suffixWidget,
         prefixIcon: widget.prefixIcon,
 
         hintText: widget.hint,
-        hintStyle: TextStyle(
-          fontFamily: "Inter",
-          fontSize: 16,
-          color: AppColors.text,
-          fontWeight: FontWeight.w500,
-        ),
+        hintStyle: AppStyle.meduimBlack18,
         counterText: "",
-        fillColor: Colors.white,
+        fillColor: AppColors.white,
         filled: true,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: AppColors.blueLight,
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: const BorderSide(color: AppColors.blueLight, width: 1),
         ),
         // suffix: isPass widget.suffixWidget,
         contentPadding: widget.edgeInsets,
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: AppColors.blueLight,
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: const BorderSide(color: AppColors.blueLight, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: AppColors.blueLight,
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: AppColors.blueLight, width: 1.w),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: AppColors.blueLight,
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: AppColors.blueLight, width: 1.w),
         ),
-        errorStyle: const TextStyle(
-          color: Color(0xFFCC0000),
-          fontSize: 12,
-        ),
+        errorStyle: AppStyle.meduimRed14,
         errorMaxLines: 6,
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Color(0xFFCC0000),
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.red, width: 1.w),
         ),
       ),
     );

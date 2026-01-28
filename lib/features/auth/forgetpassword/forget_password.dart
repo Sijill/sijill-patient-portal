@@ -1,105 +1,95 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/core/utils/Padding.dart';
+import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
-import '../../../core/utils/Padding.dart';
-import '../../../core/utils/app_assets.dart';
-import '../../../core/utils/custom_text_field.dart';
+import 'package:sijil_patient_portal/core/utils/app_style.dart';
+import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
+import 'package:sijil_patient_portal/core/utils/customed_button.dart';
+import 'package:sijil_patient_portal/core/utils/validators.dart';
 
 class ForgetPassword extends StatelessWidget {
-  const ForgetPassword({super.key});
+  ForgetPassword({super.key});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var height = MediaQuery.sizeOf(context).height;
     var width = MediaQuery.sizeOf(context).width;
-    return  Container(
+    var height = MediaQuery.sizeOf(context).height;
+    return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppAssets.authpg),
+          image: AssetImage(AppAssets.authBg),
           fit: BoxFit.fill,
         ),
       ),
       child: Scaffold(
-          backgroundColor: AppColors.transparent,
-          appBar: AppBar(
-            backgroundColor: AppColors.transparent,
-            title: Text(
-                "Forget Password",
-                style: TextStyle(
-                  color: AppColors.primaryColor,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                )),
-            centerTitle: true,
-            iconTheme: IconThemeData(
-              color: AppColors.blueLight,
-            ),
-          ),
+        backgroundColor: AppColors.transparent,
         body: SafeArea(
           child: ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.all(24),
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.10),
-                  borderRadius: BorderRadius.circular(40),
+                  color: AppColors.authContainerColor,
+                  borderRadius: BorderRadius.circular(40.r),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.5),
-                    width: 1.5,
+                    color: AppColors.authBorderColor,
+                    width: 1.5.w,
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal:width*0.01, vertical: 0.4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                        child:
-                        Image.asset(
-                          "assets/images/forget_password.jpg",
-                        ),
-                      ),
-                      const CustomTextField(
-                        hint: "Email",
-                        hintColor: AppColors.text,
-                        prefixIcon: Icon(
-                        Icons.mail,
-                          color: AppColors.blueLight,
-                        ),
-                      ).setOnlyPadding(context, 0.015, 0.0, 0.0, 0.0),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: AppColors.blueLight,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                              side: BorderSide(
-                                color: AppColors.blueLight,
-                              )
-                            )
-                        ),
-                        child: Text(
-                          "Verify Email",
-                          style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.white,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.01,
+                    vertical: height * 0.04,
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text("Forget Password", style: AppStyle.boldBlack24),
+                        SizedBox(height: height * 0.03),
+                        ClipRRect(
+                          borderRadius: BorderRadiusGeometry.circular(16.r),
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.asset(
+                            AppAssets.forgetPasswordImg,
+                            height: height * 0.3,
+                            fit: BoxFit.fill,
                           ),
-                        ).setVerticalPadding(context, 0.015),
-                      ).setVerticalPadding(context, 0.025).setVerticalPadding(context, 0.01),
-                    ],
+                        ),
+                        SizedBox(height: height * 0.003),
+                        CustomTextField(
+                          onValidate: (val) {
+                            return AppValidators.validateEmail(val);
+                          },
+                          hint: "Email",
+                          hintColor: AppColors.black,
+                          prefixIcon: Icon(
+                            Icons.mail,
+                            color: AppColors.blueLight,
+                          ),
+                        ).setOnlyPadding(context, 0.015, 0.0, 0.0, 0.0),
+                        SizedBox(height: height * 0.02),
+                        CustomedButton(
+                          text: "Verify Email",
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {}
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ).setVerticalPadding(context, 0.12),
             ),
           ),
-        )
+        ),
       ),
     );
   }

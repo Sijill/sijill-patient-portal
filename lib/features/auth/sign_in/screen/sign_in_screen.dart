@@ -1,11 +1,13 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:sijil_patient_portal/features/auth/sign_up/screen/sign_up_screen.dart';
-import '../../../../core/utils/Padding.dart';
-import '../../../../core/utils/app_assets.dart';
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/custom_text_field.dart';
-import '../../forgetpassword/forget_password.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/core/utils/Padding.dart';
+import 'package:sijil_patient_portal/core/utils/app_assets.dart';
+import 'package:sijil_patient_portal/core/utils/app_colors.dart';
+import 'package:sijil_patient_portal/core/utils/app_routes.dart';
+import 'package:sijil_patient_portal/core/utils/app_style.dart';
+import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
+import 'package:sijil_patient_portal/core/utils/customed_button.dart';
+import 'package:sijil_patient_portal/core/utils/validators.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -15,8 +17,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final _formKey = GlobalKey<FormState>();
-  
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -24,14 +26,20 @@ class _SignInScreenState extends State<SignInScreen> {
   bool rememberMe = false;
 
   @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     var height = MediaQuery.sizeOf(context).height;
     var width = MediaQuery.sizeOf(context).width;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppAssets.authpg),
+          image: AssetImage(AppAssets.authBg),
           fit: BoxFit.fill,
         ),
       ),
@@ -39,181 +47,143 @@ class _SignInScreenState extends State<SignInScreen> {
         backgroundColor: AppColors.transparent,
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.08),
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.5),
-                        width: 1.5,
+            child: ClipRect(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: width * 0.04),
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.04,
+                  vertical: height * 0.02,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.authContainerColor,
+                  borderRadius: BorderRadius.circular(40.r),
+                  border: Border.all(
+                    color: AppColors.authBorderColor,
+                    width: 1.5.w,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: height * 0.02),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Welcome Back 👋", style: AppStyle.boldBlack24),
+                      SizedBox(height: height * 0.01),
+                      Text(
+                        textAlign: TextAlign.center,
+                        "Sign in to continue your health journey today!",
+                        style: AppStyle.meduimBlack18,
                       ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal:width*0.03, vertical: height*0.1 ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text("Welcome Back 👋",
-                              style:
-                              TextStyle(
-                                color: AppColors.text,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text("Sign in to continue your health journey today!",
-                              style: TextStyle(
-                                color: AppColors.text,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          CustomTextField(
-                            controller: _emailController,
-                            hint: "Email",
-                            hintColor: AppColors.text,
-                            prefixIcon: Icon(
+                      Form(
+                        key: globalKey,
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              controller: _emailController,
+                              hint: "Email",
+                              hintColor: AppColors.black,
+                              onValidate: (val) {
+                                return AppValidators.validateEmail(val);
+                              },
+                              prefixIcon: Icon(
                                 Icons.mail,
-                              color: AppColors.blueLight,
-                            ),
-                          ).setOnlyPadding(context, 0.03, 0.015, 0.0, 0.0),
-                          CustomTextField(
-                            controller: _passwordController,
-                            isPassword: true,
-                            maxLines: 1,
-                            hint: "Password",
-                            hintColor: AppColors.text,
-                            prefixIcon:
-                            Icon(
-                                Icons.lock,
-                              color: AppColors.blueLight,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Transform.scale(
-                                    scale: 0.9,
-                                    child: Checkbox(
-                                      value: rememberMe,
-                                      activeColor: AppColors.blueLight,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          rememberMe = value!;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  Text(
-                                    "Remember Me",
-                                    style: TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
+                                color: AppColors.blueLight,
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const ForgetPassword(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  "Forget Password ?",
-                                  style: TextStyle(
-                                    color: AppColors.blueLight,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColors.blueLight,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ).setOnlyPadding(context, 0.03, 0.015, 0.0, 0.0),
+                            CustomTextField(
+                              controller: _passwordController,
+                              isPassword: true,
+                              maxLines: 1,
+                              onValidate: (val) {
+                                return AppValidators.validatePassword(val);
+                              },
+                              hint: "Password",
 
-                          ElevatedButton(onPressed: (){
-                            },
-                                style: ElevatedButton.styleFrom(
-                                    elevation: 0,
-                                    backgroundColor: AppColors.blueLight,
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        side: const BorderSide(
-                                          color:  AppColors.blueLight,
-                                        )
-                                    )
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text("Submit",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.white,
-                                          fontSize: 18
-                                      ),
-                                    ),
-                                  ],
-                                )
+                              hintColor: AppColors.black,
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                color: AppColors.blueLight,
+                              ),
                             ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("Don't have account ?",
-                                style: TextStyle(
-                                  color: AppColors.text,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                              Transform.scale(
+                                scale: 0.9,
+                                child: Checkbox(
+                                  value: rememberMe,
+                                  activeColor: AppColors.blueLight,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      rememberMe = value!;
+                                    });
+                                  },
                                 ),
                               ),
-                              TextButton(
-                                  onPressed: (){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => const SignUpScreen(),
-                                      ),
-                                    );
-                                  },
-                                  child: Text("Create account",
-                                    style: TextStyle(
-                                      color: AppColors.blueLight,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: AppColors.blueLight,
-                                    ),
-                                  )
-                              )
+                              Text(
+                                "Remember Me",
+                                style: AppStyle.meduimBlack16,
+                              ),
                             ],
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              if (globalKey.currentState!.validate()) {
+                                Navigator.of(
+                                  context,
+                                ).pushNamed(AppRoutes.forgetPassword);
+                              }
+                            },
+                            child: Text(
+                              "Forget Password ?",
+                              style: AppStyle.mediumBlue16,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ).setVerticalPadding(context, 0.12),
+                      SizedBox(height: height * 0.01),
+                      CustomedButton(
+                        text: "Submit",
+                        horizontal: width * 0.32,
+                        onPressed: () {
+                          if (globalKey.currentState!.validate()) {
+                            Navigator.of(
+                              context,
+                            ).pushNamed(AppRoutes.otpSigninVerification);
+                          }
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don't have account ?",
+                            style: AppStyle.boldBlack16,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(
+                                context,
+                              ).pushNamed(AppRoutes.signUpScreen);
+                            },
+                            child: Text(
+                              "Create account",
+                              style: AppStyle.meduimBlueLight16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ).setVerticalPadding(context, 0.12),
             ),
           ),
         ),

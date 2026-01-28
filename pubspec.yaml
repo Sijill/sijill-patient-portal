@@ -39,6 +39,9 @@ dependencies:
   introduction_screen: ^4.0.0
   google_fonts: ^7.0.2
   image_picker:
+  flutter_screenutil: ^5.9.3
+  pin_code_fields: ^8.0.1
+  fluttertoast: ^9.0.0
 
 dev_dependencies:
   flutter_test:
