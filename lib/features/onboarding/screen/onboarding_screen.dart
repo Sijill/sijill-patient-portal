@@ -59,7 +59,7 @@ class OnboardingScreen extends StatelessWidget {
           skip: const Text("Skip"),
           onDone: () async {
             await SharedPrefsUtils.saveData(key: "onboarding", value: true);
-            Navigator.of(context).pushReplacementNamed(AppRoutes.signUpScreen);
+            Navigator.of(context).pushReplacementNamed(AppRoutes.signInScreen);
           },
           globalBackgroundColor: AppColors.transparent,
 
