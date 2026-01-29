@@ -162,7 +162,7 @@ class AppStyle {
   static TextStyle meduimBlack18 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.black,
-      fontSize: 18,
+      fontSize: 18.sp,
       fontWeight: FontWeight.w500,
     ),
   );
@@ -172,7 +172,7 @@ class AppStyle {
       fontStyle: FontStyle.italic,
       color: AppColors.blueLight,
       fontWeight: FontWeight.bold,
-      fontSize: 16,
+      fontSize: 16.sp,
       decoration: TextDecoration.underline,
       decorationThickness: 1.2,
       decorationColor: AppColors.blueLight,
@@ -182,7 +182,7 @@ class AppStyle {
   static TextStyle boldBlack16 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.black,
-      fontSize: 16,
+      fontSize: 16.sp,
       fontWeight: FontWeight.bold,
     ),
   );
@@ -190,21 +190,21 @@ class AppStyle {
   static TextStyle boldGrey14 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.grey,
-      fontSize: 14,
+      fontSize: 14.sp,
       fontWeight: FontWeight.bold,
     ),
   );
   static TextStyle meduimRed12 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.red,
-      fontSize: 12,
+      fontSize: 12.sp,
       fontWeight: FontWeight.w500,
     ),
   );
   static TextStyle meduimRed14 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.red,
-      fontSize: 14,
+      fontSize: 14.sp,
       fontWeight: FontWeight.w500,
     ),
   );

@@ -13,57 +13,59 @@ class HomeTab extends StatelessWidget {
     var height = MediaQuery.sizeOf(context).height;
     var width = MediaQuery.sizeOf(context).width;
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.share),
-                  onPressed: () {},
-                  color: AppColors.blueLight,
-                  iconSize: 35.sp,
-                ),
-                IconButton(
-                  icon: Icon(Icons.notifications_none),
-                  onPressed: () {},
-                  color: AppColors.blueLight,
-                  iconSize: 35.sp,
-                ),
-              ],
-            ),
-            SizedBox(height: height * 0.01),
-            ListTile(
-              title: Text("Hello, Mohamed", style: AppStyle.boldBlack24),
-              subtitle: Text(
-                "How's your health today?",
-                style: AppStyle.meduimBlack20,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.share),
+                    onPressed: () {},
+                    color: AppColors.blueLight,
+                    iconSize: 35.sp,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.notifications_none),
+                    onPressed: () {},
+                    color: AppColors.blueLight,
+                    iconSize: 35.sp,
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: height * 0.05),
-            InkWell(
-              onTap: () {},
+              SizedBox(height: height * 0.01),
+              ListTile(
+                title: Text("Hello, Mohamed", style: AppStyle.boldBlack24),
+                subtitle: Text(
+                  "How's your health today?",
+                  style: AppStyle.meduimBlack20,
+                ),
+              ),
+              SizedBox(height: height * 0.04),
+              InkWell(
+                onTap: () {},
 
-              child: Container(
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(32),
-                  border: BoxBorder.all(width: 2, color: AppColors.white),
-                ),
-                child: Image.asset(
-                  AppAssets.dailyHealthJurnaly,
-                  height: height * 0.17,
-                  width: double.infinity,
-                  fit: BoxFit.fill,
+                child: Container(
+                  padding: EdgeInsets.all(2.sp),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(32.r),
+                    border: BoxBorder.all(width: 2.w, color: AppColors.white),
+                  ),
+                  child: Image.asset(
+                    AppAssets.dailyHealthJurnaly,
+                    height: height * 0.17,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: height * 0.02),
-            CustomedHomeItem(),
-          ],
+              SizedBox(height: height * 0.02),
+              CustomedHomeItem(),
+            ],
+          ),
         ),
       ),
     );
