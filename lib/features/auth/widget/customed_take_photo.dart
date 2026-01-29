@@ -141,7 +141,7 @@ class _CustomedTakePhotoState extends State<CustomedTakePhoto> {
                                 )
                               : ClipRRect(
                                   borderRadius: BorderRadius.circular(12.r),
-                                  child: Image.file(_image!, fit: BoxFit.fill),
+                                  child: Image.file(_image!, fit: BoxFit.cover),
                                 ),
                         ),
                       ).setVerticalPadding(context, 0.001),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
@@ -31,7 +32,12 @@ class CustomedOverviewItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset(imageName, height: 40, width: 50, fit: BoxFit.fill),
+              Image.asset(
+                imageName,
+                height: 40.h,
+                width: 50.w,
+                fit: BoxFit.fill,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

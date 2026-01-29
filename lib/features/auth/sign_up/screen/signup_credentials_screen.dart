@@ -137,6 +137,7 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
                             },
                             hint: "Phone Number",
                             hintColor: AppColors.black,
+                            keyboardType: TextInputType.phone,
                             prefixIcon: Icon(
                               Icons.phone,
                               color: AppColors.blueLight,

@@ -21,7 +21,7 @@ class CustomedHomeItem extends StatelessWidget {
       width: width,
       padding: EdgeInsets.symmetric(
         vertical: height * 0.001,
-        horizontal: width * 0.001,
+        horizontal: width * 0.003,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
@@ -31,35 +31,38 @@ class CustomedHomeItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: width * 0.06, top: height * 0.01),
+            padding: EdgeInsets.only(left: width * 0.03, top: height * 0.01),
             child: Text("Overview", style: AppStyle.meiumDarkBlue16),
           ),
           SizedBox(height: height * 0.01),
-          Row(
-            children: [
-              CustomedOverviewItem(
-                imageName: AppAssets.pendingMedications,
-                number: "3",
-                numberColor: AppColors.black,
-                title: "Pending",
-                subTitle: "Medications",
-              ),
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                CustomedOverviewItem(
+                  imageName: AppAssets.pendingMedications,
+                  number: "3",
+                  numberColor: AppColors.black,
+                  title: "Pending",
+                  subTitle: "Medications",
+                ),
 
-              CustomedOverviewItem(
-                imageName: AppAssets.upcomingAppoinments,
-                number: "2",
-                numberColor: AppColors.brown,
-                title: "Upcoming",
-                subTitle: "Appointments",
-              ),
+                CustomedOverviewItem(
+                  imageName: AppAssets.upcomingAppoinments,
+                  number: "2",
+                  numberColor: AppColors.brown,
+                  title: "Upcoming",
+                  subTitle: "Appointments",
+                ),
 
-              CustomedOverviewItem(
-                imageName: AppAssets.pendingTestOrders,
-                number: "1",
-                title: "Pending",
-                subTitle: "Test Orders",
-              ),
-            ],
+                CustomedOverviewItem(
+                  imageName: AppAssets.pendingTestOrders,
+                  number: "1",
+                  title: "Pending",
+                  subTitle: "Test Orders",
+                ),
+              ],
+            ),
           ),
           SizedBox(height: height * 0.02),
           Padding(
