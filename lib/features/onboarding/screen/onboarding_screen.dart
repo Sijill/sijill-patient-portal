@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sijil_patient_portal/api/model/onboarding_model.dart';
-import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
@@ -58,11 +58,14 @@ class OnboardingScreen extends StatelessWidget {
           done: const Text("Done"),
           skip: const Text("Skip"),
           onDone: () async {
-            await SharedPrefsUtils.saveData(key: "onboarding", value: true);
+            SharedPreferences sharedPref =
+                await SharedPreferences.getInstance();
+            sharedPref.setBool("onboarding", true);
             Navigator.of(context).pushReplacementNamed(AppRoutes.signInScreen);
           },
           globalBackgroundColor: AppColors.transparent,
-
+          animationDuration: 900,
+          curve: Curves.easeInOut,
           pages: onboardingList.map((item) {
             return customedPageViewModel(
               title: item.title,
