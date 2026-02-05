@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPrefsUtils.sharedPrefs = await SharedPreferences.getInstance();
-  final token = SharedPrefsUtils.getData(key: "onboarding");
-  runApp(MyApp(token: token));
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  bool getOnboarding() {
+    return sharedPref.getBool("onboarding") ?? false;
+  }
+
+  final bool onboarding = getOnboarding();
+
+  runApp(MyApp(onboarding: onboarding));
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  final token;
-  const MyApp({super.key, required this.token});
+  final bool onboarding;
+  const MyApp({super.key, required this.onboarding});
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -23,7 +35,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: token == true
+        initialRoute: onboarding == true
             ? AppRoutes.signInScreen
             : AppRoutes.onboardingsScreen,
         routes: AppRoutes.routeScreen,

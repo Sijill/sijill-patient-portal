@@ -32,4 +32,10 @@ class SharedPrefsUtils {
   static Future<bool> removeData({required String key}) async {
     return await sharedPrefs.remove(key);
   }
+
+  // todo:get onboarding
+
+  static bool getOnboarding() {
+    return sharedPrefs.getBool("onboarding") ?? false;
+  }
 }
