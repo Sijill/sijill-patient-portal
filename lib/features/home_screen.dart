@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.sizeOf(context).height;
+
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -38,46 +39,43 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Scaffold(
         backgroundColor: AppColors.transparent,
-        bottomNavigationBar: Container(
-          margin: EdgeInsets.only(bottom: height * 0.05),
-          child: AnimatedNotchBottomBar(
-            removeMargins: true,
-            topMargin: 24.h,
-            circleMargin: 0,
-            kIconSize: 24.h,
-            kBottomRadius: 0,
-            bottomBarHeight: height * 0.06,
-            notchColor: AppColors.primaryColor,
-            elevation: 0,
-            notchBottomBarController: controller,
+        bottomNavigationBar: AnimatedNotchBottomBar(
+          removeMargins: true,
+          topMargin: 24.h,
+          circleMargin: 0,
+          kIconSize: 24.h,
+          kBottomRadius: 0,
+          bottomBarHeight: height * 0.06,
+          notchColor: AppColors.primaryColor,
+          elevation: 0,
+          notchBottomBarController: controller,
 
-            bottomBarItems: [
-              customedBottomBarItem(
-                inActiveItem: Icons.home,
-                activeItem: Icons.home,
-              ),
-              customedBottomBarItem(
-                inActiveItem: Icons.person,
-                activeItem: Icons.person,
-              ),
-              customedBottomBarItem(
-                inActiveItem: Icons.favorite,
-                activeItem: Icons.favorite,
-              ),
-              customedBottomBarItem(
-                inActiveItem: Icons.folder,
-                activeItem: Icons.folder,
-              ),
-              customedBottomBarItem(
-                inActiveItem: Icons.settings,
-                activeItem: Icons.settings,
-              ),
-            ],
-            onTap: (int index) {
-              selectIndex = index;
-              setState(() {});
-            },
-          ),
+          bottomBarItems: [
+            customedBottomBarItem(
+              inActiveItem: Icons.home,
+              activeItem: Icons.home,
+            ),
+            customedBottomBarItem(
+              inActiveItem: Icons.person,
+              activeItem: Icons.person,
+            ),
+            customedBottomBarItem(
+              inActiveItem: Icons.favorite,
+              activeItem: Icons.favorite,
+            ),
+            customedBottomBarItem(
+              inActiveItem: Icons.folder,
+              activeItem: Icons.folder,
+            ),
+            customedBottomBarItem(
+              inActiveItem: Icons.settings,
+              activeItem: Icons.settings,
+            ),
+          ],
+          onTap: (int index) {
+            selectIndex = index;
+            setState(() {});
+          },
         ),
         body: tabs[selectIndex],
       ),
@@ -91,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BottomBarItem(
       inActiveItem: Icon(inActiveItem, color: AppColors.gray, size: 32.sp),
       activeItem: Transform.translate(
-        offset: Offset(2.w, -10.h),
+        offset: Offset(1.w, -10.h),
         child: Icon(activeItem, color: AppColors.white, size: 35.sp),
       ),
     );

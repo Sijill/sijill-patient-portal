@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await SharedPrefsUtils.init();
+//   final bool token = SharedPrefsUtils.getOnboarding();
+//   runApp(MyApp(token: token));
+// }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPrefsUtils.sharedPrefs = await SharedPreferences.getInstance();
-  final token = SharedPrefsUtils.getData(key: "onboarding");
+  await SharedPrefsUtils.init();
+  final bool token = SharedPrefsUtils.getOnboarding();
   runApp(MyApp(token: token));
 }
 
 class MyApp extends StatelessWidget {
-  final token;
+  final bool token;
   const MyApp({super.key, required this.token});
   @override
   Widget build(BuildContext context) {
