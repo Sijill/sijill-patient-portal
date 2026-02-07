@@ -17,4 +17,22 @@ class AppColors {
   static const Color red = Color(0xFFCC0000);
   static Color authContainerColor = Colors.blue.withOpacity(0.10);
   static Color authBorderColor = Colors.white.withOpacity(0.5);
+  static Color containerLightBlueColor = const Color.fromARGB(
+    255,
+    69,
+    111,
+    173,
+  ).withAlpha(190);
+  static Color containerMeduimBlueColor = const Color.fromARGB(
+    255,
+    80,
+    132,
+    210,
+  );
+  static Color containerDarkBlueColor = const Color.fromARGB(
+    255,
+    29,
+    78,
+    151,
+  ).withAlpha(210);
 }

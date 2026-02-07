@@ -15,4 +15,9 @@ class AppAssets {
       "assets/images/upcoming_appointment.png";
   static const String pendingTestOrders =
       "assets/images/pending_test_order.png";
+  static const String healthcareImg = "assets/images/healthcare_img.png";
+  static const String roleImage = "assets/images/role_img.png";
+  static const String accessType = "assets/images/access_type.png";
+  static const String expiresAfter = "assets/images/expires_after.png";
+  static const String grantBg = "assets/images/grant_bg.png";
 }
