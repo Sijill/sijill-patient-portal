@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sijil_patient_portal/api/injctable/di.dart';
+import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
+import 'package:sijil_patient_portal/core/utils/my_bloc_observer.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  bool getOnboarding() {
-    return sharedPref.getBool("onboarding") ?? false;
-  }
-
-  final bool onboarding = getOnboarding();
+  configureDependencies();
+  Bloc.observer = MyBlocObserver();
+  await SharedPrefsUtils.init();
+  SharedPrefsUtils.getData(key: "onboarding");
+  final bool onboarding = SharedPrefsUtils.getOnboarding();
 
   runApp(MyApp(onboarding: onboarding));
 

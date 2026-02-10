@@ -34,7 +34,11 @@ class HomeTab extends StatelessWidget {
                   ),
                   IconButton(
                     icon: Icon(Icons.notifications_none),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).pushNamed(AppRoutes.notificationsScreen);
+                    },
                     color: AppColors.blueLight,
                     iconSize: 35.sp,
                   ),
