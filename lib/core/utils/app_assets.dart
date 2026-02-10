@@ -20,4 +20,10 @@ class AppAssets {
   static const String accessType = "assets/images/access_type.png";
   static const String expiresAfter = "assets/images/expires_after.png";
   static const String grantBg = "assets/images/grant_bg.png";
+  static const String medicationReminders =
+      "assets/images/medication_reminders.png";
+  static const String followUp = "assets/images/follow_up.png";
+  static const String appointmentsReminders =
+      "assets/images/appointments_reminders.png";
+  static const String testOrder = "assets/images/test_order.png";
 }

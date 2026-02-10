@@ -6,6 +6,8 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_consent_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/home_tab.dart';
 import 'package:sijil_patient_portal/features/home/presentation/screen/home_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/notification_item_contain.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/notifications_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/presentation/screen/medical_history_tab.dart';
 import 'package:sijil_patient_portal/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/profile/presentation/screen/profile_tab.dart';
@@ -41,6 +43,8 @@ class AppRoutes {
   static const String grantConsentScreen = "/grantConsentScreen";
   static const String grantConsentAccessCodeScreen =
       "/grantConsentAccessCodeScreen";
+  static const String notificationsScreen = "/notificationsScreen";
+  static const String notificationsItemConatain = "/notificationsItemConatain";
 
   static Map<String, Widget Function(BuildContext)> routeScreen = {
     AppRoutes.homeScreen: (context) => HomeScreen(),
@@ -63,5 +67,7 @@ class AppRoutes {
     AppRoutes.grantConsentScreen: (context) => GrantConsentScreen(),
     AppRoutes.grantConsentAccessCodeScreen: (context) =>
         GrantConsentAccessCodeScreen(),
+    AppRoutes.notificationsScreen: (context) => NotificationsScreen(),
+    AppRoutes.notificationsItemConatain: (context) => NotificationItemContain(),
   };
 }

@@ -11,10 +11,12 @@ class AppColors {
   static const Color transparent = Colors.transparent;
   static const Color black = Colors.black;
   static const Color brown = Colors.brown;
+  static const Color orange = Colors.orange;
   static const Color background = Color(0xFFF2F6FF);
   static const Color grey = Colors.grey;
   static Color green = Colors.greenAccent.shade100;
   static const Color red = Color(0xFFCC0000);
+  static const Color darkGreen = Color.fromARGB(255, 40, 177, 45);
   static Color authContainerColor = Colors.blue.withOpacity(0.10);
   static Color authBorderColor = Colors.white.withOpacity(0.5);
   static Color containerLightBlueColor = const Color.fromARGB(
