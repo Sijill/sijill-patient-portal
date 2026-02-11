@@ -7,7 +7,6 @@ import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/my_bloc_observer.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,12 +16,7 @@ Future<void> main() async {
   SharedPrefsUtils.getData(key: "onboarding");
   final bool onboarding = SharedPrefsUtils.getOnboarding();
 
-  runApp(
-    BlocProvider(
-      create: (context) => getIt<AuthCubit>(),
-      child: MyApp(onboarding: onboarding),
-    ),
-  );
+  runApp(MyApp(onboarding: onboarding));
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

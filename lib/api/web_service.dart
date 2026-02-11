@@ -8,7 +8,6 @@ import 'package:sijil_patient_portal/api/model/auth/request/password_reset/passw
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_resend_otp_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/refresh_token/refresh_token_request_dto.dart';
-import 'package:sijil_patient_portal/api/model/auth/request/register/register_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/register/register_resend_otp_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/register/register_verify_otp_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/login/login_resend_otp_response_dto.dart';
@@ -29,8 +28,21 @@ abstract class WebService {
   factory WebService(Dio dio, {String? baseUrl}) = _WebService;
 
   @POST(Endpoints.registerApi)
+  @MultiPart()
   Future<RegisterResponseDto> register(
-    @Body() RegisterRequestDto registerRequest,
+    @Part(name: 'role') String role,
+    @Part(name: 'email') String email,
+    @Part(name: 'phoneNumber') String phoneNumber,
+    @Part(name: 'password') String password,
+    @Part(name: 'firstName') String firstName,
+    @Part(name: 'middleName') String middleName,
+    @Part(name: 'surName') String surName,
+    @Part(name: 'gender') String gender,
+    @Part(name: 'dateOfBirth') String dateOfBirth,
+    @Part(name: 'nationalId') String nationalId,
+    @Part(name: 'nationalIdFront') MultipartFile nationalIdFront,
+    @Part(name: 'nationalIdBack') MultipartFile nationalIdBack,
+    @Part(name: 'selfieWithId') MultipartFile selfieWithId,
   );
 
   @POST(Endpoints.registerResendOtpApi)

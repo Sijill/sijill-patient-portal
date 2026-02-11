@@ -2,7 +2,7 @@ import 'package:sijil_patient_portal/api/model/auth/request/register/register_re
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
 
 extension RegisterRequestMapper on RegisterRequest {
-  RegisterRequestDto convertToRegisterRequest() {
+  RegisterRequestDto convertToRegisterRequestDto() {
     return RegisterRequestDto(
       dateOfBirth: dateOfBirth,
       email: email,

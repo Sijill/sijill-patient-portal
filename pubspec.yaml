@@ -50,6 +50,9 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   image_picker: ^1.2.1
   shared_preferences: ^2.5.4
+  intl: ^0.20.2
+  date_format: ^2.0.9
+  
 
 dev_dependencies:
   flutter_test:

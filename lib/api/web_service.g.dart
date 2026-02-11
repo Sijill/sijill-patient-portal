@@ -21,15 +21,44 @@ class _WebService implements WebService {
 
   @override
   Future<RegisterResponseDto> register(
-    RegisterRequestDto registerRequest,
+    String role,
+    String email,
+    String phoneNumber,
+    String password,
+    String firstName,
+    String middleName,
+    String surName,
+    String gender,
+    String dateOfBirth,
+    String nationalId,
+    MultipartFile nationalIdFront,
+    MultipartFile nationalIdBack,
+    MultipartFile selfieWithId,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(registerRequest.toJson());
+    final _data = FormData();
+    _data.fields.add(MapEntry('role', role));
+    _data.fields.add(MapEntry('email', email));
+    _data.fields.add(MapEntry('phoneNumber', phoneNumber));
+    _data.fields.add(MapEntry('password', password));
+    _data.fields.add(MapEntry('firstName', firstName));
+    _data.fields.add(MapEntry('middleName', middleName));
+    _data.fields.add(MapEntry('surName', surName));
+    _data.fields.add(MapEntry('gender', gender));
+    _data.fields.add(MapEntry('dateOfBirth', dateOfBirth));
+    _data.fields.add(MapEntry('nationalId', nationalId));
+    _data.files.add(MapEntry('nationalIdFront', nationalIdFront));
+    _data.files.add(MapEntry('nationalIdBack', nationalIdBack));
+    _data.files.add(MapEntry('selfieWithId', selfieWithId));
     final _options = _setStreamType<RegisterResponseDto>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'multipart/form-data',
+          )
           .compose(
             _dio.options,
             '/api/v1/auth/register',

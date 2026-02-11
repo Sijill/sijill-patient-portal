@@ -25,6 +25,8 @@ class RegisterSccessState extends AuthState {
   RegisterSccessState({required this.registerResponse});
 }
 
+class ChangeSelectGenderState extends AuthState {}
+
 class RegisterResndOtpLoadingState extends AuthState {}
 
 class RegisterResndOtpErrorState extends AuthState {

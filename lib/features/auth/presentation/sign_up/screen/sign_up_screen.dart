@@ -1,6 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/Padding.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
@@ -9,6 +12,8 @@ import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_auth_button.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_drop_down_bottun.dart';
 
@@ -24,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     fNameController.dispose();
     mNameController.dispose();
     lNameController.dispose();
-    emailController.dispose();
+    nationalIdController.dispose();
     super.dispose();
   }
 
@@ -32,11 +37,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final fNameController = TextEditingController();
   final mNameController = TextEditingController();
   final lNameController = TextEditingController();
-  final emailController = TextEditingController();
+  final nationalIdController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
 
-  String? gender;
-
+  var viewModel = getIt<AuthCubit>();
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.sizeOf(context).height;
@@ -128,15 +132,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ).setVerticalPadding(context, 0.001),
                           SizedBox(height: height * 0.004),
-                          CustomedDropDownBottun(
-                            onChanged: (val) {
-                              setState(() {
-                                gender = val;
-                              });
+                          BlocBuilder<AuthCubit, AuthState>(
+                            bloc: viewModel,
+                            builder: (context, state) {
+                              return CustomedDropDownBottun(
+                                onChanged: (val) {
+                                  viewModel.changeSelectGender(val);
+                                },
+                                gender: viewModel.gender,
+                              );
                             },
-                            gender: gender,
                           ),
                           CustomTextField(
+                            readOnly: true,
                             controller: dateController,
                             hint: "Date Of Birth",
                             hintColor: AppColors.black,
@@ -146,12 +154,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 context: context,
                                 firstDate: DateTime(1900),
                                 lastDate: DateTime.now(),
-                                initialDate: DateTime.now(),
+                                initialDate: DateTime(2000),
                               );
 
                               if (pickedDate != null) {
-                                dateController.text =
-                                    "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+                                dateController.text = DateFormat(
+                                  'yyyy-MM-dd',
+                                ).format(pickedDate);
                               }
                             },
                             prefixIcon: Icon(
@@ -167,6 +176,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onValidate: (val) {
                               return AppValidators.validateNationalID(val);
                             },
+                            keyboardType: TextInputType.number,
+                            controller: nationalIdController,
                             hint: "National ID",
                             hintColor: AppColors.black,
                             prefixIcon: Icon(
@@ -189,7 +200,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   if (_formKey.currentState!.validate()) {
                                     Navigator.of(context).pushNamed(
                                       AppRoutes.signUpCredentialsScreen,
-                                      arguments: RegisterRequest(),
+                                      arguments: RegisterRequest(
+                                        firstName: fNameController.text,
+                                        middleName: mNameController.text,
+                                        surName: lNameController.text,
+                                        gender: viewModel.gender,
+                                        dateOfBirth: dateController.text,
+                                        nationalId: nationalIdController.text,
+                                      ),
                                     );
                                   }
                                 },

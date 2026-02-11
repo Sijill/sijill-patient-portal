@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sijil_patient_portal/api/model/onboarding_model.dart';
+import 'package:sijil_patient_portal/api/model/onboarding/onboarding_model.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/features/onboarding/presentation/cubit/onboarding_state.dart';
 

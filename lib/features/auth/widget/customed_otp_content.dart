@@ -16,11 +16,13 @@ class CustomedOtpContent extends StatefulWidget {
   final VoidCallback navigateScreen;
   final VoidCallback resendCode;
   final Validator validator;
+  final TextEditingController otpController;
   const CustomedOtpContent({
     super.key,
     required this.navigateScreen,
     required this.resendCode,
     this.validator,
+    required this.otpController,
   });
 
   @override
@@ -28,7 +30,6 @@ class CustomedOtpContent extends StatefulWidget {
 }
 
 class _CustomedOtpContentState extends State<CustomedOtpContent> {
-  TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -79,7 +80,7 @@ class _CustomedOtpContentState extends State<CustomedOtpContent> {
                         ).setVerticalPadding(context, 0.01),
                         SizedBox(height: height * 0.02),
                         CustomedOtpPinCodeTextfield(
-                          otpController: otpController,
+                          otpController: widget.otpController,
                           validator: widget.validator,
                         ),
                         Row(

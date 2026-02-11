@@ -27,6 +27,7 @@ abstract class DioMedule {
       responseHeader: false,
       error: true,
       compact: true,
+      request: true,
     );
   }
 

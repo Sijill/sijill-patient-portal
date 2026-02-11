@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/login_request_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/login_resend_otp_request_mapper.dart';
@@ -49,12 +50,39 @@ class AuthDataSourcesImpl implements AuthDataSources {
   @override
   Future<RegisterResponse> register(RegisterRequest registerRequest) async {
     //todo: RegisterRequest => RegisterRequestDto
-    var registerResponse = await webService.register(
-      registerRequest.convertToRegisterRequest(),
+    final registerDto = registerRequest.convertToRegisterRequestDto();
+
+    final frontFile = await MultipartFile.fromFile(
+      registerDto.nationalIdFront!,
+      filename: 'nationalIdFront.jpg',
     );
 
+    final backFile = await MultipartFile.fromFile(
+      registerDto.nationalIdBack!,
+      filename: 'nationalIdBack.jpg',
+    );
+
+    final selfieFile = await MultipartFile.fromFile(
+      registerDto.selfieWithId!,
+      filename: 'selfieWithId.jpg',
+    );
+    final response = await webService.register(
+      registerDto.role!,
+      registerDto.email!,
+      registerDto.phoneNumber!,
+      registerDto.password!,
+      registerDto.firstName!,
+      registerDto.middleName!,
+      registerDto.surName!,
+      registerDto.gender!,
+      registerDto.dateOfBirth!,
+      registerDto.nationalId!,
+      frontFile,
+      backFile,
+      selfieFile,
+    );
     //todo: RegisterResponseDto => RegisterResponse
-    return registerResponse.convertToRegisterResponse();
+    return response.convertToRegisterResponse();
   }
 
   @override

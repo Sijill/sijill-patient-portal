@@ -5,25 +5,32 @@ class DioInterceptors extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     AppException exception;
-    final responsData = err.response?.data;
+    final responseData = err.response?.data;
     String message = "Something went wrong";
 
-    if (responsData is Map) {
+    if (responseData is Map) {
       message =
-          (responsData['message'] as String?) ??
-          (responsData['statusMsg'] as String?) ??
+          (responseData["message"] as String?) ??
+          (responseData["error"] as String?) ??
+          (responseData["statusCode"]?.toString()) ??
           message;
     }
 
+    // Network issues: no internet, timeout
     if (err.type == DioExceptionType.connectionError ||
-        err.type == DioExceptionType.connectionTimeout) {
+        err.type == DioExceptionType.connectionTimeout ||
+        err.type == DioExceptionType.sendTimeout ||
+        err.type == DioExceptionType.receiveTimeout) {
       exception = NetworkException(message: "No Internet Connection");
-    } else if (err.response?.statusCode != null) {
-      exception = ServerException(
-        message: message,
-        statusCode: err.response?.statusCode,
-      );
-    } else {
+    }
+    // Server responded with a bad status code
+    else if (err.type == DioExceptionType.badResponse ||
+        err.response?.statusCode != null) {
+      final statusCode = err.response?.statusCode;
+      exception = ServerException(message: message, statusCode: statusCode);
+    }
+    // Any other unknown error
+    else {
       exception = UnKnownException(message: message);
     }
 

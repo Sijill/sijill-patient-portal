@@ -44,8 +44,8 @@ class CustomedDropDownBottun extends StatelessWidget {
         ),
       ),
       items: const [
-        DropdownMenuItem(value: "Male", child: Text("Male")),
-        DropdownMenuItem(value: "Female", child: Text("Female")),
+        DropdownMenuItem(value: "MALE", child: Text("MALE")),
+        DropdownMenuItem(value: "FEMALE", child: Text("FEMALE")),
       ],
       onChanged: (value) {
         onChanged(value);

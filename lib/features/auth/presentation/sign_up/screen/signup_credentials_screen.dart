@@ -9,6 +9,7 @@ import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_auth_button.dart';
 
 class SignUpCredentialsScreen extends StatefulWidget {
@@ -41,7 +42,8 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
+    RegisterRequest args =
+        ModalRoute.of(context)?.settings.arguments as RegisterRequest;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -135,6 +137,7 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
                             onValidate: (val) {
                               return AppValidators.validatePhoneNumber(val);
                             },
+                            controller: phoneController,
                             hint: "Phone Number",
                             hintColor: AppColors.black,
                             keyboardType: TextInputType.phone,
@@ -157,9 +160,22 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
                               CustomedAuthButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Navigator.of(
-                                      context,
-                                    ).pushNamed(AppRoutes.takeFrontPhotoScreen);
+                                    Navigator.of(context).pushNamed(
+                                      AppRoutes.takeFrontPhotoScreen,
+                                      arguments: RegisterRequest(
+                                        email: emailController.text.trim(),
+                                        password: passwordController.text
+                                            .trim(),
+                                        phoneNumber: phoneController.text
+                                            .trim(),
+                                        firstName: args.firstName,
+                                        middleName: args.middleName,
+                                        surName: args.surName,
+                                        dateOfBirth: args.dateOfBirth,
+                                        gender: args.gender,
+                                        nationalId: args.nationalId,
+                                      ),
+                                    );
                                   }
                                 },
                               ),

@@ -25,7 +25,7 @@ import 'package:sijil_patient_portal/domain/use_cases/auth/register/register_ver
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 
 @injectable
-class AuthCubit extends Cubit {
+class AuthCubit extends Cubit<AuthState> {
   RegisterUseCase registerUseCase;
   RegisterResendOtpUseCase registerResendOtpUseCase;
   RegisterVerifyOtpUseCase registerVerifyOtpUseCase;
@@ -48,6 +48,13 @@ class AuthCubit extends Cubit {
     required this.passwordResetConfirmUseCase,
     required this.refreshTokenUseCase,
   }) : super(AuthIntialState());
+  String? gender;
+
+  void changeSelectGender(String? val) {
+    gender = val;
+    emit(ChangeSelectGenderState());
+  }
+
   void register({required RegisterRequest registerRequest}) async {
     try {
       emit(RegisterLoadingState());
@@ -62,6 +69,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(RegisterErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -85,6 +94,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(RegisterResndOtpErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -108,6 +119,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(RegisterVerifyOtpErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -123,6 +136,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(LoginErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -146,6 +161,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(LoginResendOtpErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -169,6 +186,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(LoginVerifyOtpErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -190,6 +209,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(PasswordResetErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -213,6 +234,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(PasswordResetResendOtpErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -236,6 +259,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(PasswordResetConfirmErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 
@@ -254,6 +279,8 @@ class AuthCubit extends Cubit {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(RefreshTokenErrorState(message: message));
+    } catch (e) {
+      emit(RegisterErrorState(message: e.toString()));
     }
   }
 }
