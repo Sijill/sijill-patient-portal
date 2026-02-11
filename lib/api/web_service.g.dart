@@ -198,7 +198,7 @@ class _WebService implements WebService {
 
   @override
   Future<LoginVerifyOtpResponseDto> loginVerifyOtp(
-    LoginVerfiyOtpRequestDto loginVerfiyOtpRequest,
+    LoginVerifyOtpRequestDto loginVerfiyOtpRequest,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

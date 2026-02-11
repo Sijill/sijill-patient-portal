@@ -141,7 +141,7 @@ class AuthDataSourcesImpl implements AuthDataSources {
   ) async {
     //todo: LoginVerfiyOtpRequest => LoginVerfiyOtpRequestDto
     var loginVerifyOtpResponse = await webService.loginVerifyOtp(
-      loginVerfiyOtpRequest.convertToLoginVerfiyOtpRequestDto(),
+      loginVerfiyOtpRequest.convertToLoginVerifyOtpRequestDto(),
     );
 
     //todo: LoginVerifyOtpResponseDto => LoginVerifyOtpResponse

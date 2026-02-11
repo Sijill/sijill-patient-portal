@@ -3,6 +3,14 @@ import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_v
 
 extension LoginVerifyOtpResponseMapper on LoginVerifyOtpResponseDto {
   LoginVerifyOtpResponse convertToLoginVerifyOtpResponse() {
-    return LoginVerifyOtpResponse(accessToken: accessToken);
+    return LoginVerifyOtpResponse(
+      accessToken: accessToken,
+      email: email,
+      message: message,
+      role: role,
+      refreshToken: refreshToken,
+      success: success,
+      userId: userId,
+    );
   }
 }

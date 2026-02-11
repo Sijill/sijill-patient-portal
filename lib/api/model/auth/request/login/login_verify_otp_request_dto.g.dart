@@ -1,21 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_verfiy_otp_request_dto.dart';
+part of 'login_verify_otp_request_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginVerfiyOtpRequestDto _$LoginVerfiyOtpRequestDtoFromJson(
+LoginVerifyOtpRequestDto _$LoginVerifyOtpRequestDtoFromJson(
   Map<String, dynamic> json,
-) => LoginVerfiyOtpRequestDto(
+) => LoginVerifyOtpRequestDto(
   loginSessionId: json['loginSessionId'] as String?,
   otp: json['otp'] as String?,
+  platform: json['platform'] as String?,
 );
 
-Map<String, dynamic> _$LoginVerfiyOtpRequestDtoToJson(
-  LoginVerfiyOtpRequestDto instance,
+Map<String, dynamic> _$LoginVerifyOtpRequestDtoToJson(
+  LoginVerifyOtpRequestDto instance,
 ) => <String, dynamic>{
   'loginSessionId': instance.loginSessionId,
   'otp': instance.otp,
+  'platform': instance.platform,
 };

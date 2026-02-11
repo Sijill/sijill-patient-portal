@@ -54,7 +54,7 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
             if (_formKey.currentState!.validate()) {
               vieModel.registerVerifyOtp(
                 registerVerifyOtpRequest: RegisterVerifyOtpRequest(
-                  registrationSessionId: args.registrationSessionId,
+                  registrationSessionId: args.authSessionId,
                   otp: otpController.text,
                 ),
               );

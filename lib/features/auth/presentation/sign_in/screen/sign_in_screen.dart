@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/Padding.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
+import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_request.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_resend_otp_request.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -24,7 +33,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   bool isObscure = true;
   bool rememberMe = false;
-
+  var viewModel = getIt<AuthCubit>();
+  String? resendCode;
   @override
   void dispose() {
     super.dispose();
@@ -150,16 +160,50 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
 
                       SizedBox(height: height * 0.01),
-                      CustomedButton(
-                        text: "Submit",
-                        horizontal: width * 0.32,
-                        onPressed: () {
-                          if (globalKey.currentState!.validate()) {
-                            Navigator.of(
-                              context,
-                            ).pushNamed(AppRoutes.otpSigninVerification);
+                      BlocListener<AuthCubit, AuthState>(
+                        bloc: viewModel,
+                        listener: (context, state) {
+                          if (state is LoginLoadingState) {
+                            DialogUtils.showLoading(context);
+                          } else if (state is LoginSccessState) {
+                            DialogUtils.hideLoading(context);
+                            resendCode = state.loginResponse.loginSessionId;
+                            viewModel.loginResendOtp(
+                              loginResendOtpRequest: LoginResendOtpRequest(
+                                loginSessionId:
+                                    state.loginResponse.loginSessionId,
+                              ),
+                            );
+                          } else if (state is LoginErrorState) {
+                            DialogUtils.hideLoading(context);
+                            AppDialog.showDialogMessage(message: state.message);
+                          } else if (state is LoginResendOtpSccessState) {
+                            DialogUtils.hideLoading(context);
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.otpSigninVerification,
+                              arguments: ResendCodeModel(
+                                resendCode: resendCode!,
+                                authSessionId: state
+                                    .loginResendOtpResponse
+                                    .loginSessionId!,
+                              ),
+                            );
                           }
                         },
+                        child: CustomedButton(
+                          text: "Submit",
+                          horizontal: width * 0.32,
+                          onPressed: () {
+                            if (globalKey.currentState!.validate()) {
+                              viewModel.login(
+                                loginRequest: LoginRequest(
+                                  email: _emailController.text.trim(),
+                                  password: _passwordController.text.trim(),
+                                ),
+                              );
+                            }
+                          },
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -3,7 +3,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:sijil_patient_portal/api/endpoints/endpoints.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/login/login_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/login/login_resend_otp_request_dto.dart';
-import 'package:sijil_patient_portal/api/model/auth/request/login/login_verfiy_otp_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/auth/request/login/login_verify_otp_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_confirm_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_resend_otp_request_dto.dart';
@@ -65,7 +65,7 @@ abstract class WebService {
 
   @POST(Endpoints.loginVerifyOtpApi)
   Future<LoginVerifyOtpResponseDto> loginVerifyOtp(
-    @Body() LoginVerfiyOtpRequestDto loginVerfiyOtpRequest,
+    @Body() LoginVerifyOtpRequestDto loginVerfiyOtpRequest,
   );
 
   @POST(Endpoints.passwordResetApi)

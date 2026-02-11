@@ -1,8 +1,5 @@
 class ResendCodeModel {
   String resendCode;
-  String registrationSessionId;
-  ResendCodeModel({
-    required this.resendCode,
-    required this.registrationSessionId,
-  });
+  String authSessionId;
+  ResendCodeModel({required this.resendCode, required this.authSessionId});
 }

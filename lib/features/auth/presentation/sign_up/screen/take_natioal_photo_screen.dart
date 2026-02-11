@@ -51,7 +51,7 @@ class _TakeNatioalPhotoScreenState extends State<TakeNatioalPhotoScreen> {
             AppRoutes.otpSignupVerification,
             arguments: ResendCodeModel(
               resendCode: resendCode!,
-              registrationSessionId:
+              authSessionId:
                   state.registerResendOtpResponse.registrationSessionId!,
             ),
           );
