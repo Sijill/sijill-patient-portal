@@ -4,6 +4,6 @@ import 'package:sijil_patient_portal/domain/entities/auth/response/password_rese
 extension PasswordResetConfirmResponseMapper
     on PasswordResetConfirmResponseDto {
   PasswordResetConfirmResponse convertToPasswordResetConfirmResponse() {
-    return PasswordResetConfirmResponse(code: code, message: message);
+    return PasswordResetConfirmResponse(success: success, message: message);
   }
 }

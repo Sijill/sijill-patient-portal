@@ -4,10 +4,10 @@ part 'password_reset_confirm_response_dto.g.dart';
 
 @JsonSerializable()
 class PasswordResetConfirmResponseDto {
+  bool? success;
   String? message;
-  String? code;
 
-  PasswordResetConfirmResponseDto({this.message, this.code});
+  PasswordResetConfirmResponseDto({this.success, this.message});
 
   factory PasswordResetConfirmResponseDto.fromJson(Map<String, dynamic> json) {
     return _$PasswordResetConfirmResponseDtoFromJson(json);

@@ -1,6 +1,5 @@
 class PasswordResetConfirmResponse {
+  bool? success;
   String? message;
-  String? code;
-
-  PasswordResetConfirmResponse({this.message, this.code});
+  PasswordResetConfirmResponse({this.success, this.message});
 }

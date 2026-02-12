@@ -239,7 +239,7 @@ class _WebService implements WebService {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/auth/password-reset/initiate',
+            '/api/v1/auth/password-reset',
             queryParameters: queryParameters,
             data: _data,
           )

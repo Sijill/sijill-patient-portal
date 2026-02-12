@@ -9,10 +9,13 @@ part of 'password_reset_confirm_response_dto.dart';
 PasswordResetConfirmResponseDto _$PasswordResetConfirmResponseDtoFromJson(
   Map<String, dynamic> json,
 ) => PasswordResetConfirmResponseDto(
+  success: json['success'] as bool?,
   message: json['message'] as String?,
-  code: json['code'] as String?,
 );
 
 Map<String, dynamic> _$PasswordResetConfirmResponseDtoToJson(
   PasswordResetConfirmResponseDto instance,
-) => <String, dynamic>{'message': instance.message, 'code': instance.code};
+) => <String, dynamic>{
+  'success': instance.success,
+  'message': instance.message,
+};

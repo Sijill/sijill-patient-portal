@@ -1,17 +1,41 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/Padding.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
+import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
+import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_request.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_resend_otp_request.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 
-class ForgetPassword extends StatelessWidget {
-  ForgetPassword({super.key});
+class ForgetPassword extends StatefulWidget {
+  const ForgetPassword({super.key});
+
+  @override
+  State<ForgetPassword> createState() => _ForgetPasswordState();
+}
+
+class _ForgetPasswordState extends State<ForgetPassword> {
   final _formKey = GlobalKey<FormState>();
+  var viewModel = getIt<AuthCubit>();
+  String? resendCode;
+  final TextEditingController _emailController = TextEditingController();
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +90,7 @@ class ForgetPassword extends StatelessWidget {
                           ),
                           SizedBox(height: height * 0.003),
                           CustomTextField(
+                            controller: _emailController,
                             onValidate: (val) {
                               return AppValidators.validateEmail(val);
                             },
@@ -77,11 +102,53 @@ class ForgetPassword extends StatelessWidget {
                             ),
                           ).setOnlyPadding(context, 0.015, 0.0, 0.0, 0.0),
                           SizedBox(height: height * 0.02),
-                          CustomedButton(
-                            text: "Verify Email",
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {}
+                          BlocListener<AuthCubit, AuthState>(
+                            bloc: viewModel,
+                            listener: (context, state) {
+                              if (state is PasswordResetLoadingState) {
+                                DialogUtils.showLoading(context);
+                              } else if (state is PasswordResetErrorState) {
+                                DialogUtils.hideLoading(context);
+                                AppDialog.showDialogMessage(
+                                  message: state.message,
+                                );
+                              } else if (state is PasswordResetSccessState) {
+                                DialogUtils.hideLoading(context);
+                                resendCode =
+                                    state.passwordResetResponse.resetSessionId!;
+
+                                viewModel.passwordResetResendOtp(
+                                  passwordResetResendOtpRequest:
+                                      PasswordResetResendOtpRequest(
+                                        resetSessionId: resendCode,
+                                      ),
+                                );
+                              } else if (state
+                                  is PasswordResetResendOtpSccessState) {
+                                DialogUtils.hideLoading(context);
+                                Navigator.of(context).pushNamed(
+                                  AppRoutes.resetPassword,
+                                  arguments: ResendCodeModel(
+                                    resendCode: resendCode!,
+                                    authSessionId: state
+                                        .passwordResetResendOtpResponse
+                                        .resetSessionId!,
+                                  ),
+                                );
+                              }
                             },
+                            child: CustomedButton(
+                              text: "Verify Email",
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  viewModel.passwordReset(
+                                    passwordResetRequest: PasswordResetRequest(
+                                      email: _emailController.text.trim(),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ),
                         ],
                       ),

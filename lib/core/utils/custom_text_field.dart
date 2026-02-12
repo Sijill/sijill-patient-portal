@@ -27,6 +27,9 @@ class CustomTextField extends StatefulWidget {
   final EdgeInsets? edgeInsets;
   final bool readOnly;
   final InputDecoration? decoration;
+  final Color? fillColor;
+  final TextStyle? hintStyle;
+  final Color? iconVisabilyColor;
 
   const CustomTextField({
     super.key,
@@ -64,6 +67,9 @@ class CustomTextField extends StatefulWidget {
       bottom: 12,
     ),
     this.hintColor = Colors.white,
+    this.fillColor,
+    this.hintStyle,
+    this.iconVisabilyColor,
   });
 
   @override
@@ -120,16 +126,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     obscureText
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
-                    color: Colors.grey,
+                    color: widget.iconVisabilyColor ?? Colors.grey,
                   ),
                 )
               : widget.suffixWidget,
           prefixIcon: widget.prefixIcon,
 
           hintText: widget.hint,
-          hintStyle: AppStyle.meduimBlack18,
+          hintStyle: widget.hintStyle ?? AppStyle.meduimBlack18,
           counterText: "",
-          fillColor: AppColors.white,
+          fillColor: widget.fillColor ?? AppColors.white,
           filled: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.r),

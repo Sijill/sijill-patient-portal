@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/screen/reset_password.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/sign_in_screen.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/sign_up_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/screen/health_journal_tab.dart';
@@ -31,6 +32,7 @@ class AppRoutes {
   static const String signInScreen = "/signInScreen";
   static const String signUpScreen = "/signUpScreen";
   static const String forgetPassword = "/forgetPassword";
+  static const String resetPassword = "/resetPassword";
   static const String onboardingsScreen = "/onboardingsScreen";
   static const String signUpCredentialsScreen = "/signUpCredentialsScreen";
   static const String takeFrontPhotoScreen = "/takeFrontPhotoScreen";
@@ -38,7 +40,6 @@ class AppRoutes {
   static const String takeNatioalPhotoScreen = "/takeNatioalPhotoScreen";
   static const String otpSignupVerification = "/otpSignupVerification";
   static const String applicationReviewPage = "/applicationReviewPage";
-  static const String reviewScreen = "/reviewScreen";
   static const String otpSigninVerification = "/otpSigninVerification";
   static const String grantConsentScreen = "/grantConsentScreen";
   static const String grantConsentAccessCodeScreen =
@@ -53,6 +54,7 @@ class AppRoutes {
     AppRoutes.signUpScreen: (context) => SignUpScreen(),
     AppRoutes.signUpCredentialsScreen: (context) => SignUpCredentialsScreen(),
     AppRoutes.forgetPassword: (context) => ForgetPassword(),
+    AppRoutes.resetPassword: (context) => ResetPassword(),
     AppRoutes.takeFrontPhotoScreen: (context) => TakeFrontPhotoScreen(),
     AppRoutes.takeBackPhotoScreen: (context) => TakeBackPhotoScreen(),
     AppRoutes.takeNatioalPhotoScreen: (context) => TakeNatioalPhotoScreen(),
