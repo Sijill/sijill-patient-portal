@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/Padding.dart';
@@ -67,7 +68,7 @@ class ApplicationReviewPage extends StatelessWidget {
                           ),
                         ),
                       ).setVerticalPadding(context, 0.02),
-                      Text(
+                      AutoSizeText(
                         "Your Application Is Being Reviewed\nCheck Your Accounts For Updates\nEstimate Review Time: 2 Hours",
                         textAlign: TextAlign.center,
                         style: AppStyle.meduimBlack18,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
@@ -38,7 +39,7 @@ class NotificationItemContain extends StatelessWidget {
                       },
                     ),
                     SizedBox(width: width * 0.04),
-                    Text(title, style: AppStyle.boldBlack22),
+                    AutoSizeText(title, style: AppStyle.boldBlack22),
                   ],
                 ),
               ],

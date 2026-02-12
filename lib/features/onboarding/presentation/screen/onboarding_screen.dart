@@ -1,9 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
+import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/features/onboarding/presentation/cubit/onboarding_cubit.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -25,8 +27,17 @@ class OnboardingScreen extends StatelessWidget {
           imageFlex: 2,
           bodyFlex: 1,
         ),
-        title: title,
-        body: body,
+
+        titleWidget: AutoSizeText(
+          title,
+          style: AppStyle.boldBlack20,
+          textAlign: TextAlign.center,
+        ),
+        bodyWidget: AutoSizeText(
+          body,
+          style: AppStyle.meduimBlack18.copyWith(color: AppColors.gray),
+          textAlign: TextAlign.center,
+        ),
         image: Image.asset(image, height: hight * 0.45, fit: BoxFit.fill),
       );
     }
@@ -36,9 +47,18 @@ class OnboardingScreen extends StatelessWidget {
         child: IntroductionScreen(
           showNextButton: true,
           showSkipButton: true,
-          next: const Text("Next"),
-          done: const Text("Done"),
-          skip: const Text("Skip"),
+          next: AutoSizeText(
+            "Next",
+            style: AppStyle.boldBlack16.copyWith(color: AppColors.darkBlue),
+          ),
+          done: AutoSizeText(
+            "Done",
+            style: AppStyle.boldBlack16.copyWith(color: AppColors.darkBlue),
+          ),
+          skip: AutoSizeText(
+            "Skip",
+            style: AppStyle.boldBlack16.copyWith(color: AppColors.darkBlue),
+          ),
           onDone: () async {
             await SharedPrefsUtils.saveData(key: "onboarding", value: true);
             Navigator.of(context).pushReplacementNamed(AppRoutes.signInScreen);

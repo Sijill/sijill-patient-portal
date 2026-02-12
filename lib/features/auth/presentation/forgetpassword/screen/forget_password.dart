@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -77,7 +78,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text("Forget Password", style: AppStyle.boldBlack24),
+                          AutoSizeText(
+                            "Forget Password",
+                            style: AppStyle.boldBlack24,
+                          ),
                           SizedBox(height: height * 0.03),
                           ClipRRect(
                             borderRadius: BorderRadiusGeometry.circular(16.r),
@@ -99,6 +103,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             prefixIcon: Icon(
                               Icons.mail,
                               color: AppColors.blueLight,
+                              size: 25.sp,
                             ),
                           ).setOnlyPadding(context, 0.015, 0.0, 0.0, 0.0),
                           SizedBox(height: height * 0.02),

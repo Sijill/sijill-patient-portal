@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,7 +105,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            Text(
+                            AutoSizeText(
                               "Reset Password",
                               style: AppStyle.boldBlack24.copyWith(
                                 fontSize: 26.sp,
@@ -112,7 +113,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(height: height * 0.02),
-                            Text(
+                            AutoSizeText(
                               "Enter the code sent to your email",
                               style: AppStyle.boldBlack16,
                               textAlign: TextAlign.center,
@@ -127,7 +128,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   "Nothing Yet?",
                                   style: AppStyle.boldBlack16,
                                 ),
@@ -140,7 +141,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                           ),
                                     );
                                   },
-                                  child: Text(
+                                  child: AutoSizeText(
                                     "Resend Code",
                                     style: AppStyle.boldPrimary16,
                                   ),
@@ -167,6 +168,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               prefixIcon: Icon(
                                 Icons.lock,
                                 color: AppColors.darkBlue,
+                                size: 25.sp,
                               ),
                             ),
                             SizedBox(height: height * 0.04),

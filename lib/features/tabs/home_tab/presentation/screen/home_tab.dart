@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
@@ -46,8 +47,11 @@ class HomeTab extends StatelessWidget {
               ),
               SizedBox(height: height * 0.01),
               ListTile(
-                title: Text("Hello, Mohamed", style: AppStyle.boldBlack24),
-                subtitle: Text(
+                title: AutoSizeText(
+                  "Hello, Mohamed",
+                  style: AppStyle.boldBlack24,
+                ),
+                subtitle: AutoSizeText(
                   "How's your health today?",
                   style: AppStyle.meduimBlack20,
                 ),

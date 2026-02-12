@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
@@ -23,6 +24,7 @@ class CustomedOverviewItem extends StatelessWidget {
     var height = MediaQuery.sizeOf(context).height;
     var width = MediaQuery.sizeOf(context).width;
     return Container(
+      width: width * 0.31,
       decoration: BoxDecoration(color: AppColors.whiteLight),
       padding: EdgeInsets.symmetric(
         horizontal: width * 0.015,
@@ -38,21 +40,32 @@ class CustomedOverviewItem extends StatelessWidget {
                 width: 50.w,
                 fit: BoxFit.fill,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    number,
-                    style: AppStyle.boldDarkBlue20.copyWith(
-                      color: numberColor ?? AppColors.darkBlue,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      number,
+                      maxLines: 1,
+                      style: AppStyle.boldDarkBlue20.copyWith(
+                        color: numberColor ?? AppColors.darkBlue,
+                      ),
                     ),
-                  ),
-                  Text(title, style: AppStyle.meduimGray14),
-                ],
+                    AutoSizeText(
+                      title,
+                      maxLines: 1,
+                      style: AppStyle.meduimGray14,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          Text("   $subTitle", style: AppStyle.boldBlack14),
+          AutoSizeText(
+            "   $subTitle",
+            maxLines: 1,
+            style: AppStyle.boldBlack14,
+          ),
         ],
       ),
     );

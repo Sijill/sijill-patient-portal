@@ -122,15 +122,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       obscureText = !obscureText;
                     });
                   },
-                  child: Icon(
-                    obscureText
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
-                    color: widget.iconVisabilyColor ?? Colors.grey,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 5.w),
+                    child: Icon(
+                      obscureText
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: widget.iconVisabilyColor ?? Colors.grey,
+                      size: 25.sp,
+                    ),
                   ),
                 )
               : widget.suffixWidget,
-          prefixIcon: widget.prefixIcon,
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(left: 10.w, right: 3.w),
+            child: widget.prefixIcon,
+          ),
 
           hintText: widget.hint,
           hintStyle: widget.hintStyle ?? AppStyle.meduimBlack18,

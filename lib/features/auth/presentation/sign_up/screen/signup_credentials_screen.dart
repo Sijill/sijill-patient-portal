@@ -97,8 +97,9 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
                             controller: emailController,
                             hint: "Email",
                             hintColor: AppColors.black,
-                            prefixIcon: const Icon(
+                            prefixIcon: Icon(
                               Icons.mail,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.005),
@@ -111,8 +112,9 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
                             maxLines: 1,
                             hint: "Password",
                             hintColor: AppColors.black,
-                            prefixIcon: const Icon(
+                            prefixIcon: Icon(
                               Icons.lock,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.01),
@@ -128,8 +130,9 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
                             maxLines: 1,
                             hint: "Confirm Password",
                             hintColor: AppColors.black,
-                            prefixIcon: const Icon(
+                            prefixIcon: Icon(
                               Icons.lock,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.01),
@@ -143,6 +146,7 @@ class _SignUpCredentialsScreenState extends State<SignUpCredentialsScreen> {
                             keyboardType: TextInputType.phone,
                             prefixIcon: Icon(
                               Icons.phone,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.01),
