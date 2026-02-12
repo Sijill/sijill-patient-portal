@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
@@ -49,7 +50,7 @@ class GrantConsentAccessCodeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Text("Access Code", style: AppStyle.boldBlack24),
+                      AutoSizeText("Access Code", style: AppStyle.boldBlack24),
                       Container(
                         width: width,
                         margin: EdgeInsets.symmetric(vertical: 20.h),
@@ -61,7 +62,7 @@ class GrantConsentAccessCodeScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                           color: AppColors.white.withAlpha(180),
                         ),
-                        child: Text(
+                        child: AutoSizeText(
                           textAlign: TextAlign.center,
                           "[58967412]",
                           style: AppStyle.boldBlack18,

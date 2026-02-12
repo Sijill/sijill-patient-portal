@@ -104,6 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintColor: AppColors.black,
                             prefixIcon: Icon(
                               Icons.person,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.001),
@@ -116,6 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintColor: AppColors.black,
                             prefixIcon: Icon(
                               Icons.person,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.015),
@@ -128,6 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             hintColor: AppColors.black,
                             prefixIcon: Icon(
                               Icons.person,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                           ).setVerticalPadding(context, 0.001),
@@ -165,6 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                             prefixIcon: Icon(
                               Icons.calendar_month_rounded,
+                              size: 25.sp,
                               color: AppColors.blueLight,
                             ),
                             onValidate: (val) {
@@ -183,6 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             prefixIcon: Icon(
                               Icons.numbers_outlined,
                               color: AppColors.blueLight,
+                              size: 25.sp,
                             ),
                           ).setVerticalPadding(context, 0.01),
                           SizedBox(height: height * 0.01),

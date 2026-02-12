@@ -14,10 +14,21 @@ class TakeFrontPhotoScreen extends StatefulWidget {
 
 class _TakeFrontPhotoScreenState extends State<TakeFrontPhotoScreen> {
   File? imageTakeFrontPhoto;
+  late RegisterRequest args;
+  bool _loaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_loaded) {
+      args = ModalRoute.of(context)!.settings.arguments as RegisterRequest;
+      _loaded = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    RegisterRequest args =
-        ModalRoute.of(context)?.settings.arguments as RegisterRequest;
     return CustomedTakePhoto(
       title: "Take a clear photo of the front \n of your National ID",
       subTitle:

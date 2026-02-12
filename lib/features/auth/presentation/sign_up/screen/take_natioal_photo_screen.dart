@@ -25,10 +25,21 @@ class _TakeNatioalPhotoScreenState extends State<TakeNatioalPhotoScreen> {
   File? imageTakeNatioalPhoto;
   final role = "PATIENT";
   String? resendCode;
+  late RegisterRequest args;
+  bool _loaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_loaded) {
+      args = ModalRoute.of(context)!.settings.arguments as RegisterRequest;
+      _loaded = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    RegisterRequest args =
-        ModalRoute.of(context)?.settings.arguments as RegisterRequest;
     return BlocListener<AuthCubit, AuthState>(
       bloc: viewModel,
       listener: (context, state) {

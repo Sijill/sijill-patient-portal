@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,13 +80,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Welcome Back 👋", style: AppStyle.boldBlack24),
+                      AutoSizeText(
+                        "Welcome Back 👋",
+                        style: AppStyle.boldBlack24,
+                      ),
                       SizedBox(height: height * 0.01),
-                      Text(
+                      AutoSizeText(
                         textAlign: TextAlign.center,
                         "Sign in to continue your health journey today!",
                         style: AppStyle.meduimBlack18,
                       ),
+                      SizedBox(height: height * 0.02),
                       Form(
                         key: globalKey,
                         child: Column(
@@ -100,8 +105,10 @@ class _SignInScreenState extends State<SignInScreen> {
                               prefixIcon: Icon(
                                 Icons.mail,
                                 color: AppColors.blueLight,
+                                size: 25.sp,
                               ),
-                            ).setOnlyPadding(context, 0.03, 0.015, 0.0, 0.0),
+                            ),
+                            SizedBox(height: height * 0.02),
                             CustomTextField(
                               controller: _passwordController,
                               isPassword: true,
@@ -115,6 +122,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               prefixIcon: Icon(
                                 Icons.lock,
                                 color: AppColors.blueLight,
+                                size: 25.sp,
                               ),
                             ),
                           ],
@@ -137,7 +145,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   },
                                 ),
                               ),
-                              Text(
+                              SizedBox(width: 5.w),
+                              AutoSizeText(
                                 "Remember Me",
                                 style: AppStyle.meduimBlack14,
                               ),
@@ -151,7 +160,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ).pushNamed(AppRoutes.forgetPassword);
                               }
                             },
-                            child: Text(
+                            child: AutoSizeText(
                               "Forget Password ?",
                               style: AppStyle.meduimBlue15,
                             ),
@@ -207,7 +216,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          AutoSizeText(
                             "Don't have account ?",
                             style: AppStyle.boldBlack16,
                           ),
@@ -217,7 +226,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 context,
                               ).pushNamed(AppRoutes.signUpScreen);
                             },
-                            child: Text(
+                            child: AutoSizeText(
                               "Create account",
                               style: AppStyle.meduimBlueLight16,
                             ),

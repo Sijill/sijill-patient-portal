@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
+import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 typedef Validator = String? Function(String?)?;
 
@@ -27,7 +28,7 @@ class CustomedOtpPinCodeTextfield extends StatelessWidget {
       obscureText: false,
       animationType: AnimationType.fade,
       keyboardType: TextInputType.number,
-
+      textStyle: AppStyle.boldBlack22,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
         borderRadius: BorderRadius.circular(32.r),

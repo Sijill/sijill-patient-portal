@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
@@ -37,7 +38,7 @@ class CustomedButton extends StatelessWidget {
       onPressed: () {
         onPressed();
       },
-      child: Text(
+      child: AutoSizeText(
         text,
         style: AppStyle.boldWhite18.copyWith(
           color: textColor ?? AppColors.white,

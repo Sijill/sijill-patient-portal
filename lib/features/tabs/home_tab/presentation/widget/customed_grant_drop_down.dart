@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,7 +59,7 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
           ),
         ),
         SizedBox(width: 8.w),
-        Text(widget.title, style: AppStyle.meduimBlack14),
+        AutoSizeText(widget.title, style: AppStyle.meduimBlack14),
         SizedBox(width: 9.w),
         Container(
           width: 165.w,
@@ -114,7 +115,7 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
+                                          AutoSizeText(
                                             widget.bottoShowSelectItem[index],
                                             style: AppStyle.mediumDarkBlue16,
                                           ),
@@ -132,7 +133,7 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
                                         horizontal: 8.w,
                                         vertical: 2.h,
                                       ),
-                                      child: Text(
+                                      child: AutoSizeText(
                                         widget.bottoShowSelectItem[index],
                                         style: AppStyle.mediumDarkBlue16,
                                       ),

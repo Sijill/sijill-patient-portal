@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
@@ -78,7 +79,7 @@ class _GrantConsentScreenState extends State<GrantConsentScreen> {
                               ),
                             ),
                             SizedBox(width: 12.w),
-                            Text(
+                            AutoSizeText(
                               "Healthcare Provider Access",
                               style: AppStyle.boldBlack16,
                             ),
@@ -116,7 +117,10 @@ class _GrantConsentScreenState extends State<GrantConsentScreen> {
                                     ),
                                   ),
                                   SizedBox(width: 8.w),
-                                  Text("Role", style: AppStyle.meduimBlack16),
+                                  AutoSizeText(
+                                    "Role",
+                                    style: AppStyle.meduimBlack16,
+                                  ),
                                   SizedBox(width: 20.w),
                                   Container(
                                     width: 165.w,
@@ -127,7 +131,7 @@ class _GrantConsentScreenState extends State<GrantConsentScreen> {
                                       color: AppColors.containerDarkBlueColor,
                                       borderRadius: BorderRadius.circular(8.r),
                                     ),
-                                    child: Text(
+                                    child: AutoSizeText(
                                       textAlign: TextAlign.center,
                                       "Healthcare Provier",
                                       style: AppStyle.boldWhite16.copyWith(

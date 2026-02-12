@@ -17,7 +17,7 @@ class CustomedHomeItem extends StatelessWidget {
     var height = MediaQuery.sizeOf(context).height;
     var width = MediaQuery.sizeOf(context).width;
     return Container(
-      height: height * 0.38,
+      height: height * 0.42,
       width: width,
       padding: EdgeInsets.symmetric(
         vertical: height * 0.001,
