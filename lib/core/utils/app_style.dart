@@ -32,6 +32,13 @@ class AppStyle {
       fontWeight: FontWeight.bold,
     ),
   );
+  static TextStyle boldBlack18 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.black,
+      fontSize: 18.sp,
+      fontWeight: FontWeight.bold,
+    ),
+  );
   static TextStyle boldDarkBlue14 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.darkBlue,
@@ -39,14 +46,14 @@ class AppStyle {
       fontWeight: FontWeight.bold,
     ),
   );
-  static TextStyle meiumDarkBlue16 = GoogleFonts.lato(
+  static TextStyle mediumDarkBlue16 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.darkBlue,
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
     ),
   );
-  static TextStyle meiumGray16 = GoogleFonts.lato(
+  static TextStyle mediumGray16 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.gray,
       fontSize: 16.sp,
@@ -60,6 +67,20 @@ class AppStyle {
       fontWeight: FontWeight.bold,
     ),
   );
+  static TextStyle boldBlack22 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.black,
+      fontSize: 22.sp,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+  static TextStyle boldWhite16 = GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: AppColors.white,
+      fontSize: 16.sp,
+      fontWeight: FontWeight.bold,
+    ),
+  );
   static TextStyle meduimBlack20 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.black,
@@ -67,6 +88,7 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
+
   static TextStyle meduimBlack16 = GoogleFonts.lato(
     textStyle: TextStyle(
       color: AppColors.black,

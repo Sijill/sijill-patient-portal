@@ -97,7 +97,7 @@ class AppValidators {
     if (val == null || val.isEmpty) {
       return 'Please select a gender';
     }
-    if (val != "Male" && val != "Female") {
+    if (val != "MALE" && val != "FEMALE") {
       return 'Invalid selection';
     }
     return null;

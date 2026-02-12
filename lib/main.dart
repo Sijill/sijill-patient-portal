@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sijil_patient_portal/api/injctable/di.dart';
+import 'package:sijil_patient_portal/core/cache/check_token_is_expired.dart';
+import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
+import 'package:sijil_patient_portal/core/utils/my_bloc_observer.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  bool getOnboarding() {
-    return sharedPref.getBool("onboarding") ?? false;
+  configureDependencies();
+  Bloc.observer = MyBlocObserver();
+  await SharedPrefsUtils.init();
+  final bool onboarding = SharedPrefsUtils.getOnboarding();
+  final String? accessToken = SharedPrefsUtils.getAccessToken();
+  bool validToken = false;
+
+  if (accessToken != null && accessToken.isNotEmpty) {
+    validToken = !CheckTokenIsExpired.isTokenExpired(accessToken);
   }
-
-  final bool onboarding = getOnboarding();
-
-  runApp(MyApp(onboarding: onboarding));
+  runApp(
+    MyApp(
+      onboarding: onboarding,
+      accessToken: accessToken,
+      validToken: validToken,
+    ),
+  );
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -26,7 +39,14 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final bool onboarding;
-  const MyApp({super.key, required this.onboarding});
+  final String? accessToken;
+  final bool validToken;
+  const MyApp({
+    super.key,
+    required this.onboarding,
+    this.accessToken,
+    required this.validToken,
+  });
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -36,7 +56,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: onboarding == true
-            ? AppRoutes.signInScreen
+            ? (validToken ? AppRoutes.homeScreen : AppRoutes.signInScreen)
             : AppRoutes.onboardingsScreen,
         routes: AppRoutes.routeScreen,
         theme: AppTheme.lightTheme,
