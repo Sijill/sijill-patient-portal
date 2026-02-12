@@ -38,4 +38,14 @@ class SharedPrefsUtils {
   static bool getOnboarding() {
     return sharedPrefs.getBool("onboarding") ?? false;
   }
+
+  // todo:get accessToken
+  static String? getAccessToken() {
+    return sharedPrefs.getString("accessToken");
+  }
+
+  // todo: get refreshToken
+  static String? getRefreshToken() {
+    return sharedPrefs.getString("refreshToken");
+  }
 }

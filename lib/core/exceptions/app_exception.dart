@@ -17,6 +17,6 @@ class NetworkException extends AppException {
   NetworkException({required super.message, super.statusCode});
 }
 
-class UnexpectedException extends AppException {
-  UnexpectedException({required super.message, super.statusCode});
+class UnKnownException extends AppException {
+  UnKnownException({required super.message, super.statusCode});
 }

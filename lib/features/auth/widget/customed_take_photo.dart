@@ -16,7 +16,8 @@ class CustomedTakePhoto extends StatefulWidget {
   final IconData firstIcon;
   final IconData middleIcon;
   final IconData lastIcon;
-  final String forwardScreen;
+  final void Function() forwardScreen;
+  final Function(File image) onImagePicked;
 
   const CustomedTakePhoto({
     super.key,
@@ -26,6 +27,7 @@ class CustomedTakePhoto extends StatefulWidget {
     required this.middleIcon,
     required this.lastIcon,
     required this.forwardScreen,
+    required this.onImagePicked,
   });
 
   @override
@@ -33,19 +35,21 @@ class CustomedTakePhoto extends StatefulWidget {
 }
 
 class _CustomedTakePhotoState extends State<CustomedTakePhoto> {
-  File? _image;
   final ImagePicker _picker = ImagePicker();
+  File? _image;
 
   Future<void> _pickImage() async {
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: ImageSource.camera,
       );
-      if (pickedFile != null) {
-        if (!mounted) return;
+
+      if (pickedFile != null && mounted) {
         setState(() {
           _image = File(pickedFile.path);
         });
+
+        widget.onImagePicked(_image!);
       }
     } catch (e) {
       debugPrint("Error picking image: $e");
@@ -180,9 +184,7 @@ class _CustomedTakePhotoState extends State<CustomedTakePhoto> {
                           CustomedAuthButton(
                             onPressed: () {
                               if (_validateImage(context)) {
-                                Navigator.of(
-                                  context,
-                                ).pushNamed(widget.forwardScreen);
+                                widget.forwardScreen();
                               }
                             },
                           ),
