@@ -1,47 +1,51 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:sijil_patient_portal/api/dio/auth_interceptor.dart';
 import 'package:sijil_patient_portal/api/dio/dio_interceptors.dart';
 import 'package:sijil_patient_portal/api/endpoints/endpoints.dart';
 import 'package:sijil_patient_portal/api/web_service.dart';
 
 @module
-abstract class DioMedule {
+abstract class DioModule {
   @singleton
-  @injectable
-  BaseOptions provideBaseOptions() {
-    return BaseOptions(
-      baseUrl: Endpoints.baseUrl,
-      connectTimeout: const Duration(seconds: 20),
-      sendTimeout: const Duration(seconds: 20),
-    );
+  BaseOptions provideBaseOptions() => BaseOptions(
+    baseUrl: Endpoints.baseUrl,
+    connectTimeout: const Duration(seconds: 20),
+    sendTimeout: const Duration(seconds: 20),
+  );
+
+  @singleton
+  PrettyDioLogger providePrettyDioLogger() => PrettyDioLogger(
+    requestHeader: true,
+    requestBody: true,
+    responseBody: true,
+    error: true,
+    compact: true,
+  );
+
+  @singleton
+  @Named("refreshDio")
+  Dio provideRefreshDio(BaseOptions baseOptions) {
+    return Dio(baseOptions);
   }
 
   @singleton
-  @injectable
-  PrettyDioLogger providePrettyDioLogger() {
-    return PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      error: true,
-      compact: true,
-      request: true,
-    );
-  }
-
-  @singleton
-  @injectable
-  Dio provideDio(BaseOptions baseOptions, PrettyDioLogger prettyDioLogger) {
+  @Named("mainDio")
+  Dio provideDio(
+    BaseOptions baseOptions,
+    PrettyDioLogger prettyDioLogger,
+    @Named("refreshDio") Dio refreshDio,
+  ) {
     final dio = Dio(baseOptions);
-    //todo: dio interceptors
+
     dio.interceptors.add(DioInterceptors());
     dio.interceptors.add(prettyDioLogger);
+    dio.interceptors.add(AuthInterceptor(dio, refreshDio));
+
     return dio;
   }
 
   @singleton
-  @injectable
-  WebService provideWebService(Dio dio) => WebService(dio);
+  WebService provideWebService(@Named("mainDio") Dio dio) => WebService(dio);
 }

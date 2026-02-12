@@ -170,8 +170,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             resendCode = state.loginResponse.loginSessionId;
                             viewModel.loginResendOtp(
                               loginResendOtpRequest: LoginResendOtpRequest(
-                                loginSessionId:
-                                    state.loginResponse.loginSessionId,
+                                loginSessionId: resendCode,
                               ),
                             );
                           } else if (state is LoginErrorState) {

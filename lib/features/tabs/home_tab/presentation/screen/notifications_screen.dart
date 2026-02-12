@@ -25,25 +25,28 @@ class NotificationsScreen extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              vertical: height * 0.04,
+              vertical: height * 0.01,
               horizontal: width * 0.04,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back, size: 30.sp),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    SizedBox(width: width * 0.04),
-                    Text("Notifications", style: AppStyle.boldBlack22),
-                  ],
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 40.sp,
+                    color: AppColors.blueLight,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 16.w, top: 16.h, bottom: 16.h),
+                  child: Text("Notifications", style: AppStyle.boldBlack24),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: height * 0.04),
+                  margin: EdgeInsets.symmetric(vertical: height * 0.01),
                   height: height * 0.57,
                   width: width,
                   padding: EdgeInsets.only(top: 25.h, left: 20.w, right: 20.w),

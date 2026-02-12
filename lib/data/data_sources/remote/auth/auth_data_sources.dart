@@ -4,7 +4,6 @@ import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_ve
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_confirm_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_resend_otp_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/request/refresh_token/refresh_token_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_resend_otp_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_verify_otp_request.dart';
@@ -14,7 +13,6 @@ import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_v
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_confirm_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_response.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/response/refresh_token/refresh_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_verify_otp_response.dart';
@@ -48,9 +46,5 @@ abstract class AuthDataSources {
 
   Future<PasswordResetConfirmResponse> passwordResetConfirm(
     PasswordResetConfirmRequest passwordResetConfirmRequest,
-  );
-
-  Future<RefreshTokenResponse> refreshToken(
-    RefreshTokenRequest refreshTokenRequest,
   );
 }

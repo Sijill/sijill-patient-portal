@@ -4,7 +4,6 @@ import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_v
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_confirm_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_response.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/response/refresh_token/refresh_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_verify_otp_response.dart';
@@ -123,16 +122,4 @@ class PasswordResetConfirmErrorState extends AuthState {
 class PasswordResetConfirmSccessState extends AuthState {
   PasswordResetConfirmResponse passwordResetConfirmResponse;
   PasswordResetConfirmSccessState({required this.passwordResetConfirmResponse});
-}
-
-class RefreshTokenLoadingState extends AuthState {}
-
-class RefreshTokenErrorState extends AuthState {
-  String message;
-  RefreshTokenErrorState({required this.message});
-}
-
-class RefreshTokenSccessState extends AuthState {
-  RefreshTokenResponse refreshTokenResponse;
-  RefreshTokenSccessState({required this.refreshTokenResponse});
 }

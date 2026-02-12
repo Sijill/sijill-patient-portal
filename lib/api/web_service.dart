@@ -7,7 +7,6 @@ import 'package:sijil_patient_portal/api/model/auth/request/login/login_verify_o
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_confirm_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_resend_otp_request_dto.dart';
-import 'package:sijil_patient_portal/api/model/auth/request/refresh_token/refresh_token_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/register/register_resend_otp_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/register/register_verify_otp_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/login/login_resend_otp_response_dto.dart';
@@ -16,7 +15,6 @@ import 'package:sijil_patient_portal/api/model/auth/response/login/login_verify_
 import 'package:sijil_patient_portal/api/model/auth/response/password_reset/password_reset_confirm_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/password_reset/password_reset_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/password_reset/password_reset_response_dto.dart';
-import 'package:sijil_patient_portal/api/model/auth/response/refresh_token/refresh_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_verify_otp_response_dto.dart';
@@ -81,10 +79,5 @@ abstract class WebService {
   @POST(Endpoints.passwordResetConfirmApi)
   Future<PasswordResetConfirmResponseDto> passwordResetConfirm(
     @Body() PasswordResetConfirmRequestDto passwordResetConfirmRequest,
-  );
-
-  @POST(Endpoints.refreshTokenApi)
-  Future<RefreshTokenResponseDto> refreshToken(
-    @Body() RefreshTokenRequestDto refreshTokenRequest,
   );
 }

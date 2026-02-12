@@ -55,7 +55,7 @@ class _GrantConsentScreenState extends State<GrantConsentScreen> {
                     child: Text("Grant Consent", style: AppStyle.boldBlack24),
                   ),
                   Container(
-                    height: height * 0.52,
+                    height: height * 0.53,
                     width: width,
                     padding: EdgeInsets.only(top: 8.h),
                     decoration: BoxDecoration(

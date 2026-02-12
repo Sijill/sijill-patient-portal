@@ -28,8 +28,6 @@ import '../../domain/use_cases/auth/password_reset/password_reset_resend_otp_use
     as _i355;
 import '../../domain/use_cases/auth/password_reset/password_reset_use_case.dart'
     as _i801;
-import '../../domain/use_cases/auth/refresh_token/refresh_token_use_case.dart'
-    as _i405;
 import '../../domain/use_cases/auth/register/register_resend_otp_use_case.dart'
     as _i245;
 import '../../domain/use_cases/auth/register/register_use_case.dart' as _i350;
@@ -52,22 +50,28 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    final dioMedule = _$DioMedule();
+    final dioModule = _$DioModule();
     gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit());
     gh.factory<_i807.OnboardingCubit>(() => _i807.OnboardingCubit());
     gh.factory<_i93.HomeTabCubt>(() => _i93.HomeTabCubt());
-    gh.singleton<_i361.BaseOptions>(() => dioMedule.provideBaseOptions());
+    gh.singleton<_i361.BaseOptions>(() => dioModule.provideBaseOptions());
     gh.singleton<_i528.PrettyDioLogger>(
-      () => dioMedule.providePrettyDioLogger(),
+      () => dioModule.providePrettyDioLogger(),
     );
     gh.singleton<_i361.Dio>(
-      () => dioMedule.provideDio(
+      () => dioModule.provideRefreshDio(gh<_i361.BaseOptions>()),
+      instanceName: 'refreshDio',
+    );
+    gh.singleton<_i361.Dio>(
+      () => dioModule.provideDio(
         gh<_i361.BaseOptions>(),
         gh<_i528.PrettyDioLogger>(),
+        gh<_i361.Dio>(instanceName: 'refreshDio'),
       ),
+      instanceName: 'mainDio',
     );
     gh.singleton<_i410.WebService>(
-      () => dioMedule.provideWebService(gh<_i361.Dio>()),
+      () => dioModule.provideWebService(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
     gh.factory<_i697.AuthDataSources>(
       () => _i62.AuthDataSourcesImpl(webService: gh<_i410.WebService>()),
@@ -104,10 +108,6 @@ extension GetItInjectableX on _i174.GetIt {
         authRepository: gh<_i660.AuthRepository>(),
       ),
     );
-    gh.factory<_i405.RefreshTokenUseCase>(
-      () =>
-          _i405.RefreshTokenUseCase(authRepository: gh<_i660.AuthRepository>()),
-    );
     gh.factory<_i245.RegisterResendOtpUseCase>(
       () => _i245.RegisterResendOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
@@ -133,11 +133,10 @@ extension GetItInjectableX on _i174.GetIt {
         passwordResetResendOtpUseCase:
             gh<_i355.PasswordResetResendOtpUseCase>(),
         passwordResetConfirmUseCase: gh<_i846.PasswordResetConfirmUseCase>(),
-        refreshTokenUseCase: gh<_i405.RefreshTokenUseCase>(),
       ),
     );
     return this;
   }
 }
 
-class _$DioMedule extends _i322.DioMedule {}
+class _$DioModule extends _i322.DioModule {}

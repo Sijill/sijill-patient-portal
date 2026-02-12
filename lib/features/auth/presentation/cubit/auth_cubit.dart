@@ -8,7 +8,6 @@ import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_ve
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_confirm_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_resend_otp_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/request/refresh_token/refresh_token_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_resend_otp_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_verify_otp_request.dart';
@@ -18,7 +17,6 @@ import 'package:sijil_patient_portal/domain/use_cases/auth/login/login_verify_ot
 import 'package:sijil_patient_portal/domain/use_cases/auth/password_reset/password_reset_confirm_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/auth/password_reset/password_reset_resend_otp_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/auth/password_reset/password_reset_use_case.dart';
-import 'package:sijil_patient_portal/domain/use_cases/auth/refresh_token/refresh_token_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/auth/register/register_resend_otp_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/auth/register/register_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/auth/register/register_verify_otp_use_case.dart';
@@ -35,7 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
   PasswordResetUseCase passwordResetUseCase;
   PasswordResetResendOtpUseCase passwordResetResendOtpUseCase;
   PasswordResetConfirmUseCase passwordResetConfirmUseCase;
-  RefreshTokenUseCase refreshTokenUseCase;
+
   AuthCubit({
     required this.registerUseCase,
     required this.registerResendOtpUseCase,
@@ -46,7 +44,6 @@ class AuthCubit extends Cubit<AuthState> {
     required this.passwordResetUseCase,
     required this.passwordResetResendOtpUseCase,
     required this.passwordResetConfirmUseCase,
-    required this.refreshTokenUseCase,
   }) : super(AuthIntialState());
   String? gender;
 
@@ -259,26 +256,6 @@ class AuthCubit extends Cubit<AuthState> {
           ? (e.error as AppException).message
           : "Unexcepted error occurred";
       emit(PasswordResetConfirmErrorState(message: message));
-    } catch (e) {
-      emit(RegisterErrorState(message: e.toString()));
-    }
-  }
-
-  void refreshToken({required RefreshTokenRequest refreshTokenRequest}) async {
-    try {
-      emit(RefreshTokenLoadingState());
-      var refreshTokenResponse = await refreshTokenUseCase.invoke(
-        refreshTokenRequest,
-      );
-
-      emit(RefreshTokenSccessState(refreshTokenResponse: refreshTokenResponse));
-    } on AppException catch (e) {
-      emit(RefreshTokenErrorState(message: e.message));
-    } on DioException catch (e) {
-      final message = (e.error is AppException)
-          ? (e.error as AppException).message
-          : "Unexcepted error occurred";
-      emit(RefreshTokenErrorState(message: message));
     } catch (e) {
       emit(RegisterErrorState(message: e.toString()));
     }

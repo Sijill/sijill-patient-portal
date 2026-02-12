@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
+import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
@@ -34,6 +35,15 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
           DialogUtils.showLoading(context);
         } else if (state is LoginVerifyOtpSccessState) {
           DialogUtils.hideLoading(context);
+          SharedPrefsUtils.saveData(
+            key: "accessToken",
+            value: state.loginVerifyOtpResponse.accessToken,
+          );
+          SharedPrefsUtils.saveData(
+            key: "refreshToken",
+            value: state.loginVerifyOtpResponse.refreshToken,
+          );
+
           Navigator.of(
             context,
           ).pushNamedAndRemoveUntil(AppRoutes.homeScreen, (route) => false);
