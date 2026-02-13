@@ -30,16 +30,16 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
         ModalRoute.of(context)?.settings.arguments as ResendCodeModel;
     return BlocListener<AuthCubit, AuthState>(
       bloc: viewModel,
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginVerifyOtpLoadingState) {
           DialogUtils.showLoading(context);
         } else if (state is LoginVerifyOtpSccessState) {
           DialogUtils.hideLoading(context);
-          SharedPrefsUtils.saveData(
+          await SharedPrefsUtils.saveData(
             key: "accessToken",
             value: state.loginVerifyOtpResponse.accessToken,
           );
-          SharedPrefsUtils.saveData(
+          await SharedPrefsUtils.saveData(
             key: "refreshToken",
             value: state.loginVerifyOtpResponse.refreshToken,
           );
