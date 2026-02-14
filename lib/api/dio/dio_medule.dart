@@ -11,8 +11,8 @@ abstract class DioModule {
   @singleton
   BaseOptions provideBaseOptions() => BaseOptions(
     baseUrl: Endpoints.baseUrl,
-    sendTimeout: const Duration(minutes: 2),
-    receiveTimeout: const Duration(minutes: 2),
+    sendTimeout: const Duration(minutes: 1),
+    receiveTimeout: const Duration(minutes: 1),
     headers: {"ngrok-skip-browser-warning": "true"},
   );
 
@@ -39,9 +39,8 @@ abstract class DioModule {
     @Named("refreshDio") Dio refreshDio,
   ) {
     final dio = Dio(baseOptions);
-
-    dio.interceptors.add(AuthInterceptor(dio, refreshDio));
     dio.interceptors.add(prettyDioLogger);
+    dio.interceptors.add(AuthInterceptor(dio, refreshDio));
     dio.interceptors.add(DioInterceptors());
 
     return dio;

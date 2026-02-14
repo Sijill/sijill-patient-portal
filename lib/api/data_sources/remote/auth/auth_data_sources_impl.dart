@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/login_request_mapper.dart';
@@ -38,6 +40,7 @@ import 'package:sijil_patient_portal/domain/entities/auth/response/password_rese
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/register/register_verify_otp_response.dart';
+import 'package:sijil_patient_portal/features/auth/widget/customed_compress_image.dart';
 
 @Injectable(as: AuthDataSources)
 class AuthDataSourcesImpl implements AuthDataSources {
@@ -48,19 +51,40 @@ class AuthDataSourcesImpl implements AuthDataSources {
     //todo: RegisterRequest => RegisterRequestDto
     final registerDto = registerRequest.convertToRegisterRequestDto();
 
+    final compressedNationalIdFrontImage =
+        await CustomedCompressImage.compressImage(
+          File(registerDto.nationalIdFront!),
+        );
+    if (compressedNationalIdFrontImage == null) {
+      throw Exception("Failed to compress national ID front image");
+    }
     final frontFile = await MultipartFile.fromFile(
-      registerDto.nationalIdFront!,
-      filename: 'nationalIdFront.jpg',
+      compressedNationalIdFrontImage.path,
+      filename: 'nationalIdFront.jpeg',
     );
 
+    final compressedNationalIdBackImage =
+        await CustomedCompressImage.compressImage(
+          File(registerDto.nationalIdBack!),
+        );
+    if (compressedNationalIdBackImage == null) {
+      throw Exception("Failed to compress national ID back image");
+    }
     final backFile = await MultipartFile.fromFile(
-      registerDto.nationalIdBack!,
-      filename: 'nationalIdBack.jpg',
+      compressedNationalIdBackImage.path,
+      filename: 'nationalIdBack.jpeg',
     );
 
+    final compressedSelfieWithIdImage =
+        await CustomedCompressImage.compressImage(
+          File(registerDto.selfieWithId!),
+        );
+    if (compressedSelfieWithIdImage == null) {
+      throw Exception("Failed to compress selfieWithId image");
+    }
     final selfieFile = await MultipartFile.fromFile(
-      registerDto.selfieWithId!,
-      filename: 'selfieWithId.jpg',
+      compressedSelfieWithIdImage.path,
+      filename: 'selfieWithId.jpeg',
     );
     final response = await webService.register(
       registerDto.role!,
