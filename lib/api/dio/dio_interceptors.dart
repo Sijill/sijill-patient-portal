@@ -35,7 +35,12 @@ class DioInterceptors extends Interceptor {
     }
 
     handler.reject(
-      DioException(requestOptions: err.requestOptions, error: exception),
+      DioException(
+        requestOptions: err.requestOptions,
+        response: err.response,
+        type: err.type,
+        error: exception,
+      ),
     );
   }
 }
