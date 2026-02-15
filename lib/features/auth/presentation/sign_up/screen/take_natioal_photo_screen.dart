@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
 import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_resend_otp_request.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_take_photo.dart';
@@ -21,13 +18,12 @@ class TakeNatioalPhotoScreen extends StatefulWidget {
 }
 
 class _TakeNatioalPhotoScreenState extends State<TakeNatioalPhotoScreen> {
-  var viewModel = getIt<AuthCubit>();
   File? imageTakeNatioalPhoto;
   final role = "PATIENT";
-  String? resendCode;
+
   late RegisterRequest args;
   bool _loaded = false;
-
+  var viewModel = getIt<AuthCubit>();
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -47,25 +43,13 @@ class _TakeNatioalPhotoScreenState extends State<TakeNatioalPhotoScreen> {
           DialogUtils.showLoading(context);
         } else if (state is RegisterSccessState) {
           DialogUtils.hideLoading(context);
-          resendCode = state.registerResponse.registrationSessionId;
-          viewModel.registerResendOtp(
-            registerResendOtpRequest: RegisterResendOtpRequest(
-              registrationSessionId:
-                  state.registerResponse.registrationSessionId,
-            ),
+          Navigator.of(context).pushNamed(
+            AppRoutes.otpSignupVerification,
+            arguments: state.registerResponse.registrationSessionId,
           );
         } else if (state is RegisterErrorState) {
           DialogUtils.hideLoading(context);
           AppDialog.showDialogMessage(message: state.message);
-        } else if (state is RegisterResndOtpSccessState) {
-          Navigator.of(context).pushNamed(
-            AppRoutes.otpSignupVerification,
-            arguments: ResendCodeModel(
-              resendCode: resendCode!,
-              authSessionId:
-                  state.registerResendOtpResponse.registrationSessionId!,
-            ),
-          );
         }
       },
       child: CustomedTakePhoto(

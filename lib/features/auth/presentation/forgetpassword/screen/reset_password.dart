@@ -17,7 +17,6 @@ import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_confirm_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_resend_otp_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_otp_pin_code_textField.dart';
@@ -33,10 +32,9 @@ class _ResetPasswordState extends State<ResetPassword> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController otpController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
-
+  late String passwordResndOtp;
   @override
   void dispose() {
-    otpController.dispose();
     newPasswordController.dispose();
     super.dispose();
   }
@@ -46,8 +44,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     var width = MediaQuery.sizeOf(context).width;
     var height = MediaQuery.sizeOf(context).height;
-    ResendCodeModel args =
-        ModalRoute.of(context)?.settings.arguments as ResendCodeModel;
+    passwordResndOtp = ModalRoute.of(context)!.settings.arguments as String;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -89,6 +86,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                         } else if (state is PasswordResetConfirmErrorState) {
                           DialogUtils.hideLoading(context);
                           AppDialog.showDialogMessage(message: state.message);
+                        } else if (state is PasswordResetResendOtpSccessState) {
+                          passwordResndOtp = state
+                              .passwordResetResendOtpResponse
+                              .resetSessionId!;
                         } else if (state is PasswordResetConfirmSccessState) {
                           DialogUtils.hideLoading(context);
                           AppDialog.showDialogMessage(
@@ -137,7 +138,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     viewModel.passwordResetResendOtp(
                                       passwordResetResendOtpRequest:
                                           PasswordResetResendOtpRequest(
-                                            resetSessionId: args.resendCode,
+                                            resetSessionId: passwordResndOtp,
                                           ),
                                     );
                                   },
@@ -182,7 +183,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         newPassword: newPasswordController.text
                                             .trim(),
                                         otp: otpController.text.trim(),
-                                        resetSessionId: args.authSessionId,
+                                        resetSessionId: passwordResndOtp,
                                       ),
                                 );
                               },

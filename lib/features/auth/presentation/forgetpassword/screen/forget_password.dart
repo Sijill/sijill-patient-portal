@@ -15,8 +15,6 @@ import 'package:sijil_patient_portal/core/utils/customed_button.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_resend_otp_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 
@@ -30,7 +28,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   final _formKey = GlobalKey<FormState>();
   var viewModel = getIt<AuthCubit>();
-  String? resendCode;
+
   final TextEditingController _emailController = TextEditingController();
   @override
   void dispose() {
@@ -119,26 +117,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                 );
                               } else if (state is PasswordResetSccessState) {
                                 DialogUtils.hideLoading(context);
-                                resendCode =
-                                    state.passwordResetResponse.resetSessionId!;
-
-                                viewModel.passwordResetResendOtp(
-                                  passwordResetResendOtpRequest:
-                                      PasswordResetResendOtpRequest(
-                                        resetSessionId: resendCode,
-                                      ),
-                                );
-                              } else if (state
-                                  is PasswordResetResendOtpSccessState) {
-                                DialogUtils.hideLoading(context);
                                 Navigator.of(context).pushNamed(
                                   AppRoutes.resetPassword,
-                                  arguments: ResendCodeModel(
-                                    resendCode: resendCode!,
-                                    authSessionId: state
-                                        .passwordResetResendOtpResponse
-                                        .resetSessionId!,
-                                  ),
+                                  arguments: state
+                                      .passwordResetResponse
+                                      .resetSessionId,
                                 );
                               }
                             },

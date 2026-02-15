@@ -14,8 +14,6 @@ import 'package:sijil_patient_portal/core/utils/customed_button.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_resend_otp_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 
@@ -31,11 +29,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
   bool isObscure = true;
-  bool rememberMe = false;
   var viewModel = getIt<AuthCubit>();
-  String? resendCode;
+
   @override
   void dispose() {
     super.dispose();
@@ -135,13 +131,16 @@ class _SignInScreenState extends State<SignInScreen> {
                             children: [
                               Transform.scale(
                                 scale: 0.9.sp,
-                                child: Checkbox(
-                                  value: rememberMe,
-                                  activeColor: AppColors.blueLight,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      rememberMe = value!;
-                                    });
+                                child: BlocBuilder<AuthCubit, AuthState>(
+                                  bloc: viewModel,
+                                  builder: (context, state) {
+                                    return Checkbox(
+                                      value: viewModel.rememberMe,
+                                      activeColor: AppColors.blueLight,
+                                      onChanged: (val) {
+                                        viewModel.changeRememberMe(val!);
+                                      },
+                                    );
                                   },
                                 ),
                               ),
@@ -176,26 +175,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             DialogUtils.showLoading(context);
                           } else if (state is LoginSccessState) {
                             DialogUtils.hideLoading(context);
-                            resendCode = state.loginResponse.loginSessionId;
-                            viewModel.loginResendOtp(
-                              loginResendOtpRequest: LoginResendOtpRequest(
-                                loginSessionId: resendCode,
-                              ),
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.otpSigninVerification,
+                              arguments: state.loginResponse.loginSessionId,
                             );
                           } else if (state is LoginErrorState) {
                             DialogUtils.hideLoading(context);
                             AppDialog.showDialogMessage(message: state.message);
-                          } else if (state is LoginResendOtpSccessState) {
-                            DialogUtils.hideLoading(context);
-                            Navigator.of(context).pushNamed(
-                              AppRoutes.otpSigninVerification,
-                              arguments: ResendCodeModel(
-                                resendCode: resendCode!,
-                                authSessionId: state
-                                    .loginResendOtpResponse
-                                    .loginSessionId!,
-                              ),
-                            );
                           }
                         },
                         child: CustomedButton(
