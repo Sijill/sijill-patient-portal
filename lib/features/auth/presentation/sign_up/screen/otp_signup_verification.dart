@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
 import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
@@ -22,11 +21,12 @@ class OtpSignupVerification extends StatefulWidget {
 class _OtpSignupVerificationState extends State<OtpSignupVerification> {
   final _formKey = GlobalKey<FormState>();
   var vieModel = getIt<AuthCubit>();
+  String? registerResndOtp;
   TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    ResendCodeModel args =
-        ModalRoute.of(context)?.settings.arguments as ResendCodeModel;
+    String registrationSessionId =
+        ModalRoute.of(context)?.settings.arguments as String;
     return BlocListener<AuthCubit, AuthState>(
       bloc: vieModel,
       listener: (context, state) {
@@ -41,6 +41,9 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
         } else if (state is RegisterVerifyOtpErrorState) {
           DialogUtils.hideLoading(context);
           AppDialog.showDialogMessage(message: state.message);
+        } else if (state is RegisterResndOtpSccessState) {
+          registerResndOtp =
+              state.registerResendOtpResponse.registrationSessionId;
         }
       },
       child: Form(
@@ -54,7 +57,7 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
             if (_formKey.currentState!.validate()) {
               vieModel.registerVerifyOtp(
                 registerVerifyOtpRequest: RegisterVerifyOtpRequest(
-                  registrationSessionId: args.authSessionId,
+                  registrationSessionId: registerResndOtp,
                   otp: otpController.text,
                 ),
               );
@@ -63,7 +66,7 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
           resendCode: () {
             vieModel.registerResendOtp(
               registerResendOtpRequest: RegisterResendOtpRequest(
-                registrationSessionId: args.resendCode,
+                registrationSessionId: registrationSessionId,
               ),
             );
           },

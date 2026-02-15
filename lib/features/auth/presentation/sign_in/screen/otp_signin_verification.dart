@@ -8,7 +8,6 @@ import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_resend_otp_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_verfiy_otp_request.dart';
-import 'package:sijil_patient_portal/domain/entities/auth/resend_code_model.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_otp_content.dart';
@@ -24,14 +23,20 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController otpController = TextEditingController();
   var viewModel = getIt<AuthCubit>();
+  late String loginResndOtp;
+
   @override
   Widget build(BuildContext context) {
-    ResendCodeModel args =
-        ModalRoute.of(context)?.settings.arguments as ResendCodeModel;
+    loginResndOtp = ModalRoute.of(context)!.settings.arguments as String;
+
     return BlocListener<AuthCubit, AuthState>(
       bloc: viewModel,
       listener: (context, state) async {
-        if (state is LoginVerifyOtpLoadingState) {
+        if (state is LoginResendOtpSccessState) {
+          loginResndOtp = state.loginResendOtpResponse.loginSessionId!;
+        } else if (state is LoginResendOtpErrorState) {
+          AppDialog.showDialogMessage(message: state.message);
+        } else if (state is LoginVerifyOtpLoadingState) {
           DialogUtils.showLoading(context);
         } else if (state is LoginVerifyOtpSccessState) {
           DialogUtils.hideLoading(context);
@@ -43,7 +48,6 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
             key: "refreshToken",
             value: state.loginVerifyOtpResponse.refreshToken,
           );
-
           Navigator.of(
             context,
           ).pushNamedAndRemoveUntil(AppRoutes.homeScreen, (route) => false);
@@ -63,7 +67,7 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
             if (_formKey.currentState!.validate()) {
               viewModel.loginVerifyOtp(
                 loginVerfiyOtpRequest: LoginVerfiyOtpRequest(
-                  loginSessionId: args.authSessionId,
+                  loginSessionId: loginResndOtp,
                   otp: otpController.text,
                   platform: "mobile",
                 ),
@@ -73,7 +77,7 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
           resendCode: () {
             viewModel.loginResendOtp(
               loginResendOtpRequest: LoginResendOtpRequest(
-                loginSessionId: args.resendCode,
+                loginSessionId: loginResndOtp,
               ),
             );
           },
