@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 
 class DialogUtils {
@@ -17,7 +18,7 @@ class DialogUtils {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Lottie.asset(
-                'assets/svg/loading3.json',
+                AppAssets.loading,
                 height: MediaQuery.sizeOf(context).height * 0.28,
                 width: MediaQuery.sizeOf(context).height * 0.3,
                 fit: BoxFit.fill,
