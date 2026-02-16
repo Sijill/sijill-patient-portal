@@ -26,4 +26,5 @@ class AppAssets {
   static const String appointmentsReminders =
       "assets/images/appointments_reminders.png";
   static const String testOrder = "assets/images/test_order.png";
+  static const String loading = "assets/svg/loading3.json";
 }

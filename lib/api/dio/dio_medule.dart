@@ -8,7 +8,7 @@ import 'package:sijil_patient_portal/api/web_service.dart';
 
 @module
 abstract class DioModule {
-  @singleton
+  @lazySingleton
   BaseOptions provideBaseOptions() => BaseOptions(
     baseUrl: Endpoints.baseUrl,
     sendTimeout: const Duration(minutes: 1),
@@ -16,7 +16,7 @@ abstract class DioModule {
     headers: {"ngrok-skip-browser-warning": "true"},
   );
 
-  @singleton
+  @lazySingleton
   PrettyDioLogger providePrettyDioLogger() => PrettyDioLogger(
     requestHeader: true,
     requestBody: true,
@@ -25,13 +25,13 @@ abstract class DioModule {
     compact: true,
   );
 
-  @singleton
+  @lazySingleton
   @Named("refreshDio")
   Dio provideRefreshDio(BaseOptions baseOptions) {
     return Dio(baseOptions);
   }
 
-  @singleton
+  @lazySingleton
   @Named("mainDio")
   Dio provideDio(
     BaseOptions baseOptions,
@@ -46,6 +46,6 @@ abstract class DioModule {
     return dio;
   }
 
-  @singleton
+  @lazySingleton
   WebService provideWebService(@Named("mainDio") Dio dio) => WebService(dio);
 }

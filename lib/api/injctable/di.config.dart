@@ -54,15 +54,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit());
     gh.factory<_i807.OnboardingCubit>(() => _i807.OnboardingCubit());
     gh.factory<_i93.HomeTabCubt>(() => _i93.HomeTabCubt());
-    gh.singleton<_i361.BaseOptions>(() => dioModule.provideBaseOptions());
-    gh.singleton<_i528.PrettyDioLogger>(
+    gh.lazySingleton<_i361.BaseOptions>(() => dioModule.provideBaseOptions());
+    gh.lazySingleton<_i528.PrettyDioLogger>(
       () => dioModule.providePrettyDioLogger(),
     );
-    gh.singleton<_i361.Dio>(
+    gh.lazySingleton<_i361.Dio>(
       () => dioModule.provideRefreshDio(gh<_i361.BaseOptions>()),
       instanceName: 'refreshDio',
     );
-    gh.singleton<_i361.Dio>(
+    gh.lazySingleton<_i361.Dio>(
       () => dioModule.provideDio(
         gh<_i361.BaseOptions>(),
         gh<_i528.PrettyDioLogger>(),
@@ -70,7 +70,7 @@ extension GetItInjectableX on _i174.GetIt {
       ),
       instanceName: 'mainDio',
     );
-    gh.singleton<_i410.WebService>(
+    gh.lazySingleton<_i410.WebService>(
       () => dioModule.provideWebService(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
     gh.factory<_i697.AuthDataSources>(
