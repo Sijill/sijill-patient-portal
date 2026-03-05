@@ -11,17 +11,18 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   List<OnboardingModel> onboardingList = [
     OnboardingModel(
       title:
-          "Sijill is your official digital health record managed by the ministry of health",
-      body: "Clear Vision, For Better Healthcare",
+          "Your Official Electronic\nHealth Record, Managed By The Ministry Of Health.",
+      body: "",
       image: AppAssets.onboarding1,
     ),
     OnboardingModel(
-      title: "All your medical history in one place",
-      body: "Visits, test results, prescriptions, and diagnoses all connected",
+      title: "All Your Medical History In One Place.",
+      body:
+          "Visits, Tests, Results, Prescriptions And Diagnosis All Connected.",
       image: AppAssets.onboarding2,
     ),
     OnboardingModel(
-      title: "You decide who sees your records and for how long",
+      title: "You Decide Who Sees Your Records, When and for how long",
       body: "",
       image: AppAssets.onboarding3,
     ),
