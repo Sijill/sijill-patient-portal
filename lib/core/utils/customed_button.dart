@@ -23,27 +23,21 @@ class CustomedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.sizeOf(context).width;
     var height = MediaQuery.sizeOf(context).height;
     return MaterialButton(
       padding: EdgeInsets.symmetric(
         vertical: height * 0.01,
-        horizontal: horizontal ?? width * 0.25,
+        horizontal: horizontal ?? 25.w,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(radius ?? 16.r),
-        side: BorderSide(color: AppColors.blueLight),
+        borderRadius: BorderRadiusGeometry.circular(radius ?? 10.r),
+        side: BorderSide(color: AppColors.primaryColor),
       ),
-      color: backgroundColor ?? AppColors.blueLight,
+      color: backgroundColor ?? AppColors.primaryColor,
       onPressed: () {
         onPressed();
       },
-      child: AutoSizeText(
-        text,
-        style: AppStyle.boldWhite18.copyWith(
-          color: textColor ?? AppColors.white,
-        ),
-      ),
+      child: AutoSizeText(text, style: AppStyle.mediumBlack16),
     );
   }
 }

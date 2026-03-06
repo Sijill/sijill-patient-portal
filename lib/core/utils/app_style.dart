@@ -39,6 +39,13 @@ class AppStyle {
       fontWeight: FontWeight.w600,
     ),
   );
+  static TextStyle semiBoldBlack24 = GoogleFonts.inter(
+    textStyle: TextStyle(
+      color: AppColors.black,
+      fontSize: 24.sp,
+      fontWeight: FontWeight.w600,
+    ),
+  );
   static TextStyle semiBoldBlack20 = GoogleFonts.inter(
     textStyle: TextStyle(
       color: AppColors.black,
@@ -124,10 +131,10 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
-  static TextStyle meduimBlue15 = GoogleFonts.inter(
+  static TextStyle meduimGrey14 = GoogleFonts.inter(
     textStyle: TextStyle(
-      color: AppColors.blueLight,
-      fontSize: 15.sp,
+      color: AppColors.gray,
+      fontSize: 14.sp,
       fontWeight: FontWeight.w500,
     ),
   );
