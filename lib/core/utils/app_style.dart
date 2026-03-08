@@ -88,6 +88,13 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
+  static TextStyle mediumGray14 = GoogleFonts.inter(
+    textStyle: TextStyle(
+      color: AppColors.mediumGray,
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w500,
+    ),
+  );
   static TextStyle boldBlack20 = GoogleFonts.inter(
     textStyle: TextStyle(
       color: AppColors.black,

@@ -36,6 +36,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   void dispose() {
     newPasswordController.dispose();
+    otpController.dispose();
     super.dispose();
   }
 

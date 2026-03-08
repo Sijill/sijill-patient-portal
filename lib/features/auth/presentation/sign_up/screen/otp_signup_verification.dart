@@ -24,6 +24,12 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
   String? registerResndOtp;
   TextEditingController otpController = TextEditingController();
   @override
+  void dispose() {
+    otpController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String registrationSessionId =
         ModalRoute.of(context)?.settings.arguments as String;

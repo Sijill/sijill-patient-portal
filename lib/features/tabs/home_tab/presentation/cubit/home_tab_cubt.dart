@@ -10,4 +10,19 @@ class HomeTabCubt extends Cubit<HomeTabState> {
     selectItem = item;
     emit(SelectItemState());
   }
+
+  Set<int> choiceValue = {};
+
+  void choiceMultipleValue(int index, bool value) {
+    if (value) {
+      choiceValue.add(index);
+    } else {
+      choiceValue.remove(index);
+    }
+    emit(ChoiceMultipleValueSuccessState());
+  }
+
+  bool isAllTasksCompleted(int totalTasks) {
+    return choiceValue.length == totalTasks;
+  }
 }

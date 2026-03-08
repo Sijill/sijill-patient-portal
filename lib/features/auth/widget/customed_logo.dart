@@ -4,12 +4,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 
 class CustomedLogo extends StatelessWidget {
-  const CustomedLogo({super.key});
+  final double? height;
+  final double? width;
+  const CustomedLogo({super.key, this.height, this.width});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SvgPicture.asset(AppAssets.logo, height: 100.h, width: 91.w),
+      child: SvgPicture.asset(
+        AppAssets.logo,
+        height: height ?? 100.h,
+        width: width ?? 91.w,
+      ),
     );
   }
 }
