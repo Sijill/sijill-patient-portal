@@ -14,6 +14,8 @@ class AppColors {
   static const Color checkCircleShadow = Color.fromARGB(255, 213, 236, 220);
   static const Color lightGreen = Color(0xFFB7FFD0);
   static const Color borderLeftColor = Color(0xFF82DFFF);
+  static const Color tabBarUnSelectedColor = Color(0xFFE0F5F5);
+  static const Color tabBarSelectedColor = Color(0xFF35E6E7);
   static const Color bgColor = Color(0xFFF6F8F8);
 
   static const Color transparent = Colors.transparent;

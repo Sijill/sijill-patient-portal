@@ -22,7 +22,15 @@ class HomeTabCubt extends Cubit<HomeTabState> {
     emit(ChoiceMultipleValueSuccessState());
   }
 
-  bool isAllTasksCompleted(int totalTasks) {
-    return choiceValue.length == totalTasks;
+  List<String> notificationItem = [
+    "All",
+    "Medications",
+    "Appointments",
+    "Medical Orders",
+  ];
+  int selectItemFromNotification = 0;
+  void tabBarClick(int index) {
+    selectItemFromNotification = index;
+    emit(SelectItemFromNotificationSuccessState());
   }
 }

@@ -42,11 +42,18 @@ class _HomeTabState extends State<HomeTab> {
                       ).pushNamed(AppRoutes.grantConsentScreen);
                     },
                   ),
-                  SvgPicture.asset(
-                    AppAssets.notification,
-                    height: 41,
-                    width: 42,
-                    fit: BoxFit.fill,
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(
+                        context,
+                      ).pushNamed(AppRoutes.notificationsScreen);
+                    },
+                    child: SvgPicture.asset(
+                      AppAssets.notification,
+                      height: 41,
+                      width: 42,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ],
               ),

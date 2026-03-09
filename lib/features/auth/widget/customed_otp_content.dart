@@ -30,12 +30,6 @@ class CustomedOtpContent extends StatefulWidget {
 
 class _CustomedOtpContentState extends State<CustomedOtpContent> {
   @override
-  void dispose() {
-    widget.otpController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
