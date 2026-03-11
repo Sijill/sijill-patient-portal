@@ -4,13 +4,17 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
-    appBarTheme: AppBarTheme(backgroundColor: AppColors.white),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
+      centerTitle: true,
+      elevation: 0,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.white,
       type: BottomNavigationBarType.fixed,
       elevation: 0,
       selectedIconTheme: IconThemeData(color: AppColors.white),
-      unselectedIconTheme: IconThemeData(color: AppColors.darkBlue),
+      unselectedIconTheme: IconThemeData(color: AppColors.blue),
     ),
   );
 }

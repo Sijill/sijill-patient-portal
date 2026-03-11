@@ -3,11 +3,13 @@ import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/s
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/sign_in_screen.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/sign_up_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/screen/health_journal_tab.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_consent_access_code_screen.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_consent_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_access_active_tokens_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_access_healthcare_provider_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_access_imaging_center_laboratory_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_access_permission_token.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/grant_access_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/home_tab.dart';
 import 'package:sijil_patient_portal/features/home/presentation/screen/home_screen.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/notification_item_contain.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/notifications_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/presentation/screen/medical_history_tab.dart';
 import 'package:sijil_patient_portal/features/onboarding/presentation/screen/onboarding_screen.dart';
@@ -41,11 +43,16 @@ class AppRoutes {
   static const String otpSignupVerification = "/otpSignupVerification";
   static const String applicationReviewPage = "/applicationReviewPage";
   static const String otpSigninVerification = "/otpSigninVerification";
-  static const String grantConsentScreen = "/grantConsentScreen";
-  static const String grantConsentAccessCodeScreen =
-      "/grantConsentAccessCodeScreen";
+  static const String grantAccessScreen = "/grantAccessScreen";
+  static const String grantAccessHealthcareProviderScreen =
+      "/grantAccessHealthcareProviderScreen";
+  static const String grantAccessImagingCenterLaboratoryScreen =
+      "/grantAccessImagingCenterLaboratoryScreen";
+  static const String grantAccessPermissionToken =
+      "/grantAccessPermissionToken";
+  static const String grantAccessActiveTokensScreen =
+      "/grantAccessActiveTokensScreen";
   static const String notificationsScreen = "/notificationsScreen";
-  static const String notificationsItemConatain = "/notificationsItemConatain";
 
   static Map<String, Widget Function(BuildContext)> routeScreen = {
     AppRoutes.homeScreen: (context) => HomeScreen(),
@@ -66,10 +73,15 @@ class AppRoutes {
     AppRoutes.healthJournalTab: (context) => HealthJournalTab(),
     AppRoutes.medicalHistoryTab: (context) => MedicalHistoryTab(),
     AppRoutes.settingsTab: (context) => SettingsTab(),
-    AppRoutes.grantConsentScreen: (context) => GrantConsentScreen(),
-    AppRoutes.grantConsentAccessCodeScreen: (context) =>
-        GrantConsentAccessCodeScreen(),
+    AppRoutes.grantAccessScreen: (context) => GrantAccessScreen(),
+    AppRoutes.grantAccessHealthcareProviderScreen: (context) =>
+        GrantAccessHealthcareProviderScreen(),
+    AppRoutes.grantAccessImagingCenterLaboratoryScreen: (context) =>
+        GrantAccessImagingCenterLaboratoryScreen(),
+    AppRoutes.grantAccessPermissionToken: (context) =>
+        GrantAccessPermissionToken(),
+    AppRoutes.grantAccessActiveTokensScreen: (context) =>
+        GrantAccessActiveTokensScreen(),
     AppRoutes.notificationsScreen: (context) => NotificationsScreen(),
-    AppRoutes.notificationsItemConatain: (context) => NotificationItemContain(),
   };
 }
