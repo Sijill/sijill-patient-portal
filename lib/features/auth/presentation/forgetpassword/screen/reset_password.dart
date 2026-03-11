@@ -152,7 +152,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             ),
                             SizedBox(height: height * 0.02),
                             CustomTextField(
-                              iconVisabilyColor: AppColors.darkBlue,
+                              iconVisabilyColor: AppColors.blue,
                               controller: newPasswordController,
                               fillColor: AppColors.blueLight.withAlpha(120),
                               onValidate: (val) {
@@ -160,16 +160,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                               },
                               hint: "New Password",
                               hintStyle: AppStyle.boldBlack16.copyWith(
-                                color: AppColors.darkBlue,
+                                color: AppColors.blue,
                               ),
                               textStyle: AppStyle.boldBlack16.copyWith(
-                                color: AppColors.darkBlue,
+                                color: AppColors.blue,
                               ),
                               isPassword: true,
                               maxLines: 1,
                               prefixIcon: Icon(
                                 Icons.lock,
-                                color: AppColors.darkBlue,
+                                color: AppColors.blue,
                                 size: 25.sp,
                               ),
                             ),

@@ -69,14 +69,14 @@ class AppStyle {
   );
   static TextStyle boldDarkBlue14 = GoogleFonts.inter(
     textStyle: TextStyle(
-      color: AppColors.darkBlue,
+      color: AppColors.blue,
       fontSize: 14.sp,
       fontWeight: FontWeight.bold,
     ),
   );
   static TextStyle mediumDarkBlue16 = GoogleFonts.inter(
     textStyle: TextStyle(
-      color: AppColors.darkBlue,
+      color: AppColors.blue,
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
     ),
@@ -175,14 +175,14 @@ class AppStyle {
   );
   static TextStyle boldDarkBlue20 = GoogleFonts.inter(
     textStyle: TextStyle(
-      color: AppColors.darkBlue,
+      color: AppColors.blue,
       fontSize: 20.sp,
       fontWeight: FontWeight.bold,
     ),
   );
   static TextStyle boldDarkBlue16 = GoogleFonts.inter(
     textStyle: TextStyle(
-      color: AppColors.darkBlue,
+      color: AppColors.blue,
       fontSize: 16.sp,
       fontWeight: FontWeight.bold,
     ),

@@ -10,6 +10,7 @@ class CustomedButton extends StatelessWidget {
   final bool? addItem;
   final VoidCallback onPressed;
   final double? horizontal;
+  final double? vertical;
   final Color? backgroundColor;
   final Color? textColor;
   final double? radius;
@@ -17,6 +18,7 @@ class CustomedButton extends StatelessWidget {
   final double? spaceAfterText;
   final String? preImageName;
   final String? sufficImageName;
+  final TextStyle? textStyle;
   const CustomedButton({
     super.key,
     required this.text,
@@ -30,6 +32,8 @@ class CustomedButton extends StatelessWidget {
     this.sufficImageName,
     this.spaceBeforeText,
     this.spaceAfterText,
+    this.vertical,
+    this.textStyle,
   });
 
   @override
@@ -37,7 +41,7 @@ class CustomedButton extends StatelessWidget {
     var height = MediaQuery.sizeOf(context).height;
     return MaterialButton(
       padding: EdgeInsets.symmetric(
-        vertical: height * 0.01,
+        vertical: vertical ?? height * 0.01,
         horizontal: horizontal ?? 25.w,
       ),
       shape: RoundedRectangleBorder(
@@ -49,7 +53,7 @@ class CustomedButton extends StatelessWidget {
         onPressed();
       },
       child: addItem == false
-          ? AutoSizeText(text, style: AppStyle.mediumBlack16)
+          ? AutoSizeText(text, style: textStyle ?? AppStyle.mediumBlack16)
           : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -61,7 +65,7 @@ class CustomedButton extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                   ),
                 SizedBox(width: spaceBeforeText ?? 0),
-                AutoSizeText(text, style: AppStyle.mediumBlack16),
+                AutoSizeText(text, style: textStyle ?? AppStyle.mediumBlack16),
                 SizedBox(width: spaceAfterText ?? 0),
                 if (sufficImageName != null)
                   SvgPicture.asset(

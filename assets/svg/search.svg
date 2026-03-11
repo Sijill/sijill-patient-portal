@@ -1,0 +1,14 @@
+<svg width="375" height="339" viewBox="0 0 375 339" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="375" height="339" fill="url(#paint0_radial_43_629)"/>
+<ellipse cx="187.5" cy="169.5" rx="91.5" ry="90.5" fill="#FEFEFE"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M230.75 155.375C230.75 176.431 213.681 193.5 192.625 193.5C183.123 193.5 174.433 190.024 167.757 184.274L164.337 187.694L163.935 191.254L146.439 208.75L139.25 201.561L156.855 183.956L161.189 183.653L164.133 180.708C158.141 173.973 154.5 165.099 154.5 155.375C154.5 134.319 171.569 117.25 192.625 117.25C213.681 117.25 230.75 134.319 230.75 155.375ZM225.667 155.375C225.667 173.623 210.873 188.417 192.625 188.417C174.377 188.417 159.583 173.623 159.583 155.375C159.583 137.127 174.377 122.333 192.625 122.333C210.873 122.333 225.667 137.127 225.667 155.375Z" fill="black"/>
+<ellipse cx="163.5" cy="240" rx="5.5" ry="5" fill="#EBF7F7"/>
+<ellipse cx="206.5" cy="240" rx="5.5" ry="5" fill="#2DE5E6"/>
+<ellipse cx="185.5" cy="240" rx="5.5" ry="5" fill="#C3FFFF"/>
+<defs>
+<radialGradient id="paint0_radial_43_629" cx="0" cy="0" r="1" gradientTransform="matrix(0.500009 169.5 -187 0.895955 187 169.5)" gradientUnits="userSpaceOnUse">
+<stop offset="0.740385" stop-color="#EBF7F7"/>
+<stop offset="1" stop-color="#FEFEFE"/>
+</radialGradient>
+</defs>
+</svg>

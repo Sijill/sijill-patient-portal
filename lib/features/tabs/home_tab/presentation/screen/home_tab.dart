@@ -39,7 +39,7 @@ class _HomeTabState extends State<HomeTab> {
                     onPressed: () {
                       Navigator.of(
                         context,
-                      ).pushNamed(AppRoutes.grantConsentScreen);
+                      ).pushNamed(AppRoutes.grantAccessScreen);
                     },
                   ),
                   InkWell(

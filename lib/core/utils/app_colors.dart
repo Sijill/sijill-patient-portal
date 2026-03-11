@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color primaryColor = Color(0xFFC3FFFF);
   static Color blueLight = Color(0xff9AFEFF).withAlpha(30);
-  static Color darkBlue = Color(0xFF0CBEFB).withAlpha(10);
+  static Color blue = Color(0xFF0CBEFB).withAlpha(10);
+  static const Color darkBlue = Color(0xFF245353);
   static const Color white = Color(0xFFFFFFFF);
   static const Color whiteLight = Color(0xFFFEFEFE);
   static const Color gray = Color(0xFF727272);
@@ -16,6 +17,7 @@ class AppColors {
   static const Color borderLeftColor = Color(0xFF82DFFF);
   static const Color tabBarUnSelectedColor = Color(0xFFE0F5F5);
   static const Color tabBarSelectedColor = Color(0xFF35E6E7);
+  static const Color grantAccessContainerColor = Color(0xFFEBF7F7);
   static const Color bgColor = Color(0xFFF6F8F8);
 
   static const Color transparent = Colors.transparent;

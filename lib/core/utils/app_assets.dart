@@ -12,7 +12,18 @@ class AppAssets {
   static const String pendingMedications = "assets/svg/pending_medications.svg";
   static const String upcomingAppoinments =
       "assets/svg/upcoming_appointments.svg";
+  static const String healthcareProvider = "assets/svg/healthcare_provider.svg";
+  static const String imagingCenter = "assets/svg/imaging_center.svg";
+  static const String laboratory = "assets/svg/laboratory.svg";
   static const String pendingTestOrders = "assets/svg/pending_test_orders.svg";
+  static const String accessType = "assets/svg/access_type.svg";
+  static const String selectAccess = "assets/svg/select_access.svg";
+  static const String selectAccessLight = "assets/svg/select_access_light.svg";
+  static const String imaging = "assets/svg/imaging.svg";
+  static const String microscope = "assets/svg/microscope.svg";
+  static const String revoke = "assets/svg/revoke.svg";
+  static const String search = "assets/svg/search.svg";
+
   static const String loading = "assets/svg/loading3.json";
   static const String followUp = "assets/images/follow_up.png";
   static const String appointment = "assets/images/appointment.png";
@@ -20,6 +31,7 @@ class AppAssets {
   static const String labTest = "assets/images/lab_test.png";
   static const String medicines = "assets/images/medicines.png";
   static const String system = "assets/images/system.png";
+
   static const String onboarding1 = "assets/images/onboarding1.png";
   static const String onboarding2 = "assets/images/onboarding2.png";
   static const String onboarding3 = "assets/images/onboarding3.png";
@@ -29,15 +41,5 @@ class AppAssets {
   static const String profileImage = "assets/images/profile_image.png";
   static const String homeBg = "assets/images/home_bg.png";
 
-  static const String healthcareImg = "assets/images/healthcare_img.png";
   static const String roleImage = "assets/images/role_img.png";
-  static const String accessType = "assets/images/access_type.png";
-  static const String expiresAfter = "assets/images/expires_after.png";
-  static const String grantBg = "assets/images/grant_bg.png";
-  static const String medicationReminders =
-      "assets/images/medication_reminders.png";
-
-  static const String appointmentsReminders =
-      "assets/images/appointments_reminders.png";
-  static const String testOrder = "assets/images/test_order.png";
 }

@@ -33,4 +33,11 @@ class HomeTabCubt extends Cubit<HomeTabState> {
     selectItemFromNotification = index;
     emit(SelectItemFromNotificationSuccessState());
   }
+
+  int selectedAccessIndex = -1;
+
+  void selectAccessType(int index) {
+    selectedAccessIndex = index;
+    emit(SelectAccessClickSuccessState());
+  }
 }

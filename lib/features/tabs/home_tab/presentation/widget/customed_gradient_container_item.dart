@@ -14,7 +14,7 @@ class CustomedGradientContainerItem extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
         gradient: LinearGradient(
-          colors: [AppColors.blueLight, AppColors.darkBlue],
+          colors: [AppColors.blueLight, AppColors.blue],
           transform: GradientRotation(120.r),
           tileMode: TileMode.mirror,
         ),
