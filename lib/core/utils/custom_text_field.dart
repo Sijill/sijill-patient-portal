@@ -66,7 +66,7 @@ class CustomTextField extends StatefulWidget {
       right: 5,
       bottom: 12,
     ),
-    this.hintColor = Colors.white,
+    this.hintColor = AppColors.white,
     this.fillColor,
     this.hintStyle,
     this.iconVisabilyColor,
@@ -106,14 +106,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         keyboardType: widget.keyboardType,
         inputFormatters: widget.inputFormatters,
         enabled: widget.enabled,
-        style: widget.textStyle ?? AppStyle.boldBlack16,
+        style: widget.textStyle ?? AppStyle.meduimBlack16,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         textInputAction: widget.action ?? TextInputAction.done,
         focusNode: widget.focusNode,
         cursorColor: theme.primaryColor,
         decoration: InputDecoration(
           labelText: widget.label,
-          labelStyle: AppStyle.meduimBlack18,
+          labelStyle: AppStyle.meduimBlack16,
           prefixIconConstraints: const BoxConstraints(minWidth: 56),
           suffixIcon: widget.isPassword ?? false
               ? InkWell(
@@ -140,32 +140,44 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
 
           hintText: widget.hint,
-          hintStyle: widget.hintStyle ?? AppStyle.meduimBlack18,
+          hintStyle: widget.hintStyle ?? AppStyle.meduimBlack16,
           counterText: "",
-          fillColor: widget.fillColor ?? AppColors.white,
+          fillColor: widget.fillColor ?? AppColors.primaryColor,
           filled: true,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: const BorderSide(color: AppColors.blueLight, width: 1),
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(
+              color: AppColors.primaryColor,
+              width: 1,
+            ),
           ),
           // suffix: isPass widget.suffixWidget,
           contentPadding: widget.edgeInsets,
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: const BorderSide(color: AppColors.blueLight, width: 1),
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(
+              color: AppColors.primaryColor,
+              width: 1,
+            ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: BorderSide(color: AppColors.blueLight, width: 1.w),
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(
+              color: AppColors.primaryColor,
+              width: 1,
+            ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: BorderSide(color: AppColors.blueLight, width: 1.w),
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(
+              color: AppColors.primaryColor,
+              width: 1,
+            ),
           ),
           errorStyle: AppStyle.meduimRed14,
           errorMaxLines: 6,
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(10.r),
             borderSide: BorderSide(color: AppColors.red, width: 1.w),
           ),
         ),

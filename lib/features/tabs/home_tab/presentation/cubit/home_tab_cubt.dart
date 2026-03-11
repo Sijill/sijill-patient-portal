@@ -10,4 +10,34 @@ class HomeTabCubt extends Cubit<HomeTabState> {
     selectItem = item;
     emit(SelectItemState());
   }
+
+  Set<int> choiceValue = {};
+
+  void choiceMultipleValue(int index, bool value) {
+    if (value) {
+      choiceValue.add(index);
+    } else {
+      choiceValue.remove(index);
+    }
+    emit(ChoiceMultipleValueSuccessState());
+  }
+
+  List<String> notificationItem = [
+    "All",
+    "Medications",
+    "Appointments",
+    "Medical Orders",
+  ];
+  int selectItemFromNotification = 0;
+  void tabBarClick(int index) {
+    selectItemFromNotification = index;
+    emit(SelectItemFromNotificationSuccessState());
+  }
+
+  int selectedAccessIndex = -1;
+
+  void selectAccessType(int index) {
+    selectedAccessIndex = index;
+    emit(SelectAccessClickSuccessState());
+  }
 }

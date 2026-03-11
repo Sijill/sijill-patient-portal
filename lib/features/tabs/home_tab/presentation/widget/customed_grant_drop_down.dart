@@ -9,8 +9,6 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/cubit/h
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/cubit/home_tab_state.dart';
 
 class CustomedGrantDropDown extends StatefulWidget {
-  final String title;
-  final String imageName;
   final String selectedDropDown;
   final List<String> bottoShowSelectItem;
   final double? imageHeight;
@@ -22,8 +20,7 @@ class CustomedGrantDropDown extends StatefulWidget {
   const CustomedGrantDropDown({
     super.key,
     required this.selectedDropDown,
-    required this.title,
-    required this.imageName,
+
     required this.bottoShowSelectItem,
     this.imageHeight,
     this.imageWidth,
@@ -46,118 +43,108 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ClipRRect(
-          clipBehavior: Clip.antiAlias,
-          borderRadius: BorderRadiusGeometry.circular(32.r),
-          child: Image.asset(
-            widget.imageName,
-            height: widget.imageHeight ?? 45.h,
-            width: widget.imageWidth ?? 45.w,
-            fit: BoxFit.scaleDown,
-          ),
-        ),
-        SizedBox(width: 8.w),
-        AutoSizeText(widget.title, style: AppStyle.meduimBlack14),
-        SizedBox(width: 9.w),
-        Container(
-          width: 165.w,
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-          decoration: BoxDecoration(
-            color: widget.containerColor ?? AppColors.containerMeduimBlueColor,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: BlocBuilder<HomeTabCubt, HomeTabState>(
-            bloc: viewodel,
-            builder: (context, state) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(viewodel.selectItem, style: AppStyle.boldWhite16),
-                  InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        backgroundColor: AppColors.transparent,
-                        context: context,
-                        builder: (context) => Container(
-                          padding: EdgeInsets.symmetric(vertical: 8.h),
-                          margin: EdgeInsets.only(
-                            bottom: widget.bottomSheetHeight ?? 275.h,
-                            left: widget.bottomSheetWidth ?? 100.w,
-                          ),
-                          height: 100.h,
-                          width: 170.w,
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          child: ListView.separated(
-                            itemBuilder: (context, index) => InkWell(
-                              onTap: () {
-                                viewodel.changeSelectItem(
-                                  widget.bottoShowSelectItem[index],
-                                );
-                                Navigator.of(context).pop();
-                              },
-                              child:
-                                  viewodel.selectItem ==
-                                      widget.bottoShowSelectItem[index]
-                                  ? Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 8.w,
-                                        vertical: 2.h,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.authContainerColor,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AutoSizeText(
-                                            widget.bottoShowSelectItem[index],
-                                            style: AppStyle.mediumDarkBlue16,
-                                          ),
-                                          Icon(
-                                            Icons.check,
-                                            color: AppColors
-                                                .containerDarkBlueColor,
-                                            size: 25.sp,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 8.w,
-                                        vertical: 2.h,
-                                      ),
-                                      child: AutoSizeText(
+    return Container(
+      width: 155.w,
+      height: 55.h,
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      decoration: BoxDecoration(
+        color: widget.containerColor ?? AppColors.white,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: BlocBuilder<HomeTabCubt, HomeTabState>(
+        bloc: viewodel,
+        builder: (context, state) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                viewodel.selectItem,
+                style: AppStyle.mediumBlack16.copyWith(fontSize: 20.sp),
+              ),
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    backgroundColor: AppColors.transparent,
+                    context: context,
+                    builder: (context) => Container(
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      margin: EdgeInsets.only(
+                        bottom: widget.bottomSheetHeight ?? 50.h,
+                        left: widget.bottomSheetWidth ?? 105.w,
+                      ),
+                      height: 130.h,
+                      width: 170.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: ListView.separated(
+                        itemBuilder: (context, index) => InkWell(
+                          onTap: () {
+                            viewodel.changeSelectItem(
+                              widget.bottoShowSelectItem[index],
+                            );
+                            Navigator.of(context).pop();
+                          },
+                          child:
+                              viewodel.selectItem ==
+                                  widget.bottoShowSelectItem[index]
+                              ? Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8.w,
+                                    vertical: 2.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.authContainerColor,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      AutoSizeText(
                                         widget.bottoShowSelectItem[index],
-                                        style: AppStyle.mediumDarkBlue16,
+                                        style: AppStyle.mediumBlack16.copyWith(
+                                          fontSize: 20.sp,
+                                        ),
                                       ),
+                                      Icon(
+                                        Icons.check,
+                                        color: AppColors.black,
+                                        size: 25.sp,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8.w,
+                                    vertical: 2.h,
+                                  ),
+                                  child: AutoSizeText(
+                                    widget.bottoShowSelectItem[index],
+                                    style: AppStyle.mediumBlack16.copyWith(
+                                      fontSize: 20.sp,
                                     ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                SizedBox(height: 5.h),
-                            itemCount: widget.bottoShowSelectItem.length,
-                          ),
+                                  ),
+                                ),
                         ),
-                      );
-                    },
-                    child: Icon(
-                      Icons.arrow_drop_down_outlined,
-                      color: AppColors.white,
-                      size: 35.sp,
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 5.h),
+                        itemCount: widget.bottoShowSelectItem.length,
+                      ),
                     ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ],
+                  );
+                },
+                child: Icon(
+                  Icons.arrow_drop_down_outlined,
+                  color: AppColors.black,
+                  size: 35.sp,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

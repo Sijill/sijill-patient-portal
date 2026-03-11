@@ -57,6 +57,7 @@ dependencies:
   path: ^1.9.1
   path_provider: ^2.1.5
   lottie: ^3.3.2
+  flutter_svg: ^2.2.3
   
 
 dev_dependencies:

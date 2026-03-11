@@ -24,6 +24,11 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
   TextEditingController otpController = TextEditingController();
   var viewModel = getIt<AuthCubit>();
   late String loginResndOtp;
+  @override
+  void dispose() {
+    otpController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
