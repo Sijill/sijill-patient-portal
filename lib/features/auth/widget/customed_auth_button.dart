@@ -27,12 +27,12 @@ class CustomedAuthButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(15),
-          backgroundColor: AppColors.blueLight,
+          backgroundColor: AppColors.primaryColor,
           elevation: 0,
         ),
         child: Icon(
           icon ?? Icons.arrow_forward_ios_outlined,
-          color: AppColors.white,
+          color: AppColors.black,
           size: size ?? 20.sp,
         ),
       ),

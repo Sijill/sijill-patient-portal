@@ -50,10 +50,11 @@ class AppAssets {
       "assets/images/current_medications_img.png";
   static const String addEmergencyContactImg =
       "assets/images/add_emergency_contact_img.png";
+  static const String cameraImg = "assets/images/camera.png";
 
-  static const String onboarding1 = "assets/images/onboarding1.png";
-  static const String onboarding2 = "assets/images/onboarding2.png";
-  static const String onboarding3 = "assets/images/onboarding3.png";
+  static const String onboarding1 = "assets/svg/onboarding1.svg";
+  static const String onboarding2 = "assets/svg/onboarding2.svg";
+  static const String onboarding3 = "assets/svg/onboarding3.svg";
   static const String sigIinImg = "assets/images/sign_in.jpg";
   static const String authBg = "assets/images/auth_pg.jpeg";
   static const String gender = "assets/images/gender.png";

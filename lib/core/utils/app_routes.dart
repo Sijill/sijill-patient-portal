@@ -17,7 +17,7 @@ import 'package:sijil_patient_portal/features/tabs/medical_identiti/presentation
 import 'package:sijil_patient_portal/features/tabs/settings/presentation/screen/settings_tab.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/screen/forget_password.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/otp_signin_verification.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/Application_Review_Page.dart';
+import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/application_review_page.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/otp_signup_verification.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/signup_credentials_screen.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/take_back_photo_screen.dart';

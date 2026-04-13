@@ -21,7 +21,7 @@ class OtpSignupVerification extends StatefulWidget {
 class _OtpSignupVerificationState extends State<OtpSignupVerification> {
   final _formKey = GlobalKey<FormState>();
   var vieModel = getIt<AuthCubit>();
-  String? registerResndOtp;
+  late String registerResndOtp;
   TextEditingController otpController = TextEditingController();
   @override
   void dispose() {
@@ -31,8 +31,7 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
 
   @override
   Widget build(BuildContext context) {
-    String registrationSessionId =
-        ModalRoute.of(context)?.settings.arguments as String;
+    registerResndOtp = ModalRoute.of(context)?.settings.arguments as String;
     return BlocListener<AuthCubit, AuthState>(
       bloc: vieModel,
       listener: (context, state) {
@@ -49,7 +48,7 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
           AppDialog.showDialogMessage(message: state.message);
         } else if (state is RegisterResndOtpSccessState) {
           registerResndOtp =
-              state.registerResendOtpResponse.registrationSessionId;
+              state.registerResendOtpResponse.registrationSessionId!;
         }
       },
       child: Form(
@@ -72,7 +71,7 @@ class _OtpSignupVerificationState extends State<OtpSignupVerification> {
           resendCode: () {
             vieModel.registerResendOtp(
               registerResendOtpRequest: RegisterResendOtpRequest(
-                registrationSessionId: registrationSessionId,
+                registrationSessionId: registerResndOtp,
               ),
             );
           },
