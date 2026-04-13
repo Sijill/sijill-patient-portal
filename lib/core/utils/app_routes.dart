@@ -13,7 +13,7 @@ import 'package:sijil_patient_portal/features/home/presentation/screen/home_scre
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/screen/notifications_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/presentation/screen/medical_history_tab.dart';
 import 'package:sijil_patient_portal/features/onboarding/presentation/screen/onboarding_screen.dart';
-import 'package:sijil_patient_portal/features/tabs/profile/presentation/screen/profile_tab.dart';
+import 'package:sijil_patient_portal/features/tabs/medical_identiti/presentation/screen/medical_identity_tab.dart';
 import 'package:sijil_patient_portal/features/tabs/settings/presentation/screen/settings_tab.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/screen/forget_password.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/otp_signin_verification.dart';
@@ -27,7 +27,7 @@ import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/t
 class AppRoutes {
   static const String homeScreen = "/homeScreen";
   static const String homeTab = "/homeTab";
-  static const String profileTab = "/profileTab";
+  static const String medicalIdentityTab = "/medicalIdentityTab";
   static const String healthJournalTab = "/healthJournalTab";
   static const String medicalHistoryTab = "/medicalHistoryTab";
   static const String settingsTab = "/settingsTab";
@@ -69,7 +69,7 @@ class AppRoutes {
     AppRoutes.applicationReviewPage: (context) => ApplicationReviewPage(),
     AppRoutes.onboardingsScreen: (context) => OnboardingScreen(),
     AppRoutes.homeTab: (context) => HomeTab(),
-    AppRoutes.profileTab: (context) => ProfileTab(),
+    AppRoutes.medicalIdentityTab: (context) => MedicalIdentityTab(),
     AppRoutes.healthJournalTab: (context) => HealthJournalTab(),
     AppRoutes.medicalHistoryTab: (context) => MedicalHistoryTab(),
     AppRoutes.settingsTab: (context) => SettingsTab(),

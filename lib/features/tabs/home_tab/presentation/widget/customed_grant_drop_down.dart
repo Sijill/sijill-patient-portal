@@ -11,22 +11,27 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/cubit/h
 class CustomedGrantDropDown extends StatefulWidget {
   final String selectedDropDown;
   final List<String> bottoShowSelectItem;
-  final double? imageHeight;
-  final double? imageWidth;
   final double? bottomSheetHeight;
   final double? bottomSheetWidth;
-  final Color? containerColor;
+  final Color? backgroundColor;
+  final double? containerWidth;
+  final double? fontSize;
+  final double? heightDrobdown;
+  final double? widthDropdown;
+  final IconData? prefixIcon;
 
   const CustomedGrantDropDown({
     super.key,
     required this.selectedDropDown,
-
     required this.bottoShowSelectItem,
-    this.imageHeight,
-    this.imageWidth,
     this.bottomSheetHeight,
     this.bottomSheetWidth,
-    this.containerColor,
+    this.backgroundColor,
+    this.containerWidth,
+    this.fontSize,
+    this.prefixIcon,
+    this.heightDrobdown,
+    this.widthDropdown,
   });
 
   @override
@@ -44,23 +49,40 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 155.w,
+      width: widget.containerWidth ?? 155.w,
       height: 55.h,
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       decoration: BoxDecoration(
-        color: widget.containerColor ?? AppColors.white,
+        color: widget.backgroundColor ?? AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: BlocBuilder<HomeTabCubt, HomeTabState>(
         bloc: viewodel,
         builder: (context, state) {
           return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              widget.prefixIcon != null
+                  ? Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.w),
+                          child: Icon(
+                            widget.prefixIcon,
+                            size: 24.sp,
+                            color: AppColors.black,
+                          ),
+                        ),
+                        SizedBox(width: 16.w),
+                      ],
+                    )
+                  : SizedBox(),
               Text(
                 viewodel.selectItem,
-                style: AppStyle.mediumBlack16.copyWith(fontSize: 20.sp),
+                style: AppStyle.mediumBlack16.copyWith(
+                  fontSize: widget.fontSize ?? 20.sp,
+                ),
               ),
+              Spacer(),
               InkWell(
                 onTap: () {
                   showModalBottomSheet(
@@ -71,9 +93,10 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
                       margin: EdgeInsets.only(
                         bottom: widget.bottomSheetHeight ?? 50.h,
                         left: widget.bottomSheetWidth ?? 105.w,
+                        right: widget.bottomSheetWidth ?? 0,
                       ),
-                      height: 130.h,
-                      width: 170.w,
+                      height: widget.heightDrobdown ?? 130.h,
+                      width: widget.widthDropdown ?? 170.w,
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(8.r),
@@ -90,12 +113,10 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
                               viewodel.selectItem ==
                                   widget.bottoShowSelectItem[index]
                               ? Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w,
-                                    vertical: 2.h,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 2.h),
+                                  margin: EdgeInsets.symmetric(horizontal: 8.w),
                                   decoration: BoxDecoration(
-                                    color: AppColors.authContainerColor,
+                                    color: AppColors.primaryColor,
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
@@ -104,7 +125,7 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
                                       AutoSizeText(
                                         widget.bottoShowSelectItem[index],
                                         style: AppStyle.mediumBlack16.copyWith(
-                                          fontSize: 20.sp,
+                                          fontSize: widget.fontSize ?? 20.sp,
                                         ),
                                       ),
                                       Icon(
@@ -123,7 +144,7 @@ class _CustomedGrantDropDownState extends State<CustomedGrantDropDown> {
                                   child: AutoSizeText(
                                     widget.bottoShowSelectItem[index],
                                     style: AppStyle.mediumBlack16.copyWith(
-                                      fontSize: 20.sp,
+                                      fontSize: widget.fontSize ?? 20.sp,
                                     ),
                                   ),
                                 ),

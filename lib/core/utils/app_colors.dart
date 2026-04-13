@@ -19,13 +19,22 @@ class AppColors {
   static const Color tabBarSelectedColor = Color(0xFF35E6E7);
   static const Color grantAccessContainerColor = Color(0xFFEBF7F7);
   static const Color bgColor = Color(0xFFF6F8F8);
-
+  static const Color blueGrey = Color(0xFF688080);
+  static const Color red = Color(0xFFCC0000);
+  static const Color darkRed = Color(0xFF981D1B);
+  static const Color red2 = Color(0xFFB44646);
+  static const Color red3 = Color(0xFFC68080);
+  static const Color rose = Color(0xFFE4BCBC);
+  static const Color redWhite = Color(0xFFF9F1F1);
+  static const Color bageColor = Color(0xFFF9F6E9);
+  static const Color brown = Color(0xFF914010);
+  static const Color lightGreen2 = Color(0xFFF0FDF4);
   static const Color transparent = Colors.transparent;
-  static const Color brown = Colors.brown;
+
   static const Color orange = Colors.orange;
   static const Color background = Color(0xFFF2F6FF);
   static const Color grey = Colors.grey;
-  static const Color red = Color(0xFFCC0000);
+
   static const Color darkGreen = Color.fromARGB(255, 40, 177, 45);
   static Color authContainerColor = Colors.blue.withOpacity(0.10);
   static Color authBorderColor = Colors.white.withOpacity(0.5);
