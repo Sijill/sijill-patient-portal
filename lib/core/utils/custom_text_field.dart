@@ -107,7 +107,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
         inputFormatters: widget.inputFormatters,
         enabled: widget.enabled,
         style: widget.textStyle ?? AppStyle.meduimBlack16,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         textInputAction: widget.action ?? TextInputAction.done,
         focusNode: widget.focusNode,
         cursorColor: theme.primaryColor,

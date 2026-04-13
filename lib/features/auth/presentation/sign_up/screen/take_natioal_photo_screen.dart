@@ -55,7 +55,7 @@ class _TakeNatioalPhotoScreenState extends State<TakeNatioalPhotoScreen> {
       child: CustomedTakePhoto(
         title: "Hold your National ID next to your face.",
         subTitle:
-            "Make sure your face and the ID photo are clearly visible.\nTake the photo in good lighting.",
+            "Make sure all information is visible.\nAvoid glare and shadow.",
         firstIcon: Icons.circle_outlined,
         middleIcon: Icons.circle_outlined,
         lastIcon: Icons.circle,

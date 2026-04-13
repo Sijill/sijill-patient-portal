@@ -9,7 +9,7 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_grant_drop_down.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_drop_down.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_state.dart';
 
@@ -21,6 +21,13 @@ class AddNewEmergencyContact extends StatefulWidget {
 }
 
 class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
+  TextEditingController relationshipController = TextEditingController();
+  @override
+  void dispose() {
+    relationshipController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -57,12 +64,13 @@ class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
                 prefixIcon: Icon(Icons.phone, color: AppColors.black),
               ),
               SizedBox(height: 20.h),
-              CustomedGrantDropDown(
+              CustomedDropDown(
+                controller: relationshipController,
                 prefixIcon: Icons.people_alt_outlined,
                 fontSize: 16.sp,
                 containerWidth: double.infinity,
                 backgroundColor: AppColors.primaryColor,
-                selectedDropDown: "Relationship",
+                hint: "Relationship",
                 widthDropdown: double.infinity,
                 bottomSheetWidth: 32.w,
                 bottoShowSelectItem: [

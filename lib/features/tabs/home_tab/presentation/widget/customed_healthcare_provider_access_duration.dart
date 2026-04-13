@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_grant_drop_down.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_drop_down.dart';
 
 class CustomedHealthcareProviderAccessDuration extends StatefulWidget {
   const CustomedHealthcareProviderAccessDuration({super.key});
@@ -16,9 +16,11 @@ class CustomedHealthcareProviderAccessDuration extends StatefulWidget {
 class _CustomedHealthcareProviderAccessDurationState
     extends State<CustomedHealthcareProviderAccessDuration> {
   TextEditingController timeController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
   @override
   void dispose() {
     timeController.dispose();
+    numberController.dispose();
     super.dispose();
   }
 
@@ -48,33 +50,44 @@ class _CustomedHealthcareProviderAccessDurationState
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                width: 80.w,
-                height: 80.h,
-                padding: EdgeInsets.only(top: 10.h),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  style: AppStyle.meduimBlack20.copyWith(fontSize: 24.sp),
-                  onTapOutside: (event) {
-                    FocusManager.instance.primaryFocus!.unfocus();
-                  },
-                  cursorHeight: 28.h,
-                  controller: timeController,
-                  decoration: InputDecoration(
-                    hintText: "6",
-                    hintStyle: AppStyle.meduimBlack20.copyWith(fontSize: 24.sp),
-                    contentPadding: EdgeInsets.symmetric(vertical: 4.h),
-                    fillColor: AppColors.white,
-                    filled: true,
-                    enabledBorder: customedOutlineInputBorder(),
-                    focusedBorder: customedOutlineInputBorder(),
+              Expanded(
+                child: Container(
+                  width: 80.w,
+                  height: 80.h,
+                  padding: EdgeInsets.only(top: 10.h),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    style: AppStyle.meduimBlack20.copyWith(fontSize: 24.sp),
+                    onTapOutside: (event) {
+                      FocusManager.instance.primaryFocus!.unfocus();
+                    },
+                    cursorHeight: 28.h,
+                    controller: numberController,
+                    decoration: InputDecoration(
+                      hintText: "6",
+                      hintStyle: AppStyle.meduimBlack20.copyWith(
+                        fontSize: 24.sp,
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 4.h),
+                      fillColor: AppColors.white,
+                      filled: true,
+                      enabledBorder: customedOutlineInputBorder(),
+                      focusedBorder: customedOutlineInputBorder(),
+                    ),
                   ),
                 ),
               ),
-              CustomedGrantDropDown(
-                selectedDropDown: "Hours",
-                bottoShowSelectItem: time,
+              SizedBox(width: 40.w),
+              Expanded(
+                flex: 2,
+
+                child: CustomedDropDown(
+                  controller: timeController,
+                  backgroundColor: AppColors.white,
+                  hint: "Hours",
+                  bottoShowSelectItem: time,
+                ),
               ),
             ],
           ),
