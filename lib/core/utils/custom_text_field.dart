@@ -134,10 +134,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ),
                 )
               : widget.suffixWidget,
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(left: 10.w, right: 3.w),
-            child: widget.prefixIcon,
-          ),
+          prefixIcon: widget.prefixIcon != null
+              ? Padding(
+                  padding: EdgeInsets.only(left: 10.w, right: 3.w),
+                  child: widget.prefixIcon,
+                )
+              : null,
 
           hintText: widget.hint,
           hintStyle: widget.hintStyle ?? AppStyle.meduimBlack16,

@@ -138,6 +138,13 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
+  static TextStyle meduimWhitek14 = GoogleFonts.inter(
+    textStyle: TextStyle(
+      color: AppColors.white,
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w500,
+    ),
+  );
   static TextStyle meduimGrey14 = GoogleFonts.inter(
     textStyle: TextStyle(
       color: AppColors.gray,
@@ -258,6 +265,7 @@ class AppStyle {
       fontWeight: FontWeight.w500,
     ),
   );
+
   static TextStyle meduimRed14 = GoogleFonts.inter(
     textStyle: TextStyle(
       color: AppColors.red,
