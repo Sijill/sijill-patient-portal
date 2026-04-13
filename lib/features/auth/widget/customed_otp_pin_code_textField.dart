@@ -8,21 +8,36 @@ import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 typedef Validator = String? Function(String?)?;
 
-class CustomedOtpPinCodeTextfield extends StatelessWidget {
+class CustomedOtpPinCodeTextfield extends StatefulWidget {
   final TextEditingController otpController;
   final Validator validator;
-  CustomedOtpPinCodeTextfield({
+  const CustomedOtpPinCodeTextfield({
     super.key,
     required this.otpController,
     this.validator,
   });
+
+  @override
+  State<CustomedOtpPinCodeTextfield> createState() =>
+      _CustomedOtpPinCodeTextfieldState();
+}
+
+class _CustomedOtpPinCodeTextfieldState
+    extends State<CustomedOtpPinCodeTextfield> {
   final StreamController<ErrorAnimationType> errorController =
       StreamController();
 
   @override
+  void dispose() {
+    errorController.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
-      validator: validator,
+      validator: widget.validator,
+      autovalidateMode: AutovalidateMode.disabled,
       errorTextSpace: 20.h,
       length: 6,
       obscureText: false,
@@ -43,7 +58,7 @@ class CustomedOtpPinCodeTextfield extends StatelessWidget {
       animationDuration: Duration(milliseconds: 300),
       enableActiveFill: true,
       errorAnimationController: errorController,
-      controller: otpController,
+      controller: widget.otpController,
       onCompleted: (value) {},
 
       beforeTextPaste: (text) {

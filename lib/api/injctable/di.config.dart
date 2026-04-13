@@ -39,6 +39,8 @@ import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart'
     as _i807;
 import '../../features/tabs/home_tab/presentation/cubit/home_tab_cubt.dart'
     as _i93;
+import '../../features/tabs/medical_identiti/cubit/medical_identity_cubit.dart'
+    as _i495;
 import '../data_sources/remote/auth/auth_data_sources_impl.dart' as _i62;
 import '../dio/dio_medule.dart' as _i322;
 import '../web_service.dart' as _i410;
@@ -54,6 +56,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit());
     gh.factory<_i807.OnboardingCubit>(() => _i807.OnboardingCubit());
     gh.factory<_i93.HomeTabCubt>(() => _i93.HomeTabCubt());
+    gh.factory<_i495.MedicalIdentityCubit>(() => _i495.MedicalIdentityCubit());
     gh.lazySingleton<_i361.BaseOptions>(() => dioModule.provideBaseOptions());
     gh.lazySingleton<_i528.PrettyDioLogger>(
       () => dioModule.providePrettyDioLogger(),

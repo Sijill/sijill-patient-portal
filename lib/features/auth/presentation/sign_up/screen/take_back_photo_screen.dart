@@ -30,10 +30,9 @@ class _TakeBackPhotoScreenState extends State<TakeBackPhotoScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomedTakePhoto(
-      title: "Take a clear photo of the back of your National ID",
+      title: "Take a clear photo of the back of your national ID",
       subTitle:
-          "Make sure all information is visible and readable.\n"
-          "Avoid glare and shadows.",
+          "Make sure all information is visible.\nAvoid glare and shadow.",
       firstIcon: Icons.circle_outlined,
       middleIcon: Icons.circle,
       lastIcon: Icons.circle_outlined,

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
@@ -31,7 +32,7 @@ class OnboardingScreen extends StatelessWidget {
 
         titleWidget: AutoSizeText(
           title,
-          style: AppStyle.semiBoldBlack22,
+          style: AppStyle.semiBoldBlack24,
           textAlign: TextAlign.center,
         ),
         bodyWidget: AutoSizeText(
@@ -39,7 +40,7 @@ class OnboardingScreen extends StatelessWidget {
           style: AppStyle.semiBoldGrey16,
           textAlign: TextAlign.center,
         ),
-        image: Image.asset(image, height: hight * 0.45, fit: BoxFit.fill),
+        image: SvgPicture.asset(image, height: hight * 0.45, fit: BoxFit.fill),
       );
     }
 

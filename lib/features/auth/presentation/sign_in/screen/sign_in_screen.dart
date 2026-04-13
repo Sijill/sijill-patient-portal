@@ -67,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         },
                         prefixIcon: Icon(
                           Icons.mail,
-                          color: AppColors.gray,
+                          color: AppColors.black,
                           size: 25.sp,
                         ),
                       ),
@@ -83,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         hintColor: AppColors.black,
                         prefixIcon: Icon(
                           Icons.lock,
-                          color: AppColors.gray,
+                          color: AppColors.black,
                           size: 25.sp,
                         ),
                       ),
@@ -103,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             builder: (context, state) {
                               return Checkbox(
                                 value: viewModel.rememberMe,
-                                activeColor: AppColors.blueLight,
+                                activeColor: AppColors.black,
                                 onChanged: (val) {
                                   viewModel.changeRememberMe(val!);
                                 },

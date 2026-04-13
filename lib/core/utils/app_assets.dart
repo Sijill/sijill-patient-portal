@@ -31,14 +31,33 @@ class AppAssets {
   static const String labTest = "assets/images/lab_test.png";
   static const String medicines = "assets/images/medicines.png";
   static const String system = "assets/images/system.png";
+  static const String medicalIdentity = "assets/images/medical_identity.png";
+  static const String genderImg = "assets/images/gender_img.png";
+  static const String bloodType = "assets/images/blood_type.png";
+  static const String weightImg = "assets/images/weight_img.png";
+  static const String heightImg = "assets/images/height_img.png";
+  static const String bmiImg = "assets/images/bmi_img.png";
+  static const String ageImg = "assets/images/age_img.png";
+  static const String phoneOffImg = "assets/images/phone_off_img.png";
+  static const String chronicConditionsImg =
+      "assets/images/chronic_conditions_img.png";
+  static const String allergiesImg = "assets/images/allergies_img.png";
+  static const String activeDiagnosisImg =
+      "assets/images/active_diagnosis_img.png";
+  static const String emergencyContactsImg =
+      "assets/images/emergency_contacts_img.png";
+  static const String currentMedicationsImg =
+      "assets/images/current_medications_img.png";
+  static const String addEmergencyContactImg =
+      "assets/images/add_emergency_contact_img.png";
+  static const String cameraImg = "assets/images/camera.png";
 
-  static const String onboarding1 = "assets/images/onboarding1.png";
-  static const String onboarding2 = "assets/images/onboarding2.png";
-  static const String onboarding3 = "assets/images/onboarding3.png";
+  static const String onboarding1 = "assets/svg/onboarding1.svg";
+  static const String onboarding2 = "assets/svg/onboarding2.svg";
+  static const String onboarding3 = "assets/svg/onboarding3.svg";
   static const String sigIinImg = "assets/images/sign_in.jpg";
   static const String authBg = "assets/images/auth_pg.jpeg";
   static const String gender = "assets/images/gender.png";
-  static const String profileImage = "assets/images/profile_image.png";
   static const String homeBg = "assets/images/home_bg.png";
 
   static const String roleImage = "assets/images/role_img.png";
