@@ -8,10 +8,10 @@ import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_cubit.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_auth_button.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_logo.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_drop_down.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_drop_down.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

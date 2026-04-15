@@ -6,8 +6,8 @@ import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_cubit.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_state.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_take_photo.dart';
 
 class TakeNatioalPhotoScreen extends StatefulWidget {

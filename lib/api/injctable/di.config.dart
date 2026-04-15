@@ -33,12 +33,10 @@ import '../../domain/use_cases/auth/register/register_resend_otp_use_case.dart'
 import '../../domain/use_cases/auth/register/register_use_case.dart' as _i350;
 import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
-import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
-import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
-import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart'
-    as _i807;
-import '../../features/tabs/home_tab/presentation/cubit/home_tab_cubt.dart'
-    as _i93;
+import '../../features/auth/cubit/auth_cubit.dart' as _i117;
+import '../../features/home/cubit/home_cubit.dart' as _i9;
+import '../../features/onboarding/cubit/onboarding_cubit.dart' as _i807;
+import '../../features/tabs/home_tab/cubit/home_tab_cubt.dart' as _i93;
 import '../../features/tabs/medical_identiti/cubit/medical_identity_cubit.dart'
     as _i495;
 import '../data_sources/remote/auth/auth_data_sources_impl.dart' as _i62;

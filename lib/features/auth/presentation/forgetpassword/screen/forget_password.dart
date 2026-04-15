@@ -12,8 +12,8 @@ import 'package:sijil_patient_portal/core/utils/customed_button.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_request.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_cubit.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_state.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_logo.dart';
 
 class ForgetPassword extends StatefulWidget {
