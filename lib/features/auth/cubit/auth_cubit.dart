@@ -20,7 +20,7 @@ import 'package:sijil_patient_portal/domain/use_cases/auth/password_reset/passwo
 import 'package:sijil_patient_portal/domain/use_cases/auth/register/register_resend_otp_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/auth/register/register_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/auth/register/register_verify_otp_use_case.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_state.dart';
 
 @injectable
 class AuthCubit extends Cubit<AuthState> {

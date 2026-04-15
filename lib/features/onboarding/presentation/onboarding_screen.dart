@@ -8,7 +8,7 @@ import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/onboarding/presentation/cubit/onboarding_cubit.dart';
+import 'package:sijil_patient_portal/features/onboarding/cubit/onboarding_cubit.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

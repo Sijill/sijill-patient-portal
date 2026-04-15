@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/cubit/home_tab_state.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state.dart';
 
 @injectable
 class HomeTabCubt extends Cubit<HomeTabState> {

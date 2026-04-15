@@ -6,8 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
-import 'package:sijil_patient_portal/features/home/presentation/cubit/home_cubit.dart';
-import 'package:sijil_patient_portal/features/home/presentation/cubit/home_state.dart';
+import 'package:sijil_patient_portal/features/home/cubit/home_cubit.dart';
+import 'package:sijil_patient_portal/features/home/cubit/home_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -7,9 +7,9 @@ import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_logo.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_gradient_container_item.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_reminders_item.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_today_schedule_item.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_gradient_container_item.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_reminders_item.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_today_schedule_item.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});

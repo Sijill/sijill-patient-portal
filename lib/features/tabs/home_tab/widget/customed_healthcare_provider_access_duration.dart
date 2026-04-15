@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_drop_down.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_drop_down.dart';
 
 class CustomedHealthcareProviderAccessDuration extends StatefulWidget {
   const CustomedHealthcareProviderAccessDuration({super.key});
