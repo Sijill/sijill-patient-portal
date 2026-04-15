@@ -7,8 +7,8 @@ import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_resend_otp_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_verify_otp_request.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:sijil_patient_portal/features/auth/presentation/cubit/auth_state.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_cubit.dart';
+import 'package:sijil_patient_portal/features/auth/cubit/auth_state.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_otp_content.dart';
 
 class OtpSignupVerification extends StatefulWidget {
