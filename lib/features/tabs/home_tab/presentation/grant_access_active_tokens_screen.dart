@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sijil_patient_portal/api/model/home_tab/active_tokens_model.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_active_tokens_item.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_active_tokens_item.dart';
 
 class GrantAccessActiveTokensScreen extends StatelessWidget {
   const GrantAccessActiveTokensScreen({super.key});

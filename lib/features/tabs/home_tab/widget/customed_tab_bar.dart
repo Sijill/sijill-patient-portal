@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/cubit/home_tab_cubt.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/cubit/home_tab_state.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state.dart';
 
 class CustomedTabBar extends StatefulWidget {
   const CustomedTabBar({super.key});

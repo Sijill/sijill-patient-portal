@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_imaging_center_laboratory.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_imaging_center_laboratory.dart';
 
 class GrantAccessImagingCenterLaboratoryScreen extends StatelessWidget {
   const GrantAccessImagingCenterLaboratoryScreen({super.key});

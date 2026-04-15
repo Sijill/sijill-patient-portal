@@ -5,9 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_notifications_item.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_read_message.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_tab_bar.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_notifications_item.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_read_message.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_tab_bar.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});

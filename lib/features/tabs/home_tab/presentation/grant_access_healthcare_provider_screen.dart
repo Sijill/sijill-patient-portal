@@ -9,9 +9,9 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/cubit/home_tab_cubt.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_healthcare_provider_access_duration.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/widget/customed_healthcare_provider_access_type.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_healthcare_provider_access_duration.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_healthcare_provider_access_type.dart';
 
 class GrantAccessHealthcareProviderScreen extends StatelessWidget {
   const GrantAccessHealthcareProviderScreen({super.key});
