@@ -10,13 +10,14 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state.dart';
 
 class CustomedDropDown extends StatefulWidget {
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String hint;
   final String? Function(String?)? onValidate;
 
   final List<String> bottoShowSelectItem;
   final double? bottomSheetHeight;
-  final double? bottomSheetWidth;
+  final double? bottomSheetLeft;
+  final double? bottomSheetRight;
   final Color? backgroundColor;
   final double? containerWidth;
   final double? fontSize;
@@ -29,17 +30,18 @@ class CustomedDropDown extends StatefulWidget {
     super.key,
     required this.bottoShowSelectItem,
     this.bottomSheetHeight,
-    this.bottomSheetWidth,
     this.backgroundColor,
     this.containerWidth,
     this.fontSize,
     this.prefixIcon,
     this.heightDrobdown,
     this.widthDropdown,
-    this.controller,
+    required this.controller,
     this.onValidate,
     required this.hint,
     this.paddingVerticalItem,
+    this.bottomSheetLeft,
+    this.bottomSheetRight,
   });
 
   @override
@@ -47,18 +49,22 @@ class CustomedDropDown extends StatefulWidget {
 }
 
 class _CustomedDropDownState extends State<CustomedDropDown> {
-  final viewodel = getIt<HomeTabCubt>();
   @override
   void initState() {
     super.initState();
-    viewodel.selectItem = widget.hint;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeTabCubt>().setInitialValue(
+        key: widget.hint,
+        value: widget.hint,
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeTabCubt, HomeTabState>(
-      bloc: viewodel,
       builder: (context, state) {
+        final viewodel = context.read<HomeTabCubt>();
         return CustomTextField(
           onTap: () {
             showModalBottomSheet(
@@ -70,8 +76,8 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
                 ),
                 margin: EdgeInsets.only(
                   bottom: widget.bottomSheetHeight ?? 50.h,
-                  left: widget.bottomSheetWidth ?? 105.w,
-                  right: widget.bottomSheetWidth ?? 0,
+                  left: widget.bottomSheetLeft ?? 105.w,
+                  right: widget.bottomSheetRight ?? 0,
                 ),
                 height: widget.heightDrobdown ?? 130.h,
                 width: widget.widthDropdown ?? 170.w,
@@ -83,12 +89,13 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
                   itemBuilder: (context, index) => InkWell(
                     onTap: () {
                       final value = widget.bottoShowSelectItem[index];
-                      viewodel.changeSelectItem(value);
-                      widget.controller?.text = value;
+                      viewodel.changeSelectItem(key: widget.hint, value: value);
+                      widget.controller.text = value;
                       Navigator.of(context).pop();
                     },
                     child:
-                        viewodel.selectItem == widget.bottoShowSelectItem[index]
+                        viewodel.selectedItems[widget.hint] ==
+                            widget.bottoShowSelectItem[index]
                         ? Container(
                             padding: EdgeInsets.symmetric(vertical: 2.h),
                             margin: EdgeInsets.symmetric(horizontal: 8.w),
@@ -149,125 +156,3 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
     );
   }
 }
-
-
-// Container(
-//       width: widget.containerWidth ?? 155.w,
-//       height: 55.h,
-//       padding: EdgeInsets.symmetric(horizontal: 12.w),
-//       decoration: BoxDecoration(
-//         color: widget.backgroundColor ?? AppColors.white,
-//         borderRadius: BorderRadius.circular(8.r),
-//       ),
-//       child: BlocBuilder<HomeTabCubt, HomeTabState>(
-//         bloc: viewodel,
-//         builder: (context, state) {
-//           return Row(
-//             children: [
-//               widget.prefixIcon != null
-//                   ? Row(
-//                       children: [
-//                         Padding(
-//                           padding: EdgeInsets.only(left: 10.w),
-//                           child: Icon(
-//                             widget.prefixIcon,
-//                             size: 24.sp,
-//                             color: AppColors.black,
-//                           ),
-//                         ),
-//                         SizedBox(width: 16.w),
-//                       ],
-//                     )
-//                   : SizedBox(),
-//               Text(
-//                 viewodel.selectItem,
-//                 style: AppStyle.mediumBlack16.copyWith(
-//                   fontSize: widget.fontSize ?? 20.sp,
-//                 ),
-//               ),
-//               Spacer(),
-//               InkWell(
-//                 onTap: () {
-//                   showModalBottomSheet(
-//                     backgroundColor: AppColors.transparent,
-//                     context: context,
-//                     builder: (context) => Container(
-//                       padding: EdgeInsets.symmetric(vertical: 8.h),
-//                       margin: EdgeInsets.only(
-//                         bottom: widget.bottomSheetHeight ?? 50.h,
-//                         left: widget.bottomSheetWidth ?? 105.w,
-//                         right: widget.bottomSheetWidth ?? 0,
-//                       ),
-//                       height: widget.heightDrobdown ?? 130.h,
-//                       width: widget.widthDropdown ?? 170.w,
-//                       decoration: BoxDecoration(
-//                         color: AppColors.white,
-//                         borderRadius: BorderRadius.circular(8.r),
-//                       ),
-//                       child: ListView.separated(
-//                         itemBuilder: (context, index) => InkWell(
-//                           onTap: () {
-//                             viewodel.changeSelectItem(
-//                               widget.bottoShowSelectItem[index],
-//                             );
-//                             Navigator.of(context).pop();
-//                           },
-//                           child:
-//                               viewodel.selectItem ==
-//                                   widget.bottoShowSelectItem[index]
-//                               ? Container(
-//                                   padding: EdgeInsets.symmetric(vertical: 2.h),
-//                                   margin: EdgeInsets.symmetric(horizontal: 8.w),
-//                                   decoration: BoxDecoration(
-//                                     color: AppColors.primaryColor,
-//                                   ),
-//                                   child: Row(
-//                                     mainAxisAlignment:
-//                                         MainAxisAlignment.spaceBetween,
-//                                     children: [
-//                                       AutoSizeText(
-//                                         widget.bottoShowSelectItem[index],
-//                                         style: AppStyle.mediumBlack16.copyWith(
-//                                           fontSize: widget.fontSize ?? 20.sp,
-//                                         ),
-//                                       ),
-//                                       Icon(
-//                                         Icons.check,
-//                                         color: AppColors.black,
-//                                         size: 25.sp,
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 )
-//                               : Padding(
-//                                   padding: EdgeInsets.symmetric(
-//                                     horizontal: 8.w,
-//                                     vertical: 2.h,
-//                                   ),
-//                                   child: AutoSizeText(
-//                                     widget.bottoShowSelectItem[index],
-//                                     style: AppStyle.mediumBlack16.copyWith(
-//                                       fontSize: widget.fontSize ?? 20.sp,
-//                                     ),
-//                                   ),
-//                                 ),
-//                         ),
-//                         separatorBuilder: (context, index) =>
-//                             SizedBox(height: 5.h),
-//                         itemCount: widget.bottoShowSelectItem.length,
-//                       ),
-//                     ),
-//                   );
-//                 },
-//                 child: Icon(
-//                   Icons.arrow_drop_down_outlined,
-//                   color: AppColors.black,
-//                   size: 35.sp,
-//                 ),
-//               ),
-//             ],
-//           );
-//         },
-//       ),
-//     );
-  

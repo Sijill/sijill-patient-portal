@@ -7,6 +7,8 @@ import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/my_bloc_observer.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,15 @@ Future<void> main() async {
   final bool onboarding = SharedPrefsUtils.getOnboarding();
   final String? accessToken = SharedPrefsUtils.getAccessToken();
 
-  runApp(MyApp(onboarding: onboarding, accessToken: accessToken));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<HomeTabCubt>()),
+        BlocProvider(create: (context) => getIt<PermissionTokenCubit>()),
+      ],
+      child: MyApp(onboarding: onboarding, accessToken: accessToken),
+    ),
+  );
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

@@ -27,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     lNameController.dispose();
     nationalIdController.dispose();
     genderController.dispose();
+    dateController.dispose();
     super.dispose();
   }
 
@@ -103,7 +104,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: genderController,
                     prefixIcon: Icons.transgender,
                     hint: "Gender",
-                    bottomSheetWidth: 16.w,
+                    bottomSheetLeft: 16.w,
+                    bottomSheetRight: 16.w,
                     bottomSheetHeight: 225.h,
                     heightDrobdown: 95.h,
                     fontSize: 16.sp,

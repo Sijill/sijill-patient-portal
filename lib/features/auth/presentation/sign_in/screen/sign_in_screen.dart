@@ -77,7 +77,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         isPassword: true,
                         maxLines: 1,
                         onValidate: (val) {
-                          return AppValidators.validatePassword(val);
+                          return AppValidators.validatePasswordSignIn(val);
                         },
                         hint: "Password",
                         hintColor: AppColors.black,

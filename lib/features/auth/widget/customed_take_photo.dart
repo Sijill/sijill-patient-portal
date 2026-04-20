@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sijil_patient_portal/core/utils/Padding.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_dialog.dart';

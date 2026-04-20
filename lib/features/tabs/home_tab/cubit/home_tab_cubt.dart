@@ -5,10 +5,15 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state
 @injectable
 class HomeTabCubt extends Cubit<HomeTabState> {
   HomeTabCubt() : super(HomeTabIntialState());
-  late String selectItem;
-  void changeSelectItem(String item) {
-    selectItem = item;
-    emit(SelectItemState());
+  Map<String, String> selectedItems = {};
+  void changeSelectItem({required String key, required String value}) {
+    selectedItems[key] = value;
+    emit(ChangeSelectItemState());
+  }
+
+  void setInitialValue({required String key, required String value}) {
+    selectedItems[key] = value;
+    emit(ChangeSelectItemState());
   }
 
   Set<int> choiceValue = {};
@@ -32,12 +37,5 @@ class HomeTabCubt extends Cubit<HomeTabState> {
   void tabBarClick(int index) {
     selectItemFromNotification = index;
     emit(SelectItemFromNotificationSuccessState());
-  }
-
-  int selectedAccessIndex = -1;
-
-  void selectAccessType(int index) {
-    selectedAccessIndex = index;
-    emit(SelectAccessClickSuccessState());
   }
 }

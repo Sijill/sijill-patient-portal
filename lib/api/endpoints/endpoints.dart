@@ -12,4 +12,6 @@ class Endpoints {
   static const String passwordResetConfirmApi =
       "/api/v1/auth/password-reset/confirm";
   static const String refreshTokenApi = "/api/v1/auth/refresh";
+  static const String generatePermissionTokenApi =
+      "/api/v1/clinical/permission-tokens";
 }
