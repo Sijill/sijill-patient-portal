@@ -125,14 +125,15 @@ class _GrantAccessHealthcareProviderScreenState
                             AppDialog.showDialogMessage(message: state.message);
                           } else if (state is GeneratePermissionTokenSuccess) {
                             DialogUtils.hideLoading(context);
-
                             if (!context.mounted) return;
-
-                            Future.microtask(() {
-                              Navigator.of(
-                                context,
-                              ).pushNamed(AppRoutes.grantAccessPermissionToken);
-                            });
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.grantAccessPermissionToken)
+                                .then((_) {
+                                  final cubit = context
+                                      .read<PermissionTokenCubit>();
+                                  cubit.resetGrantAccess();
+                                  timeController.clear();
+                                });
                           }
                         },
                         child: CustomedButton(

@@ -4,13 +4,17 @@ import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_state.dart';
 
 @injectable
 class PermissionTokenCubit extends Cubit<PermissionTokenState> {
   GeneratePermissionTokenUseCase generatePermissionTokenUseCase;
-  PermissionTokenCubit({required this.generatePermissionTokenUseCase})
-    : super(PermissionTokenInitial());
+  GetPermissionTokenUseCase getPermissionTokenUseCase;
+  PermissionTokenCubit({
+    required this.generatePermissionTokenUseCase,
+    required this.getPermissionTokenUseCase,
+  }) : super(PermissionTokenInitial());
 
   int selectedAccessType = 0;
   String getAccessTypeValue() {
@@ -31,7 +35,12 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
     emit(SelectAccessClickSuccessState());
   }
 
-  void generatePermissionToken({
+  void resetGrantAccess() {
+    selectedAccessType = 0;
+    emit(PermissionTokenInitial());
+  }
+
+  Future<void> generatePermissionToken({
     required GeneratePermissionTokenRequest generatePermissionTokenRequest,
   }) async {
     try {
@@ -54,6 +63,28 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
       emit(GeneratePermissionTokenError(message: message));
     } catch (e) {
       emit(GeneratePermissionTokenError(message: e.toString()));
+    }
+  }
+
+  Future<void> getPermissionToken() async {
+    emit(GetPermissionTokenILoading());
+    try {
+      final getPermissionTokenResponse = await getPermissionTokenUseCase
+          .invoke();
+      emit(
+        GetPermissionTokenSuccess(
+          getPermissionTokenResponse: getPermissionTokenResponse,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(GetPermissionTokenError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(GetPermissionTokenError(message: message));
+    } catch (e) {
+      emit(GetPermissionTokenError(message: e.toString()));
     }
   }
 }

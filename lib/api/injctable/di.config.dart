@@ -41,6 +41,8 @@ import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
 import '../../domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart'
     as _i535;
+import '../../domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart'
+    as _i690;
 import '../../features/auth/cubit/auth_cubit.dart' as _i698;
 import '../../features/home/cubit/home_cubit.dart' as _i1032;
 import '../../features/onboarding/cubit/onboarding_cubit.dart' as _i547;
@@ -108,6 +110,18 @@ extension GetItInjectableX on _i174.GetIt {
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
       ),
     );
+    gh.factory<_i690.GetPermissionTokenUseCase>(
+      () => _i690.GetPermissionTokenUseCase(
+        permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
+      ),
+    );
+    gh.factory<_i182.PermissionTokenCubit>(
+      () => _i182.PermissionTokenCubit(
+        generatePermissionTokenUseCase:
+            gh<_i535.GeneratePermissionTokenUseCase>(),
+        getPermissionTokenUseCase: gh<_i690.GetPermissionTokenUseCase>(),
+      ),
+    );
     gh.factory<_i553.LoginResendOtpUseCase>(
       () => _i553.LoginResendOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
@@ -147,12 +161,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
-      ),
-    );
-    gh.factory<_i182.PermissionTokenCubit>(
-      () => _i182.PermissionTokenCubit(
-        generatePermissionTokenUseCase:
-            gh<_i535.GeneratePermissionTokenUseCase>(),
       ),
     );
     gh.factory<_i698.AuthCubit>(

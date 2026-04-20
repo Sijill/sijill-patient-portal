@@ -1,4 +1,5 @@
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_permission_token/generate_permission_token_response.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/response/get_permission_token/get_permission_token_response.dart';
 
 abstract class PermissionTokenState {}
 
@@ -19,4 +20,17 @@ class GeneratePermissionTokenError extends PermissionTokenState {
   String message;
 
   GeneratePermissionTokenError({required this.message});
+}
+
+class GetPermissionTokenILoading extends PermissionTokenState {}
+
+class GetPermissionTokenSuccess extends PermissionTokenState {
+  GetPermissionTokenResponse getPermissionTokenResponse;
+  GetPermissionTokenSuccess({required this.getPermissionTokenResponse});
+}
+
+class GetPermissionTokenError extends PermissionTokenState {
+  String message;
+
+  GetPermissionTokenError({required this.message});
 }
