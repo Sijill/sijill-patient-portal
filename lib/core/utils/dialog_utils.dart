@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
@@ -31,7 +30,4 @@ class DialogUtils {
   );
 
   static void hideLoading(BuildContext context) => Navigator.of(context).pop();
-
-  static void showMessage(String message) =>
-      Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
 }
