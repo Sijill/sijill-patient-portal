@@ -43,6 +43,8 @@ import '../../domain/use_cases/permission_token/generate_permission_token/genera
     as _i535;
 import '../../domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart'
     as _i690;
+import '../../domain/use_cases/permission_token/permission_token_revoke/permission_token_revoke_use_case.dart'
+    as _i90;
 import '../../features/auth/cubit/auth_cubit.dart' as _i698;
 import '../../features/home/cubit/home_cubit.dart' as _i1032;
 import '../../features/onboarding/cubit/onboarding_cubit.dart' as _i547;
@@ -115,11 +117,17 @@ extension GetItInjectableX on _i174.GetIt {
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
       ),
     );
+    gh.factory<_i90.PermissionTokenRevokeUseCase>(
+      () => _i90.PermissionTokenRevokeUseCase(
+        permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
+      ),
+    );
     gh.factory<_i182.PermissionTokenCubit>(
       () => _i182.PermissionTokenCubit(
         generatePermissionTokenUseCase:
             gh<_i535.GeneratePermissionTokenUseCase>(),
         getPermissionTokenUseCase: gh<_i690.GetPermissionTokenUseCase>(),
+        permissionTokenRevokeUseCase: gh<_i90.PermissionTokenRevokeUseCase>(),
       ),
     );
     gh.factory<_i553.LoginResendOtpUseCase>(

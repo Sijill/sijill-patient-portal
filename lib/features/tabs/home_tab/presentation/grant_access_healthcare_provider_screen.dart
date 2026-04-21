@@ -127,7 +127,12 @@ class _GrantAccessHealthcareProviderScreenState
                             DialogUtils.hideLoading(context);
                             if (!context.mounted) return;
                             Navigator.of(context)
-                                .pushNamed(AppRoutes.grantAccessPermissionToken)
+                                .pushNamed(
+                                  AppRoutes.grantAccessPermissionToken,
+                                  arguments: state
+                                      .generatePermissionTokenResponse
+                                      .tokenId,
+                                )
                                 .then((_) {
                                   final cubit = context
                                       .read<PermissionTokenCubit>();

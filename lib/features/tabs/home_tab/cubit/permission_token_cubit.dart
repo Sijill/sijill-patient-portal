@@ -3,17 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/request/permission_token_revoke/permission_token_revoke_request.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/permission_token/permission_token_revoke/permission_token_revoke_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_state.dart';
 
 @injectable
 class PermissionTokenCubit extends Cubit<PermissionTokenState> {
   GeneratePermissionTokenUseCase generatePermissionTokenUseCase;
   GetPermissionTokenUseCase getPermissionTokenUseCase;
+  PermissionTokenRevokeUseCase permissionTokenRevokeUseCase;
   PermissionTokenCubit({
     required this.generatePermissionTokenUseCase,
     required this.getPermissionTokenUseCase,
+    required this.permissionTokenRevokeUseCase,
   }) : super(PermissionTokenInitial());
 
   int selectedAccessType = 0;
@@ -85,6 +89,30 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
       emit(GetPermissionTokenError(message: message));
     } catch (e) {
       emit(GetPermissionTokenError(message: e.toString()));
+    }
+  }
+
+  Future<void> permissionRevokeToken({
+    required PermissionTokenRevokeRequest permissionTokenRevokeRequest,
+  }) async {
+    try {
+      emit(PermissionTokenRevokeILoading());
+      final permissionTokenRevokeResponse = await permissionTokenRevokeUseCase
+          .invoke(permissionTokenRevokeRequest: permissionTokenRevokeRequest);
+      emit(
+        PermissionTokenRevokeSuccess(
+          permissionTokenRevokeResponse: permissionTokenRevokeResponse,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(PermissionTokenRevokeError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(PermissionTokenRevokeError(message: message));
+    } catch (e) {
+      emit(PermissionTokenRevokeError(message: e.toString()));
     }
   }
 }

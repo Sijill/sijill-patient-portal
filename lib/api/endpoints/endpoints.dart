@@ -16,4 +16,6 @@ class Endpoints {
       "/api/v1/clinical/permission-tokens";
   static const String getPermissionTokenApi =
       "/api/v1/clinical/permission-tokens";
+  static const String permissionTokenRevokeApi =
+      "/api/v1/clinical/permission-tokens/{tokenId}/revoke";
 }
