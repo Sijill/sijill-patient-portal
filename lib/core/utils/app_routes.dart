@@ -3,6 +3,8 @@ import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/s
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/sign_in_screen.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/sign_up_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/health_journal_tab.dart';
+import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/health_snapshot_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/type_diabets_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_active_tokens_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_healthcare_provider_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_imaging_center_laboratory_screen.dart';
@@ -53,6 +55,8 @@ class AppRoutes {
   static const String grantAccessActiveTokensScreen =
       "/grantAccessActiveTokensScreen";
   static const String notificationsScreen = "/notificationsScreen";
+  static const String typeDiabetsScreen = "/typeDiabetsScreen";
+  static const String healthSnapshotScreen = "/healthSnapshotScreen";
 
   static Map<String, Widget Function(BuildContext)> routeScreen = {
     AppRoutes.homeScreen: (context) => HomeScreen(),
@@ -83,5 +87,7 @@ class AppRoutes {
     AppRoutes.grantAccessActiveTokensScreen: (context) =>
         GrantAccessActiveTokensScreen(),
     AppRoutes.notificationsScreen: (context) => NotificationsScreen(),
+    AppRoutes.typeDiabetsScreen: (context) => TypeDiabetsScreen(),
+    AppRoutes.healthSnapshotScreen: (context) => HealthSnapshotScreen(),
   };
 }

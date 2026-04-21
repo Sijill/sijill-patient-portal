@@ -55,10 +55,9 @@ class AppAssets {
   static const String onboarding1 = "assets/svg/onboarding1.svg";
   static const String onboarding2 = "assets/svg/onboarding2.svg";
   static const String onboarding3 = "assets/svg/onboarding3.svg";
-  static const String sigIinImg = "assets/images/sign_in.jpg";
-  static const String authBg = "assets/images/auth_pg.jpeg";
-  static const String gender = "assets/images/gender.png";
-  static const String homeBg = "assets/images/home_bg.png";
-
-  static const String roleImage = "assets/images/role_img.png";
+  static const String overallProgress = "assets/images/overall_progress.png";
+  static const String painLevel = "assets/images/pain_level.png";
+  static const String progressDetails = "assets/images/progress_details.png";
+  static const String energyLevel = "assets/images/energy_level.png";
+  static const String healthSnapshot = "assets/images/health_snapshot.png";
 }

@@ -69,7 +69,6 @@ class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
                   controller: relationshipController,
                   prefixIcon: Icons.people_alt_outlined,
                   fontSize: 16.sp,
-                  containerWidth: double.infinity,
                   backgroundColor: AppColors.primaryColor,
                   hint: "Relationship",
                   widthDropdown: double.infinity,
