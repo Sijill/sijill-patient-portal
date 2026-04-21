@@ -18,7 +18,7 @@ class CustomedDropDown extends StatefulWidget {
   final double? bottomSheetLeft;
   final double? bottomSheetRight;
   final Color? backgroundColor;
-  final double? containerWidth;
+  final Color? textColor;
   final double? fontSize;
   final double? heightDrobdown;
   final double? widthDropdown;
@@ -30,7 +30,6 @@ class CustomedDropDown extends StatefulWidget {
     required this.bottoShowSelectItem,
     this.bottomSheetHeight,
     this.backgroundColor,
-    this.containerWidth,
     this.fontSize,
     this.prefixIcon,
     this.heightDrobdown,
@@ -41,6 +40,7 @@ class CustomedDropDown extends StatefulWidget {
     this.paddingVerticalItem,
     this.bottomSheetLeft,
     this.bottomSheetRight,
+    this.textColor,
   });
 
   @override
@@ -138,6 +138,9 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
             );
           },
           hint: widget.hint,
+          hintStyle: AppStyle.mediumBlack16.copyWith(
+            color: widget.textColor ?? AppColors.black,
+          ),
           fillColor: widget.backgroundColor,
           controller: widget.controller,
           readOnly: true,
