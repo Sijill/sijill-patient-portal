@@ -30,30 +30,10 @@ class AppColors {
   static const Color brown = Color(0xFF914010);
   static const Color lightGreen2 = Color(0xFFF0FDF4);
   static const Color transparent = Colors.transparent;
-
   static const Color orange = Colors.orange;
-  static const Color background = Color(0xFFF2F6FF);
+  static const Color orangeAccent = Colors.orangeAccent;
   static const Color grey = Colors.grey;
-
   static const Color darkGreen = Color.fromARGB(255, 40, 177, 45);
-  static Color authContainerColor = Colors.blue.withOpacity(0.10);
-  static Color authBorderColor = Colors.white.withOpacity(0.5);
-  static Color containerLightBlueColor = const Color.fromARGB(
-    255,
-    69,
-    111,
-    173,
-  ).withAlpha(190);
-  static Color containerMeduimBlueColor = const Color.fromARGB(
-    255,
-    80,
-    132,
-    210,
-  );
-  static Color containerDarkBlueColor = const Color.fromARGB(
-    255,
-    29,
-    78,
-    151,
-  ).withAlpha(210);
+  static const Color green1 = Color(0xFF27FF00);
+  static const Color green2 = Color(0xFF60A254);
 }
