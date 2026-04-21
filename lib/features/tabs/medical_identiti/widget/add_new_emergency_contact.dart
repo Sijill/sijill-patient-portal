@@ -46,82 +46,85 @@ class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
             color: AppColors.white,
             borderRadius: BorderRadius.circular(20.r),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                "Add New Emergency Contact",
-                style: AppStyle.semiBoldBlack20,
-              ),
-              SizedBox(height: 35.h),
-              CustomTextField(
-                hint: "Name",
-                prefixIcon: Icon(Icons.person, color: AppColors.black),
-              ),
-              SizedBox(height: 20.h),
-              CustomTextField(
-                hint: "Phone",
-                prefixIcon: Icon(Icons.phone, color: AppColors.black),
-              ),
-              SizedBox(height: 20.h),
-              CustomedDropDown(
-                controller: relationshipController,
-                prefixIcon: Icons.people_alt_outlined,
-                fontSize: 16.sp,
-                containerWidth: double.infinity,
-                backgroundColor: AppColors.primaryColor,
-                hint: "Relationship",
-                widthDropdown: double.infinity,
-                bottomSheetWidth: 32.w,
-                bottoShowSelectItem: [
-                  "Parent",
-                  "Sibling",
-                  "Spouse",
-                  "Child",
-                  "Relative",
-                  "Friend",
-                  "Neighbor",
-                  "Colleague",
-                  "Guardian",
-                  "Other",
-                ],
-              ),
-              SizedBox(height: 20.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Is Primary", style: AppStyle.boldBlack20),
-                  BlocBuilder<MedicalIdentityCubit, MedicalIdentityState>(
-                    builder: (context, state) {
-                      final cubit = context.watch<MedicalIdentityCubit>();
-                      return InkWell(
-                        onTap: () {
-                          cubit.toggleSelectItem();
-                        },
-                        child: SvgPicture.asset(
-                          cubit.selectItem == true
-                              ? AppAssets.selectAccessLight
-                              : AppAssets.selectAccess,
-                          height: 40.h,
-                          width: 40.w,
-                          fit: BoxFit.scaleDown,
-                        ),
-                      );
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  "Add New Emergency Contact",
+                  style: AppStyle.semiBoldBlack20,
+                ),
+                SizedBox(height: 35.h),
+                CustomTextField(
+                  hint: "Name",
+                  prefixIcon: Icon(Icons.person, color: AppColors.black),
+                ),
+                SizedBox(height: 20.h),
+                CustomTextField(
+                  hint: "Phone",
+                  prefixIcon: Icon(Icons.phone, color: AppColors.black),
+                ),
+                SizedBox(height: 20.h),
+                CustomedDropDown(
+                  controller: relationshipController,
+                  prefixIcon: Icons.people_alt_outlined,
+                  fontSize: 16.sp,
+                  containerWidth: double.infinity,
+                  backgroundColor: AppColors.primaryColor,
+                  hint: "Relationship",
+                  widthDropdown: double.infinity,
+                  bottomSheetLeft: 32.w,
+                  bottomSheetRight: 32.w,
+                  bottoShowSelectItem: [
+                    "Parent",
+                    "Sibling",
+                    "Spouse",
+                    "Child",
+                    "Relative",
+                    "Friend",
+                    "Neighbor",
+                    "Colleague",
+                    "Guardian",
+                    "Other",
+                  ],
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AutoSizeText("Is Primary", style: AppStyle.boldBlack20),
+                    BlocBuilder<MedicalIdentityCubit, MedicalIdentityState>(
+                      builder: (context, state) {
+                        final cubit = context.watch<MedicalIdentityCubit>();
+                        return InkWell(
+                          onTap: () {
+                            cubit.toggleSelectItem();
+                          },
+                          child: SvgPicture.asset(
+                            cubit.selectItem == true
+                                ? AppAssets.selectAccessLight
+                                : AppAssets.selectAccess,
+                            height: 40.h,
+                            width: 40.w,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.h),
+                Center(
+                  child: CustomedButton(
+                    horizontal: 80.w,
+                    text: "Add",
+                    onPressed: () {
+                      Navigator.of(context).pop();
                     },
                   ),
-                ],
-              ),
-              SizedBox(height: 10.h),
-              Center(
-                child: CustomedButton(
-                  horizontal: 80.w,
-                  text: "Add",
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -7,6 +7,7 @@ class AuthInterceptor extends Interceptor {
   final Dio refreshDio;
 
   bool _isRefreshing = false;
+  final List<Future<void> Function()> _retryQueue = [];
 
   AuthInterceptor(this.dio, this.refreshDio);
 
@@ -23,45 +24,71 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401 && !_isRefreshing) {
-      _isRefreshing = true;
+    if (err.requestOptions.path.contains("refresh")) {
+      return handler.next(err);
+    }
 
-      try {
-        final refreshToken = SharedPrefsUtils.getRefreshToken();
+    if (err.response?.statusCode != 401) {
+      return handler.next(err);
+    }
 
-        final response = await refreshDio.post(
-          Endpoints.refreshTokenApi,
-          data: {"refreshToken": refreshToken},
-          options: Options(
-            headers: {
-              "Authorization": "Bearer ${SharedPrefsUtils.getAccessToken()}",
-            },
-          ),
-        );
+    final requestOptions = err.requestOptions;
 
-        final newAccessToken = response.data["accessToken"];
-        final newRefreshToken = response.data["refreshToken"];
+    if (_isRefreshing) {
+      _retryQueue.add(() async {
+        final newToken = SharedPrefsUtils.getAccessToken();
+        requestOptions.headers["Authorization"] = "Bearer $newToken";
 
-        await SharedPrefsUtils.saveData(
-          key: "accessToken",
-          value: newAccessToken,
-        );
+        final response = await dio.fetch(requestOptions);
+        handler.resolve(response);
+      });
+      return;
+    }
 
-        await SharedPrefsUtils.saveData(
-          key: "refreshToken",
-          value: newRefreshToken,
-        );
+    _isRefreshing = true;
 
-        _isRefreshing = false;
+    try {
+      final refreshToken = SharedPrefsUtils.getRefreshToken();
 
-        final clonedRequest = await dio.fetch(err.requestOptions);
-        return handler.resolve(clonedRequest);
-      } catch (e) {
+      if (refreshToken == null || refreshToken.isEmpty) {
         _isRefreshing = false;
         return handler.next(err);
       }
-    }
 
-    return handler.next(err);
+      final response = await refreshDio.post(
+        Endpoints.refreshTokenApi,
+        data: {"refreshToken": refreshToken},
+      );
+
+      final newAccessToken = response.data["accessToken"];
+      final newRefreshToken = response.data["refreshToken"];
+
+      await SharedPrefsUtils.saveData(
+        key: "accessToken",
+        value: newAccessToken,
+      );
+
+      await SharedPrefsUtils.saveData(
+        key: "refreshToken",
+        value: newRefreshToken,
+      );
+
+      for (final retry in _retryQueue) {
+        await retry();
+      }
+      _retryQueue.clear();
+
+      _isRefreshing = false;
+
+      requestOptions.headers["Authorization"] = "Bearer $newAccessToken";
+
+      final clonedRequest = await dio.fetch(requestOptions);
+      return handler.resolve(clonedRequest);
+    } catch (e) {
+      _isRefreshing = false;
+      _retryQueue.clear();
+
+      return handler.next(err);
+    }
   }
 }

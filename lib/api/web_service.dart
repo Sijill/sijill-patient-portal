@@ -18,6 +18,11 @@ import 'package:sijil_patient_portal/api/model/auth/response/password_reset/pass
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_verify_otp_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/request/permission_token_revoke/permission_token_revoke_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/response/generate_permission_token/generate_permission_token_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/response/get_permission_token/get_permission_token_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/response/permission_token_revoke/permission_token_revoke_response_dto.dart';
 
 part 'web_service.g.dart';
 
@@ -79,5 +84,18 @@ abstract class WebService {
   @POST(Endpoints.passwordResetConfirmApi)
   Future<PasswordResetConfirmResponseDto> passwordResetConfirm(
     @Body() PasswordResetConfirmRequestDto passwordResetConfirmRequest,
+  );
+
+  @POST(Endpoints.generatePermissionTokenApi)
+  Future<GeneratePermissionTokenResponseDto> generatePermissionToken(
+    @Body() GeneratePermissionTokenRequestDto generatePermissionTokenRequest,
+  );
+
+  @GET(Endpoints.getPermissionTokenApi)
+  Future<GetPermissionTokenResponseDto> getPermissionToken();
+
+  @PATCH(Endpoints.permissionTokenRevokeApi)
+  Future<PermissionTokenRevokeResponseDto> permissionTokenRevoke(
+    @Path() PermissionTokenRevokeRequestDto permissionTokenRevokeRequest,
   );
 }

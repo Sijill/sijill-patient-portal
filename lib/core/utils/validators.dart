@@ -34,6 +34,13 @@ class AppValidators {
     return null;
   }
 
+  static String? validatePasswordSignIn(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
   static String? validateConfirmPassword(String? val, String? password) {
     if (val == null || val.isEmpty) {
       return 'This field is required';
@@ -106,6 +113,13 @@ class AppValidators {
   static String? validateDate(String? val) {
     if (val == null || val.isEmpty) {
       return 'Please select your date of birth';
+    }
+    return null;
+  }
+
+  static String? validateDuration(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Please select duration';
     }
     return null;
   }
