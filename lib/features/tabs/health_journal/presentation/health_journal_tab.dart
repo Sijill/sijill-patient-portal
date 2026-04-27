@@ -1,74 +1,75 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_drop_down.dart';
+import 'package:sijil_patient_portal/features/tabs/health_journal/widget/your_tracked_item.dart';
 
-class HealthJournalTab extends StatefulWidget {
+class HealthJournalTab extends StatelessWidget {
   const HealthJournalTab({super.key});
-
-  @override
-  State<HealthJournalTab> createState() => _HealthJournalTabState();
-}
-
-class _HealthJournalTabState extends State<HealthJournalTab> {
-  TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
           child: Column(
             children: [
               AutoSizeText("Health Journal", style: AppStyle.semiBoldBlack20),
-              SizedBox(height: 80.h),
-              AutoSizeText(
-                "Select the diagnosis you want to note about.",
-                style: AppStyle.boldBlack20.copyWith(fontSize: 20.sp),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.h),
+                child: CustomedButton(
+                  vertical: 5.h,
+                  addItem: true,
+                  spaceBeforeText: 5.w,
+                  preImageName: AppAssets.trackNewSymptom,
+                  text: "Track New Symptom",
+                  onPressed: () {
+                    Navigator.of(
+                      context,
+                    ).pushNamed(AppRoutes.trackNewSymptomScreen);
+                  },
+                ),
               ),
 
-              Container(
-                margin: EdgeInsets.only(top: 60.h),
-                padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
-                decoration: BoxDecoration(
-                  color: AppColors.grantAccessContainerColor,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Column(
-                  children: [
-                    CustomedDropDown(
-                      backgroundColor: AppColors.whiteLight,
-                      textColor: AppColors.gray,
-                      bottoShowSelectItem: [],
-                      controller: controller,
-                      hint: "Choose a condition...",
-                      widthDropdown: double.infinity,
-                      bottomSheetHeight: 350.h,
-                      bottomSheetRight: 32.w,
-                      bottomSheetLeft: 32.w,
+              Row(
+                spacing: 10.w,
+                children: [
+                  Icon(Icons.folder, color: AppColors.black, size: 25.sp),
+                  AutoSizeText(
+                    "Your Tracked Conditions",
+                    style: AppStyle.semiBoldBlack20.copyWith(
+                      color: AppColors.black,
+                      fontSize: 16.sp,
                     ),
-                    SizedBox(height: 20.h),
-                    CustomedButton(
-                      backgroundColor: AppColors.tabBarSelectedColor,
-                      text: "Continue",
-                      onPressed: () {
-                        Navigator.of(
-                          context,
-                        ).pushNamed(AppRoutes.typeDiabetsScreen);
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 25.h),
+              YourTrackedItem(
+                title: "Type 2 Diabetes",
+                subTitle: "Last entry: 2 days ago",
+                onTap: () {
+                  Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.trackConditionTypeDiabetsScreen);
+                },
+              ),
+              SizedBox(height: 20.h),
+              YourTrackedItem(
+                title: "Lumbar Disc Herniation",
+                subTitle: "Last entry: 2 days ago",
+                onTap: () {},
+              ),
+              SizedBox(height: 20.h),
+              YourTrackedItem(
+                title: "Hypertension",
+                subTitle: "Last entry: 3 weeks ago",
+                onTap: () {},
               ),
             ],
           ),

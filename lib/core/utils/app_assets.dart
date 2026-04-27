@@ -60,4 +60,5 @@ class AppAssets {
   static const String progressDetails = "assets/images/progress_details.png";
   static const String energyLevel = "assets/images/energy_level.png";
   static const String healthSnapshot = "assets/images/health_snapshot.png";
+  static const String trackNewSymptom = "assets/svg/track_new_symptom_img.svg";
 }
