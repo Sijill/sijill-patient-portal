@@ -15,12 +15,18 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
 import '../../data/data_sources/remote/auth/auth_data_sources.dart' as _i697;
+import '../../data/data_sources/remote/medical_identity/medical_identity_data_sources.dart'
+    as _i927;
 import '../../data/data_sources/remote/permission_token/permission_token_data_sources.dart'
     as _i32;
 import '../../data/repositories/auth/auth_repository_impl.dart' as _i24;
+import '../../data/repositories/medical_identity/medical_identity_repository_impl.dart'
+    as _i846;
 import '../../data/repositories/permission_token/permission_token_repository_impl.dart'
     as _i324;
 import '../../domain/repositories/auth/auth_repository.dart' as _i660;
+import '../../domain/repositories/medical_identity/medical_identity_repository.dart'
+    as _i243;
 import '../../domain/repositories/permission_token/permission_token_repository.dart'
     as _i241;
 import '../../domain/use_cases/auth/login/login_resend_otp_use_case.dart'
@@ -39,6 +45,10 @@ import '../../domain/use_cases/auth/register/register_resend_otp_use_case.dart'
 import '../../domain/use_cases/auth/register/register_use_case.dart' as _i350;
 import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
+import '../../domain/use_cases/medical_identity/get_profile_image_use_case.dart'
+    as _i913;
+import '../../domain/use_cases/medical_identity/upload_profile_image_use_case.dart'
+    as _i238;
 import '../../domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart'
     as _i535;
 import '../../domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart'
@@ -54,6 +64,8 @@ import '../../features/tabs/home_tab/cubit/permission_token_cubit.dart'
 import '../../features/tabs/medical_identiti/cubit/medical_identity_cubit.dart'
     as _i495;
 import '../data_sources/remote/auth/auth_data_sources_impl.dart' as _i62;
+import '../data_sources/remote/medical_identity/medical_identity_data_sources_impl.dart'
+    as _i333;
 import '../data_sources/remote/permission_token/permission_token_data_sources_impl.dart'
     as _i39;
 import '../dio/dio_medule.dart' as _i322;
@@ -70,7 +82,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1032.HomeCubit>(() => _i1032.HomeCubit());
     gh.factory<_i547.OnboardingCubit>(() => _i547.OnboardingCubit());
     gh.factory<_i348.HomeTabCubt>(() => _i348.HomeTabCubt());
-    gh.factory<_i495.MedicalIdentityCubit>(() => _i495.MedicalIdentityCubit());
     gh.lazySingleton<_i361.BaseOptions>(() => dioModule.provideBaseOptions());
     gh.lazySingleton<_i528.PrettyDioLogger>(
       () => dioModule.providePrettyDioLogger(),
@@ -90,12 +101,22 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i410.WebService>(
       () => dioModule.provideWebService(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
+    gh.factory<_i927.MedicalIdentityDataSources>(
+      () => _i333.MedicalIdentityDataSourcesImpl(
+        webservice: gh<_i410.WebService>(),
+      ),
+    );
     gh.factory<_i697.AuthDataSources>(
       () => _i62.AuthDataSourcesImpl(webService: gh<_i410.WebService>()),
     );
     gh.factory<_i32.PermissionTokenDataSources>(
       () => _i39.PermissionTokenDataSourcesImpl(
         webService: gh<_i410.WebService>(),
+      ),
+    );
+    gh.factory<_i243.MedicalIdentityRepository>(
+      () => _i846.MedicalIdentityRepositoryImpl(
+        medicalIdentityDataSources: gh<_i927.MedicalIdentityDataSources>(),
       ),
     );
     gh.factory<_i241.PermissionTokenRepository>(
@@ -106,6 +127,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i660.AuthRepository>(
       () =>
           _i24.AuthRepositoryImpl(authDataSources: gh<_i697.AuthDataSources>()),
+    );
+    gh.factory<_i913.GetProfileImageUseCase>(
+      () => _i913.GetProfileImageUseCase(
+        medicalIdentityRepository: gh<_i243.MedicalIdentityRepository>(),
+      ),
+    );
+    gh.factory<_i238.UploadProfileImageUseCase>(
+      () => _i238.UploadProfileImageUseCase(
+        medicalIdentityRepository: gh<_i243.MedicalIdentityRepository>(),
+      ),
     );
     gh.factory<_i535.GeneratePermissionTokenUseCase>(
       () => _i535.GeneratePermissionTokenUseCase(
@@ -169,6 +200,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
+      ),
+    );
+    gh.factory<_i495.MedicalIdentityCubit>(
+      () => _i495.MedicalIdentityCubit(
+        uploadProfileImageUseCase: gh<_i238.UploadProfileImageUseCase>(),
+        getProfileImageUseCase: gh<_i913.GetProfileImageUseCase>(),
       ),
     );
     gh.factory<_i698.AuthCubit>(

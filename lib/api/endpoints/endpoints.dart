@@ -18,4 +18,7 @@ class Endpoints {
       "/api/v1/clinical/permission-tokens";
   static const String permissionTokenRevokeApi =
       "/api/v1/clinical/permission-tokens/{tokenId}/revoke";
+
+  static const String uploadProfileImageApi = "/api/v1/patient/profile-picture";
+  static const String getProfileImageApi = "/api/v1/patient/profile-picture";
 }

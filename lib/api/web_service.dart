@@ -18,6 +18,7 @@ import 'package:sijil_patient_portal/api/model/auth/response/password_reset/pass
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_verify_otp_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/medical_identity/response/upload_profile_image/upload_profile_image_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/permission_token_revoke/permission_token_revoke_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/generate_permission_token/generate_permission_token_response_dto.dart';
@@ -98,4 +99,13 @@ abstract class WebService {
   Future<PermissionTokenRevokeResponseDto> permissionTokenRevoke(
     @Path() PermissionTokenRevokeRequestDto permissionTokenRevokeRequest,
   );
+
+  @POST(Endpoints.uploadProfileImageApi)
+  Future<UploadProfileImageResponseDto> uploadProfileImage(
+    @Part(name: 'profilePicture') MultipartFile profilePicture,
+  );
+
+  @GET(Endpoints.getProfileImageApi)
+  @DioResponseType(ResponseType.bytes)
+  Future<HttpResponse<List<int>>> getProfileImage();
 }
