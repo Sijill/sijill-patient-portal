@@ -45,6 +45,8 @@ import '../../domain/use_cases/auth/register/register_resend_otp_use_case.dart'
 import '../../domain/use_cases/auth/register/register_use_case.dart' as _i350;
 import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
+import '../../domain/use_cases/medical_identity/add_emergency_contact_use_case.dart'
+    as _i597;
 import '../../domain/use_cases/medical_identity/get_profile_image_use_case.dart'
     as _i913;
 import '../../domain/use_cases/medical_identity/upload_profile_image_use_case.dart'
@@ -128,6 +130,11 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i24.AuthRepositoryImpl(authDataSources: gh<_i697.AuthDataSources>()),
     );
+    gh.factory<_i597.AddEmergencyContactUseCase>(
+      () => _i597.AddEmergencyContactUseCase(
+        medicalIdentityRepository: gh<_i243.MedicalIdentityRepository>(),
+      ),
+    );
     gh.factory<_i913.GetProfileImageUseCase>(
       () => _i913.GetProfileImageUseCase(
         medicalIdentityRepository: gh<_i243.MedicalIdentityRepository>(),
@@ -151,6 +158,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i90.PermissionTokenRevokeUseCase>(
       () => _i90.PermissionTokenRevokeUseCase(
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
+      ),
+    );
+    gh.factory<_i495.MedicalIdentityCubit>(
+      () => _i495.MedicalIdentityCubit(
+        uploadProfileImageUseCase: gh<_i238.UploadProfileImageUseCase>(),
+        getProfileImageUseCase: gh<_i913.GetProfileImageUseCase>(),
+        addEmergencyContactUseCase: gh<_i597.AddEmergencyContactUseCase>(),
       ),
     );
     gh.factory<_i182.PermissionTokenCubit>(
@@ -200,12 +214,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
-      ),
-    );
-    gh.factory<_i495.MedicalIdentityCubit>(
-      () => _i495.MedicalIdentityCubit(
-        uploadProfileImageUseCase: gh<_i238.UploadProfileImageUseCase>(),
-        getProfileImageUseCase: gh<_i913.GetProfileImageUseCase>(),
       ),
     );
     gh.factory<_i698.AuthCubit>(

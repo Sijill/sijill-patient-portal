@@ -21,4 +21,6 @@ class Endpoints {
 
   static const String uploadProfileImageApi = "/api/v1/patient/profile-picture";
   static const String getProfileImageApi = "/api/v1/patient/profile-picture";
+  static const String addEmergencyContactApi =
+      "/api/v1/patient/emergency-contacts";
 }

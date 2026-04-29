@@ -252,7 +252,11 @@ class _MedicalIdentityTabState extends State<MedicalIdentityTab> {
                             isScrollControlled: true,
                             useSafeArea: true,
                             backgroundColor: Colors.transparent,
-                            builder: (context) => AddNewEmergencyContact(),
+                            builder: (context) => BlocProvider(
+                              create: (context) =>
+                                  getIt<MedicalIdentityCubit>(),
+                              child: AddNewEmergencyContact(),
+                            ),
                           );
                         },
                         child: Image.asset(

@@ -18,6 +18,8 @@ import 'package:sijil_patient_portal/api/model/auth/response/password_reset/pass
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_verify_otp_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/medical_identity/request/add_emergency_contact/add_emergency_contact_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/medical_identity/response/add_emergency_contact/add_emergency_contact_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/response/upload_profile_image/upload_profile_image_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/permission_token_revoke/permission_token_revoke_request_dto.dart';
@@ -108,4 +110,9 @@ abstract class WebService {
   @GET(Endpoints.getProfileImageApi)
   @DioResponseType(ResponseType.bytes)
   Future<HttpResponse<List<int>>> getProfileImage();
+
+  @POST(Endpoints.addEmergencyContactApi)
+  Future<AddEmergencyContactResponseDto> addEmergencyContact(
+    @Body() AddEmergencyContactRequestDto addEmergencyContactRequest,
+  );
 }
