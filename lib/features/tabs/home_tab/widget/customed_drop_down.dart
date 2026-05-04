@@ -71,7 +71,7 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
               context: context,
               builder: (context) => Container(
                 padding: EdgeInsets.symmetric(
-                  vertical: widget.paddingVerticalItem ?? 8.h,
+                  vertical: widget.paddingVerticalItem ?? 2.h,
                 ),
                 margin: EdgeInsets.only(
                   bottom: widget.bottomSheetHeight ?? 50.h,
@@ -95,43 +95,53 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
                     child:
                         viewodel.selectedItems[widget.hint] ==
                             widget.bottoShowSelectItem[index]
-                        ? Container(
-                            padding: EdgeInsets.symmetric(vertical: 2.h),
-                            margin: EdgeInsets.symmetric(horizontal: 8.w),
-                            decoration: BoxDecoration(
-                              color: AppColors.primaryColor,
+                        ? Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AutoSizeText(
-                                  widget.bottoShowSelectItem[index],
-                                  style: AppStyle.mediumBlack16.copyWith(
-                                    fontSize: widget.fontSize ?? 20.sp,
+                            color: AppColors.primaryColor,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 5.h),
+                              margin: EdgeInsets.symmetric(horizontal: 8.w),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  AutoSizeText(
+                                    widget.bottoShowSelectItem[index],
+                                    style: AppStyle.mediumBlack16.copyWith(
+                                      fontSize: widget.fontSize ?? 20.sp,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.check,
-                                  color: AppColors.black,
-                                  size: 25.sp,
-                                ),
-                              ],
+                                  Icon(
+                                    Icons.check,
+                                    color: AppColors.black,
+                                    size: 25.sp,
+                                  ),
+                                ],
+                              ),
                             ),
                           )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 2.h,
+                        : Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
-                            child: AutoSizeText(
-                              widget.bottoShowSelectItem[index],
-                              style: AppStyle.mediumBlack16.copyWith(
-                                fontSize: widget.fontSize ?? 20.sp,
+                            color: AppColors.lightGray,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.w,
+                                vertical: 5.h,
+                              ),
+                              child: AutoSizeText(
+                                widget.bottoShowSelectItem[index],
+                                style: AppStyle.mediumBlack16.copyWith(
+                                  fontSize: widget.fontSize ?? 20.sp,
+                                ),
                               ),
                             ),
                           ),
                   ),
-                  separatorBuilder: (context, index) => SizedBox(height: 5.h),
+                  separatorBuilder: (context, index) => SizedBox(height: 0),
                   itemCount: widget.bottoShowSelectItem.length,
                 ),
               ),

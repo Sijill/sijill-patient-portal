@@ -74,9 +74,9 @@ class AppValidators {
     if (val == null) {
       return 'This field is required';
     } else if (int.tryParse(val.trim()) == null) {
-      return 'enter numbers only';
+      return 'Enter numbers only';
     } else if (val.trim().length != 11) {
-      return 'enter value must equal 11 digit';
+      return 'Enter value must equal 11 digit';
     } else {
       return null;
     }
@@ -133,6 +133,13 @@ class AppValidators {
       return 'Enter a valid 6-digit code';
     }
 
+    return null;
+  }
+
+  static String? validateRelationship(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'This field is required';
+    }
     return null;
   }
 }

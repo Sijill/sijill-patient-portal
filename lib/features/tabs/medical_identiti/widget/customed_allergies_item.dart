@@ -6,26 +6,28 @@ import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 class CustomedAllergiesItem extends StatelessWidget {
   final Color backgroundColor;
-  final String text1;
-  final String text2;
-  final String text3;
-  final String text4;
-  final Color? textColor1;
-  final Color? textColor2;
-  final Color? textColor3;
-  final Color? textColor4;
+  final String allergenName;
+  final String severity;
+  final String reactionDescription;
+  final String diagnosedBy;
+  final String diagnosedDate;
+  final Color? allergenNamColor;
+  final Color? severityColor;
+  final Color? diagnosedByColor;
+  final Color? diagnosedDateColor;
 
   const CustomedAllergiesItem({
     super.key,
     required this.backgroundColor,
-    required this.text1,
-    required this.text2,
-    required this.text3,
-    required this.text4,
-    this.textColor1,
-    this.textColor2,
-    this.textColor3,
-    this.textColor4,
+    required this.allergenName,
+    required this.severity,
+    required this.reactionDescription,
+    required this.diagnosedBy,
+    required this.diagnosedDate,
+    this.allergenNamColor,
+    this.severityColor,
+    this.diagnosedByColor,
+    this.diagnosedDateColor,
   });
 
   @override
@@ -46,27 +48,35 @@ class CustomedAllergiesItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AutoSizeText(
-                text1,
-                style: AppStyle.boldBlack16.copyWith(color: textColor1),
+                allergenName,
+                style: AppStyle.boldBlack16.copyWith(
+                  color: allergenNamColor ?? AppColors.black,
+                ),
               ),
               AutoSizeText(
-                text2,
+                severity,
                 style: AppStyle.boldBlack16.copyWith(
                   fontSize: 14.sp,
-                  color: textColor2,
+                  color: severityColor ?? AppColors.darkRed,
                 ),
               ),
             ],
           ),
           AutoSizeText(
-            text3,
-            style: AppStyle.meduimBlack14.copyWith(color: textColor3),
+            "Reaction: $reactionDescription",
+            style: AppStyle.meduimBlack14,
           ),
 
           AutoSizeText(
-            text4,
+            diagnosedBy,
             style: AppStyle.boldGrey14.copyWith(
-              color: textColor4 ?? AppColors.rose,
+              color: diagnosedByColor ?? AppColors.red3,
+            ),
+          ),
+          AutoSizeText(
+            diagnosedDate,
+            style: AppStyle.boldGrey14.copyWith(
+              color: diagnosedDateColor ?? AppColors.red3,
             ),
           ),
         ],
