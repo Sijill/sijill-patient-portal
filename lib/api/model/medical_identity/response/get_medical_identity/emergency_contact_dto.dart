@@ -4,12 +4,14 @@ part 'emergency_contact_dto.g.dart';
 
 @JsonSerializable()
 class EmergencyContactDto {
+  String? contactId;
   String? contactName;
   String? relationship;
   String? phoneNumber;
   bool? isPrimary;
 
   EmergencyContactDto({
+    this.contactId,
     this.contactName,
     this.relationship,
     this.phoneNumber,

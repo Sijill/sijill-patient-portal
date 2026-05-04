@@ -9,6 +9,7 @@ import 'package:sijil_patient_portal/domain/entities/medical_identity/request/ad
 import 'package:sijil_patient_portal/domain/entities/medical_identity/request/upload_profile_image/upload_profile_image_request.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/response/get_medical_identity/get_medical_identity_response_dto.dart';
 import 'package:sijil_patient_portal/domain/use_cases/medical_identity/add_emergency_contact_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/medical_identity/delete_emergency_contact_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/medical_identity/get_medical_identity_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/medical_identity/get_profile_image_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/medical_identity/upload_profile_image_use_case.dart';
@@ -21,11 +22,13 @@ class MedicalIdentityCubit extends Cubit<MedicalIdentityState> {
   GetProfileImageUseCase getProfileImageUseCase;
   AddEmergencyContactUseCase addEmergencyContactUseCase;
   GetMedicalIdentityUseCase getMedicalIdentityUseCase;
+  DeleteEmergencyContactUseCase deleteEmergencyContactUseCase;
   MedicalIdentityCubit({
     required this.uploadProfileImageUseCase,
     required this.getProfileImageUseCase,
     required this.addEmergencyContactUseCase,
     required this.getMedicalIdentityUseCase,
+    required this.deleteEmergencyContactUseCase,
   }) : super(MedicalIdentityInitial());
   GetMedicalIdentityResponse? cubit;
   bool selectItem = false;
@@ -105,6 +108,28 @@ class MedicalIdentityCubit extends Cubit<MedicalIdentityState> {
       emit(AddEmergencyContactError(message: message));
     } catch (e) {
       emit(AddEmergencyContactError(message: e.toString()));
+    }
+  }
+
+  void deleteEmergencyContact({required String contactId}) async {
+    emit(DeleteEmergencyContactLoading());
+    try {
+      final deleteEmergencyContactResponse = await deleteEmergencyContactUseCase
+          .invoke(contactId: contactId);
+      emit(
+        DeleteEmergencyContactSuccess(
+          deleteEmergencyContactResponse: deleteEmergencyContactResponse,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(DeleteEmergencyContactError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(DeleteEmergencyContactError(message: message));
+    } catch (e) {
+      emit(DeleteEmergencyContactError(message: e.toString()));
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:sijil_patient_portal/domain/entities/medical_identity/response/g
 extension EmergencyContactMapper on EmergencyContactDto {
   EmergencyContact convertToEmergencyContact() {
     return EmergencyContact(
+      contactId: contactId,
       contactName: contactName,
       isPrimary: isPrimary,
       phoneNumber: phoneNumber,

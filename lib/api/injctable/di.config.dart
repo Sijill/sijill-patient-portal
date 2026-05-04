@@ -47,6 +47,8 @@ import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
 import '../../domain/use_cases/medical_identity/add_emergency_contact_use_case.dart'
     as _i597;
+import '../../domain/use_cases/medical_identity/delete_emergency_contact_use_case.dart'
+    as _i590;
 import '../../domain/use_cases/medical_identity/get_medical_identity_use_case.dart'
     as _i315;
 import '../../domain/use_cases/medical_identity/get_profile_image_use_case.dart'
@@ -137,6 +139,11 @@ extension GetItInjectableX on _i174.GetIt {
         medicalIdentityRepository: gh<_i243.MedicalIdentityRepository>(),
       ),
     );
+    gh.factory<_i590.DeleteEmergencyContactUseCase>(
+      () => _i590.DeleteEmergencyContactUseCase(
+        medicalIdentityRepository: gh<_i243.MedicalIdentityRepository>(),
+      ),
+    );
     gh.factory<_i315.GetMedicalIdentityUseCase>(
       () => _i315.GetMedicalIdentityUseCase(
         medicalIdentityRepository: gh<_i243.MedicalIdentityRepository>(),
@@ -165,6 +172,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i90.PermissionTokenRevokeUseCase>(
       () => _i90.PermissionTokenRevokeUseCase(
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
+      ),
+    );
+    gh.factory<_i495.MedicalIdentityCubit>(
+      () => _i495.MedicalIdentityCubit(
+        uploadProfileImageUseCase: gh<_i238.UploadProfileImageUseCase>(),
+        getProfileImageUseCase: gh<_i913.GetProfileImageUseCase>(),
+        addEmergencyContactUseCase: gh<_i597.AddEmergencyContactUseCase>(),
+        getMedicalIdentityUseCase: gh<_i315.GetMedicalIdentityUseCase>(),
+        deleteEmergencyContactUseCase:
+            gh<_i590.DeleteEmergencyContactUseCase>(),
       ),
     );
     gh.factory<_i182.PermissionTokenCubit>(
@@ -214,14 +231,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
-      ),
-    );
-    gh.factory<_i495.MedicalIdentityCubit>(
-      () => _i495.MedicalIdentityCubit(
-        uploadProfileImageUseCase: gh<_i238.UploadProfileImageUseCase>(),
-        getProfileImageUseCase: gh<_i913.GetProfileImageUseCase>(),
-        addEmergencyContactUseCase: gh<_i597.AddEmergencyContactUseCase>(),
-        getMedicalIdentityUseCase: gh<_i315.GetMedicalIdentityUseCase>(),
       ),
     );
     gh.factory<_i698.AuthCubit>(

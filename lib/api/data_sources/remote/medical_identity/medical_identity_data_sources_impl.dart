@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/api/mapper/medical_identity/add_emergency_contact/add_emergency_contact_request_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/medical_identity/add_emergency_contact/add_emergency_contact_respomse_mapper.dart';
+import 'package:sijil_patient_portal/api/mapper/medical_identity/delete_emergency_contact/delete_emergency_contact_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/medical_identity/get_medical_identity/get_medical_identity_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/medical_identity/upload_profile_image/upload_profile_image_request_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/medical_identity/upload_profile_image/upload_profile_image_response_mapper.dart';
@@ -12,6 +13,7 @@ import 'package:sijil_patient_portal/data/data_sources/remote/medical_identity/m
 import 'package:sijil_patient_portal/domain/entities/medical_identity/request/add_emergency_contact/add_emergency_contact_request.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/request/upload_profile_image/upload_profile_image_request.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/response/add_emergency_contact/add_emergency_contact_response.dart';
+import 'package:sijil_patient_portal/domain/entities/medical_identity/response/delete_emergency_contact/delete_emergency_contact_response.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/response/get_medical_identity/get_medical_identity_response_dto.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/response/upload_profile_image/upload_profile_image_response.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_compress_image.dart';
@@ -69,5 +71,16 @@ class MedicalIdentityDataSourcesImpl implements MedicalIdentityDataSources {
     //todo: GetMedicalIdentityResponseDto => GetMedicalIdentityResponse
     final getMedicalIdentityResponseDto = await webservice.getMedicalIdentity();
     return getMedicalIdentityResponseDto.convertToGetMedicalIdentityResponse();
+  }
+
+  @override
+  Future<DeleteEmergencyContactResponse> deleteEmergencyContact({
+    required String contactId,
+  }) async {
+    final deleteEmergencyContactResponseDto = await webservice
+        .deleteEmergencyContact(contactId);
+    //todo: DeleteEmergencyContactResponsetDto => DeleteEmergencyContactResponset
+    return deleteEmergencyContactResponseDto
+        .convertToDeleteEmergencyContactResponse();
   }
 }

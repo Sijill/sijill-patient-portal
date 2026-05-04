@@ -26,4 +26,7 @@ class Endpoints {
 
   static const String getMedicalIdentityApi =
       "/api/v1/patient/medical-identity";
+
+  static const String deleteEmergencyContactApi =
+      "/api/v1/patient/emergency-contacts/{contactId}";
 }

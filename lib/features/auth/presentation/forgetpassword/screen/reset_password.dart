@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
-import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
@@ -53,13 +53,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                   DialogUtils.showLoading(context);
                 } else if (state is PasswordResetConfirmErrorState) {
                   DialogUtils.hideLoading(context);
-                  AppDialog.showDialogMessage(message: state.message);
+                  DialogUtils.showDialogMessage(message: state.message);
                 } else if (state is PasswordResetResendOtpSccessState) {
                   passwordResndOtp =
                       state.passwordResetResendOtpResponse.resetSessionId!;
                 } else if (state is PasswordResetConfirmSccessState) {
                   DialogUtils.hideLoading(context);
-                  AppDialog.showDialogMessage(
+                  DialogUtils.showDialogMessage(
                     message: state.passwordResetConfirmResponse.message,
                     backgroundColor: AppColors.darkGreen,
                   );

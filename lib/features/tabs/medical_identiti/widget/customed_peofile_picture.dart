@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
-import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/function_image_picker.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/request/upload_profile_image/upload_profile_image_request.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_cubit.dart';
@@ -28,13 +28,13 @@ class _CustomedPeofilePictureState extends State<CustomedPeofilePicture> {
     return BlocConsumer<MedicalIdentityCubit, MedicalIdentityState>(
       listener: (context, state) {
         if (state is UploadProfileImageSuccess) {
-          AppDialog.showDialogMessage(
+          DialogUtils.showDialogMessage(
             message: state.uploadProfileImageResponse.message,
             backgroundColor: AppColors.green,
           );
           context.read<MedicalIdentityCubit>().getProfileImage();
         } else if (state is UploadProfileImageError) {
-          AppDialog.showDialogMessage(message: state.message);
+          DialogUtils.showDialogMessage(message: state.message);
         }
       },
 
