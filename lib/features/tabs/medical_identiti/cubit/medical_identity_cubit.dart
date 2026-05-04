@@ -7,22 +7,27 @@ import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/request/add_emergency_contact/add_emergency_contact_request.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/request/upload_profile_image/upload_profile_image_request.dart';
+import 'package:sijil_patient_portal/domain/entities/medical_identity/response/get_medical_identity/get_medical_identity_response_dto.dart';
 import 'package:sijil_patient_portal/domain/use_cases/medical_identity/add_emergency_contact_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/medical_identity/get_medical_identity_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/medical_identity/get_profile_image_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/medical_identity/upload_profile_image_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_state.dart';
+import 'package:intl/intl.dart';
 
 @injectable
 class MedicalIdentityCubit extends Cubit<MedicalIdentityState> {
   UploadProfileImageUseCase uploadProfileImageUseCase;
   GetProfileImageUseCase getProfileImageUseCase;
   AddEmergencyContactUseCase addEmergencyContactUseCase;
+  GetMedicalIdentityUseCase getMedicalIdentityUseCase;
   MedicalIdentityCubit({
     required this.uploadProfileImageUseCase,
     required this.getProfileImageUseCase,
     required this.addEmergencyContactUseCase,
+    required this.getMedicalIdentityUseCase,
   }) : super(MedicalIdentityInitial());
-
+  GetMedicalIdentityResponse? cubit;
   bool selectItem = false;
   File? selectedImage;
   Uint8List? imageBytes;
@@ -101,5 +106,29 @@ class MedicalIdentityCubit extends Cubit<MedicalIdentityState> {
     } catch (e) {
       emit(AddEmergencyContactError(message: e.toString()));
     }
+  }
+
+  void getMedicalIdentity() async {
+    emit(GetMedicalIdentityLoading());
+    try {
+      final getMedicalIdentityResponse = await getMedicalIdentityUseCase
+          .invoke();
+      cubit = getMedicalIdentityResponse;
+      emit(GetMedicalIdentitySuccess());
+    } on AppException catch (e) {
+      emit(GetMedicalIdentityError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(GetMedicalIdentityError(message: message));
+    } catch (e) {
+      emit(GetMedicalIdentityError(message: e.toString()));
+    }
+  }
+
+  String formatDate(DateTime? date) {
+    if (date == null) return "Not specified";
+    return DateFormat('MMM yyyy').format(date).toUpperCase();
   }
 }

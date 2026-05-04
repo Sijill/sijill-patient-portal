@@ -6,7 +6,18 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 class CustomedEmergencyContactsItem extends StatelessWidget {
-  const CustomedEmergencyContactsItem({super.key});
+  final String contactName;
+  final String relationship;
+  final String phoneNumber;
+  final bool isPrimary;
+
+  const CustomedEmergencyContactsItem({
+    super.key,
+    required this.contactName,
+    required this.relationship,
+    required this.phoneNumber,
+    required this.isPrimary,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +32,28 @@ class CustomedEmergencyContactsItem extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText("Mahmoud Khedr — ", style: AppStyle.boldBlack16),
-              AutoSizeText("Parent", style: AppStyle.mediumBlack16),
-              Spacer(),
-              AutoSizeText("Primary", style: AppStyle.boldBlack16),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      AutoSizeText("$contactName — "),
+                      AutoSizeText(relationship),
+                    ],
+                  ),
+                ),
+              ),
+              isPrimary
+                  ? AutoSizeText("Primary", style: AppStyle.boldBlack16)
+                  : SizedBox(),
             ],
           ),
           SizedBox(height: 15.h),
           Row(
             children: [
-              AutoSizeText("01285963258", style: AppStyle.boldBlack14),
+              AutoSizeText(phoneNumber, style: AppStyle.boldBlack14),
               Spacer(),
               Image.asset(
                 AppAssets.phoneOffImg,

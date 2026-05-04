@@ -1,5 +1,5 @@
 class Endpoints {
-  static const String baseUrl = "http://192.168.1.7:8000";
+  static const String baseUrl = "http://192.168.1.4:8000";
   static const String registerApi = "/api/v1/auth/register";
   static const String registerResendOtpApi = "/api/v1/auth/register/resend-otp";
   static const String registerVerifyOtpApi = "/api/v1/auth/register/verify-otp";
@@ -23,4 +23,7 @@ class Endpoints {
   static const String getProfileImageApi = "/api/v1/patient/profile-picture";
   static const String addEmergencyContactApi =
       "/api/v1/patient/emergency-contacts";
+
+  static const String getMedicalIdentityApi =
+      "/api/v1/patient/medical-identity";
 }

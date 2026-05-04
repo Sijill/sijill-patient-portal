@@ -19,8 +19,8 @@ class CustomedPeofilePicture extends StatefulWidget {
 class _CustomedPeofilePictureState extends State<CustomedPeofilePicture> {
   @override
   void initState() {
-    super.initState();
     context.read<MedicalIdentityCubit>().getProfileImage();
+    super.initState();
   }
 
   @override

@@ -9,6 +9,7 @@ import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_cubit.dart';
+import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,7 @@ Future<void> main() async {
       providers: [
         BlocProvider(create: (context) => getIt<HomeTabCubt>()),
         BlocProvider(create: (context) => getIt<PermissionTokenCubit>()),
+        BlocProvider(create: (context) => getIt<MedicalIdentityCubit>()),
       ],
       child: MyApp(onboarding: onboarding, accessToken: accessToken),
     ),
