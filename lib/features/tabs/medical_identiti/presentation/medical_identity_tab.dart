@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
-import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_state.dart';
@@ -39,7 +39,7 @@ class _MedicalIdentityTabState extends State<MedicalIdentityTab> {
         if (state is GetMedicalIdentityLoading) {
           const Center(child: CircularProgressIndicator());
         } else if (state is GetMedicalIdentityError) {
-          AppDialog.showDialogMessage(message: state.message);
+          DialogUtils.showDialogMessage(message: state.message);
         }
       },
       builder: (context, state) {
@@ -322,6 +322,8 @@ class _MedicalIdentityTabState extends State<MedicalIdentityTab> {
                                 "",
                             isPrimary:
                                 data.emergencyContacts![index].isPrimary!,
+                            contactId:
+                                data.emergencyContacts?[index].contactId ?? "",
                           ),
                     itemCount: data.emergencyContacts?.length ?? 0,
                   ),

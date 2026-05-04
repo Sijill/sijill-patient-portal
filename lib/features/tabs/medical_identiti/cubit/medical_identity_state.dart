@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/response/add_emergency_contact/add_emergency_contact_response.dart';
+import 'package:sijil_patient_portal/domain/entities/medical_identity/response/delete_emergency_contact/delete_emergency_contact_response.dart';
 import 'package:sijil_patient_portal/domain/entities/medical_identity/response/upload_profile_image/upload_profile_image_response.dart';
 
 abstract class MedicalIdentityState {}
@@ -44,6 +45,18 @@ class AddEmergencyContactSuccess extends MedicalIdentityState {
 class AddEmergencyContactError extends MedicalIdentityState {
   String? message;
   AddEmergencyContactError({this.message});
+}
+
+class DeleteEmergencyContactLoading extends MedicalIdentityState {}
+
+class DeleteEmergencyContactSuccess extends MedicalIdentityState {
+  DeleteEmergencyContactResponse deleteEmergencyContactResponse;
+  DeleteEmergencyContactSuccess({required this.deleteEmergencyContactResponse});
+}
+
+class DeleteEmergencyContactError extends MedicalIdentityState {
+  String? message;
+  DeleteEmergencyContactError({this.message});
 }
 
 class GetMedicalIdentityLoading extends MedicalIdentityState {}

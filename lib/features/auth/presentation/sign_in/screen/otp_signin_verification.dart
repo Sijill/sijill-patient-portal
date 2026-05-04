@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
-import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
@@ -40,7 +40,7 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
         if (state is LoginResendOtpSccessState) {
           loginResndOtp = state.loginResendOtpResponse.loginSessionId!;
         } else if (state is LoginResendOtpErrorState) {
-          AppDialog.showDialogMessage(message: state.message);
+          DialogUtils.showDialogMessage(message: state.message);
         } else if (state is LoginVerifyOtpLoadingState) {
           DialogUtils.showLoading(context);
         } else if (state is LoginVerifyOtpSccessState) {
@@ -58,7 +58,7 @@ class _OtpSigninVerificationState extends State<OtpSigninVerification> {
           ).pushNamedAndRemoveUntil(AppRoutes.homeScreen, (route) => false);
         } else if (state is LoginVerifyOtpErrorState) {
           DialogUtils.hideLoading(context);
-          AppDialog.showDialogMessage(message: state.message);
+          DialogUtils.showDialogMessage(message: state.message);
         }
       },
       child: Form(

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
-import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_auth_button.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_logo.dart';
@@ -58,7 +58,7 @@ class _CustomedTakePhotoState extends State<CustomedTakePhoto> {
 
   bool _validateImage(BuildContext context) {
     if (_image == null) {
-      AppDialog.showDialogMessage(message: "Please take a photo first");
+      DialogUtils.showDialogMessage(message: "Please take a photo first");
 
       return false;
     }

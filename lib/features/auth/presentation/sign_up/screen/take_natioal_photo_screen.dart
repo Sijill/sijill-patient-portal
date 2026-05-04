@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
-import 'package:sijil_patient_portal/core/utils/app_dialog.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_request.dart';
@@ -49,7 +49,7 @@ class _TakeNatioalPhotoScreenState extends State<TakeNatioalPhotoScreen> {
           );
         } else if (state is RegisterErrorState) {
           DialogUtils.hideLoading(context);
-          AppDialog.showDialogMessage(message: state.message);
+          DialogUtils.showDialogMessage(message: state.message);
         }
       },
       child: CustomedTakePhoto(
@@ -65,7 +65,7 @@ class _TakeNatioalPhotoScreenState extends State<TakeNatioalPhotoScreen> {
 
         forwardScreen: () {
           if (imageTakeNatioalPhoto == null) {
-            AppDialog.showDialogMessage(message: "Please take a photo first");
+            DialogUtils.showDialogMessage(message: "Please take a photo first");
             return;
           }
 
