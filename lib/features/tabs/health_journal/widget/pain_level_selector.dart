@@ -4,7 +4,12 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 
 class PainLevelSelector extends StatefulWidget {
   final bool isEnergy;
-  const PainLevelSelector({super.key, required this.isEnergy});
+  final Function(int index)? onChanged;
+  const PainLevelSelector({
+    super.key,
+    required this.isEnergy,
+    required this.onChanged,
+  });
 
   @override
   State<PainLevelSelector> createState() => _PainLevelSelectorState();
@@ -56,6 +61,9 @@ class _PainLevelSelectorState extends State<PainLevelSelector> {
               onTap: () {
                 setState(() {
                   selectedIndex = index;
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(index);
+                  }
                 });
               },
               child: Container(

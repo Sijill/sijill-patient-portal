@@ -78,7 +78,11 @@ class _HomeTabState extends State<HomeTab> {
                       preImageName: AppAssets.healthJournal,
                       spaceBeforeText: 10.w,
                       text: "Log Your Health Journal",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(
+                          context,
+                        ).pushNamed(AppRoutes.trackNewSymptomScreen);
+                      },
                     ),
                   ],
                 ),

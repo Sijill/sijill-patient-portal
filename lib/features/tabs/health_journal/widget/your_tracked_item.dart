@@ -28,7 +28,7 @@ class YourTrackedItem extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 10.h,
+          spacing: 5.h,
           children: [
             AutoSizeText(
               title,

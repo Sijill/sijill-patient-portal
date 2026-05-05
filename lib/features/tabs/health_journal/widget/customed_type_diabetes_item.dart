@@ -6,17 +6,19 @@ import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 class CustomedTypeDiabetesItem extends StatelessWidget {
   final String date;
-  final String progress;
+  final String patientOutcome;
   final String painLevel;
   final String energyLevel;
   final String mood;
+  final String patientOutcomeDetails;
   const CustomedTypeDiabetesItem({
     super.key,
     required this.date,
-    required this.progress,
+    required this.patientOutcome,
     required this.painLevel,
     required this.energyLevel,
     required this.mood,
+    required this.patientOutcomeDetails,
   });
 
   @override
@@ -41,12 +43,12 @@ class CustomedTypeDiabetesItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AutoSizeText(
-                "Progress: ",
+                "Patient outcome: ",
                 style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
               ),
               Expanded(
                 child: AutoSizeText(
-                  progress,
+                  patientOutcome,
                   style: AppStyle.mediumGray16.copyWith(fontSize: 12.sp),
                 ),
               ),
@@ -103,6 +105,22 @@ class CustomedTypeDiabetesItem extends StatelessWidget {
               Expanded(
                 child: AutoSizeText(
                   mood,
+                  style: AppStyle.mediumGray16.copyWith(fontSize: 12.sp),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                "Patient outcome details: ",
+                style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
+              ),
+              Expanded(
+                child: AutoSizeText(
+                  patientOutcomeDetails,
                   style: AppStyle.mediumGray16.copyWith(fontSize: 12.sp),
                 ),
               ),
