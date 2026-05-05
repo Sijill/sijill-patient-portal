@@ -21,6 +21,7 @@ import 'package:sijil_patient_portal/api/model/auth/response/register/register_v
 import 'package:sijil_patient_portal/api/model/health_journal/request/health_journal_notes/health_journal_notes_requst_dto.dart';
 import 'package:sijil_patient_portal/api/model/health_journal/response/get_health_journal_diagonses/get_health_journal_diagonses_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/health_journal/response/get_health_journal_notes/get_health_journal_notes_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/health_journal/response/get_health_journal_notes_diagones_id_response_dto/get_health_journal_notes_diagones_id_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/health_journal/response/health_journal_notes/health_journal_notes_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/request/add_emergency_contact/add_emergency_contact_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/response/add_emergency_contact/add_emergency_contact_response_dto.dart';
@@ -140,4 +141,8 @@ abstract class WebService {
 
   @GET(Endpoints.getHealthJournalNotesApi)
   Future<GetHealthJournalNotesResponseDto> getHealthJournalNotes();
+
+  @GET(Endpoints.getHealthJournalNotesDiagonsesIdApi)
+  Future<GetHealthJournalNotesDiagonesIdResponseDto>
+  getHealthJournalNotesDiagonsesId(@Path("diagnosisId") String diagnosisId);
 }

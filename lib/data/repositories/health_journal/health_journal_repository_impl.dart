@@ -3,6 +3,7 @@ import 'package:sijil_patient_portal/data/data_sources/remote/health_journal/hea
 import 'package:sijil_patient_portal/domain/entities/health_journal/response/get_health_journal_notes/get_health_journal_notes_response.dart';
 import 'package:sijil_patient_portal/domain/entities/health_journal/request/health_journal_notes_requst.dart';
 import 'package:sijil_patient_portal/domain/entities/health_journal/response/get_health_journal_diagonses/get_health_journal_diagonses_response.dart';
+import 'package:sijil_patient_portal/domain/entities/health_journal/response/get_health_journal_notes_diagones_id_response_dto/get_health_journal_notes_diagones_id_response.dart';
 import 'package:sijil_patient_portal/domain/entities/health_journal/response/health_journal_notes/health_journal_notes_response.dart';
 import 'package:sijil_patient_portal/domain/repositories/health_journal/health_journal_repository.dart';
 
@@ -27,5 +28,13 @@ class HealthJournalRepositoryImpl extends HealthJournalRepository {
   @override
   Future<GetHealthJournalNotesResponse> getHealthJournalNotes() {
     return healthJournalDataSources.getHealthJournalNotes();
+  }
+
+  @override
+  Future<GetHealthJournalNotesDiagonesIdResponse>
+  getHealthJournalNotesDiagonsesId({required String diagnosisId}) {
+    return healthJournalDataSources.getHealthJournalNotesDiagonsesId(
+      diagnosisId: diagnosisId,
+    );
   }
 }

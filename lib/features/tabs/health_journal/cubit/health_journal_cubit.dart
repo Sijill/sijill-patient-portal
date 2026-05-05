@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
@@ -6,6 +7,7 @@ import 'package:sijil_patient_portal/domain/entities/health_journal/response/get
 import 'package:sijil_patient_portal/domain/entities/health_journal/request/health_journal_notes_requst.dart';
 import 'package:sijil_patient_portal/domain/entities/health_journal/response/get_health_journal_diagonses/get_health_journal_diagonses_response.dart';
 import 'package:sijil_patient_portal/domain/use_cases/health_journal/get_health_journal_diagonse_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/health_journal/get_health_journal_notes_diagonse_id_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/health_journal/get_health_journal_notes_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/health_journal/health_journal_notes_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/cubit/health_journal_state.dart';
@@ -15,15 +17,16 @@ class HealthJournalCubit extends Cubit<HealthJournalState> {
   GetHealthJournalDiagonseUseCase getHealthJournalDiagonseUseCase;
   HealthJournalNotesUseCase healthJournalNotesUseCase;
   GetHealthJournalNotesUseCase getHealthJournalNotesUseCase;
+  GetHealthJournalNotesDiagonseIdUseCase getHealthJournalNotesDiagonseIdUseCase;
   HealthJournalCubit({
     required this.getHealthJournalDiagonseUseCase,
     required this.healthJournalNotesUseCase,
     required this.getHealthJournalNotesUseCase,
+    required this.getHealthJournalNotesDiagonseIdUseCase,
   }) : super(HealthJournalInitial());
 
   GetHealthJournalDiagonsesResponse? data;
 
-  GetHealthJournalNotesResponse? gethealthJournalNotesResponse;
   void getHealthJournalDiagonses() async {
     emit(GetHealthJournalDiagonsesLoading());
     try {
@@ -88,6 +91,32 @@ class HealthJournalCubit extends Cubit<HealthJournalState> {
       emit(GetHealthJournalNotesError(message: message));
     } catch (e) {
       emit(GetHealthJournalNotesError(message: e.toString()));
+    }
+  }
+
+  void getHealthJournalNotesDiagonsesId({required String diagnosisId}) async {
+    emit(GetHealthJournalNotesDiagonsesIdLoading());
+    try {
+      final getHealthJournalNotesDiagonsesId =
+          await getHealthJournalNotesDiagonseIdUseCase.invoke(
+            diagnosisId: diagnosisId,
+          );
+
+      emit(
+        GetHealthJournalNotesDiagonsesIdSuccess(
+          getHealthJournalNotesDiagonsesdResponse:
+              getHealthJournalNotesDiagonsesId,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(GetHealthJournalNotesDiagonsesIdError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(GetHealthJournalNotesDiagonsesIdError(message: message));
+    } catch (e) {
+      emit(GetHealthJournalNotesDiagonsesIdError(message: e.toString()));
     }
   }
 }

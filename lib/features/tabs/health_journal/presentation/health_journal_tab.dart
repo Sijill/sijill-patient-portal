@@ -92,6 +92,7 @@ class _HealthJournalTabState extends State<HealthJournalTab> {
                             onTap: () {
                               Navigator.of(context).pushNamed(
                                 AppRoutes.trackConditionTypeDiabetsScreen,
+                                arguments: diagnosis!.diagnosisId,
                               );
                             },
                           );

@@ -53,6 +53,8 @@ import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
 import '../../domain/use_cases/health_journal/get_health_journal_diagonse_use_case.dart'
     as _i244;
+import '../../domain/use_cases/health_journal/get_health_journal_notes_diagonse_id_use_case.dart'
+    as _i539;
 import '../../domain/use_cases/health_journal/get_health_journal_notes_use_case.dart'
     as _i885;
 import '../../domain/use_cases/health_journal/health_journal_notes_use_case.dart'
@@ -205,6 +207,11 @@ extension GetItInjectableX on _i174.GetIt {
         healthJournalRepository: gh<_i1022.HealthJournalRepository>(),
       ),
     );
+    gh.factory<_i539.GetHealthJournalNotesDiagonseIdUseCase>(
+      () => _i539.GetHealthJournalNotesDiagonseIdUseCase(
+        healthJournalRepository: gh<_i1022.HealthJournalRepository>(),
+      ),
+    );
     gh.factory<_i885.GetHealthJournalNotesUseCase>(
       () => _i885.GetHealthJournalNotesUseCase(
         healthJournalRepository: gh<_i1022.HealthJournalRepository>(),
@@ -231,14 +238,6 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i535.GeneratePermissionTokenUseCase>(),
         getPermissionTokenUseCase: gh<_i690.GetPermissionTokenUseCase>(),
         permissionTokenRevokeUseCase: gh<_i90.PermissionTokenRevokeUseCase>(),
-      ),
-    );
-    gh.factory<_i407.HealthJournalCubit>(
-      () => _i407.HealthJournalCubit(
-        getHealthJournalDiagonseUseCase:
-            gh<_i244.GetHealthJournalDiagonseUseCase>(),
-        healthJournalNotesUseCase: gh<_i482.HealthJournalNotesUseCase>(),
-        getHealthJournalNotesUseCase: gh<_i885.GetHealthJournalNotesUseCase>(),
       ),
     );
     gh.factory<_i553.LoginResendOtpUseCase>(
@@ -280,6 +279,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
+      ),
+    );
+    gh.factory<_i407.HealthJournalCubit>(
+      () => _i407.HealthJournalCubit(
+        getHealthJournalDiagonseUseCase:
+            gh<_i244.GetHealthJournalDiagonseUseCase>(),
+        healthJournalNotesUseCase: gh<_i482.HealthJournalNotesUseCase>(),
+        getHealthJournalNotesUseCase: gh<_i885.GetHealthJournalNotesUseCase>(),
+        getHealthJournalNotesDiagonseIdUseCase:
+            gh<_i539.GetHealthJournalNotesDiagonseIdUseCase>(),
       ),
     );
     gh.factory<_i698.AuthCubit>(
