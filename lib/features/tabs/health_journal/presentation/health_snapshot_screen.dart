@@ -26,40 +26,47 @@ class HealthSnapshotScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(40.r),
             color: AppColors.primaryColor,
           ),
-          child: Column(
-            children: [
-              Image.asset(
-                AppAssets.healthSnapshot,
-                height: 80.h,
-                width: 80.w,
-                fit: BoxFit.fill,
-              ),
-              SizedBox(height: 10.h),
-              AutoSizeText("Your Health Snapshot", style: AppStyle.boldBlack22),
-              SizedBox(height: 20.h),
-              AutoSizeText(
-                "It looks like you've maintained a consistent hydration goal this week. Taking these small moments for reflection is a powerful way to lower cortisol and improve your overall well-being.",
-                style: AppStyle.meduimBlack14,
-              ),
-              SizedBox(height: 10.h),
-              AutoSizeText(
-                "Keep listening to your body's rhythm you're doing a wonderful job.",
-                style: AppStyle.meduimBlack14,
-              ),
-
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, bottom: 20.h, top: 50.h),
-                child: AutoSizeText(
-                  "This snapshot is AI generated, it can mistakes, don’t forget to consult your doctor before taking any actions.",
-                  style: AppStyle.meduimGray14,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  AppAssets.healthSnapshot,
+                  height: 80.h,
+                  width: 80.w,
+                  fit: BoxFit.fill,
                 ),
-              ),
-              CustomedButton(
-                backgroundColor: AppColors.tabBarSelectedColor,
-                text: "Got it, Thanks!",
-                onPressed: () {},
-              ),
-            ],
+                SizedBox(height: 10.h),
+                AutoSizeText(
+                  "Your Health Snapshot",
+                  style: AppStyle.boldBlack22,
+                ),
+                SizedBox(height: 20.h),
+                AutoSizeText(
+                  "It looks like you've maintained a consistent hydration goal this week. Taking these small moments for reflection is a powerful way to lower cortisol and improve your overall well-being.",
+                  style: AppStyle.meduimBlack14,
+                ),
+                SizedBox(height: 10.h),
+                AutoSizeText(
+                  "Keep listening to your body's rhythm you're doing a wonderful job.",
+                  style: AppStyle.meduimBlack14,
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, bottom: 20.h, top: 50.h),
+                  child: AutoSizeText(
+                    "This snapshot is AI generated, it can mistakes, don’t forget to consult your doctor before taking any actions.",
+                    style: AppStyle.meduimGray14,
+                  ),
+                ),
+                CustomedButton(
+                  backgroundColor: AppColors.tabBarSelectedColor,
+                  text: "Got it, Thanks!",
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

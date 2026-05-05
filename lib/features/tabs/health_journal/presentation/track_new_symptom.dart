@@ -20,6 +20,8 @@ class TrackNewSymptom extends StatefulWidget {
 }
 
 class _TrackNewSymptomState extends State<TrackNewSymptom> {
+  int? selectedIndex;
+
   TextEditingController controller = TextEditingController();
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   @override
@@ -69,7 +71,17 @@ class _TrackNewSymptomState extends State<TrackNewSymptom> {
                       }
                     },
                     builder: (context, state) {
-                      var data = context.read<HealthJournalCubit>().data;
+                      final data = context.read<HealthJournalCubit>().data;
+                      final diagnoses =
+                          data?.diagnoses
+                              ?.where(
+                                (e) =>
+                                    e.diagnosisId != null &&
+                                    e.icd11Title != null &&
+                                    e.icd11Title!.isNotEmpty,
+                              )
+                              .toList() ??
+                          [];
                       return Form(
                         key: globalKey,
                         child: Column(
@@ -80,11 +92,12 @@ class _TrackNewSymptomState extends State<TrackNewSymptom> {
                               },
                               backgroundColor: AppColors.whiteLight,
                               textColor: AppColors.gray,
-                              bottoShowSelectItem: data?.diagnoses == null
-                                  ? []
-                                  : data!.diagnoses!
-                                        .map((e) => e.icd11Title ?? "")
-                                        .toList(),
+                              bottoShowSelectItem: diagnoses
+                                  .map((e) => e.icd11Title!)
+                                  .toList(),
+                              onChanged: (index) {
+                                selectedIndex = index;
+                              },
                               controller: controller,
                               hint: "Choose a condition...",
                               widthDropdown: double.infinity,
@@ -99,9 +112,12 @@ class _TrackNewSymptomState extends State<TrackNewSymptom> {
                               text: "Continue",
                               onPressed: () {
                                 if (globalKey.currentState!.validate()) {
-                                  Navigator.of(
-                                    context,
-                                  ).pushNamed(AppRoutes.typeDiabetsScreen);
+                                  Navigator.of(context).pushNamed(
+                                    AppRoutes.typeDiabetsScreen,
+                                    arguments: data!
+                                        .diagnoses![selectedIndex!]
+                                        .diagnosisId,
+                                  );
                                 }
                               },
                             ),

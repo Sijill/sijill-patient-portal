@@ -53,6 +53,8 @@ import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
 import '../../domain/use_cases/health_journal/get_health_journal_diagonse_use_case.dart'
     as _i244;
+import '../../domain/use_cases/health_journal/health_journal_notes_use_case.dart'
+    as _i482;
 import '../../domain/use_cases/medical_identity/add_emergency_contact_use_case.dart'
     as _i597;
 import '../../domain/use_cases/medical_identity/delete_emergency_contact_use_case.dart'
@@ -201,6 +203,11 @@ extension GetItInjectableX on _i174.GetIt {
         healthJournalRepository: gh<_i1022.HealthJournalRepository>(),
       ),
     );
+    gh.factory<_i482.HealthJournalNotesUseCase>(
+      () => _i482.HealthJournalNotesUseCase(
+        healthJournalRepository: gh<_i1022.HealthJournalRepository>(),
+      ),
+    );
     gh.factory<_i495.MedicalIdentityCubit>(
       () => _i495.MedicalIdentityCubit(
         uploadProfileImageUseCase: gh<_i238.UploadProfileImageUseCase>(),
@@ -217,12 +224,6 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i535.GeneratePermissionTokenUseCase>(),
         getPermissionTokenUseCase: gh<_i690.GetPermissionTokenUseCase>(),
         permissionTokenRevokeUseCase: gh<_i90.PermissionTokenRevokeUseCase>(),
-      ),
-    );
-    gh.factory<_i407.HealthJournalCubit>(
-      () => _i407.HealthJournalCubit(
-        healthJournalDiagonseUseCase:
-            gh<_i244.GetHealthJournalDiagonseUseCase>(),
       ),
     );
     gh.factory<_i553.LoginResendOtpUseCase>(
@@ -264,6 +265,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
+      ),
+    );
+    gh.factory<_i407.HealthJournalCubit>(
+      () => _i407.HealthJournalCubit(
+        getHealthJournalDiagonseUseCase:
+            gh<_i244.GetHealthJournalDiagonseUseCase>(),
+        healthJournalNotesUseCase: gh<_i482.HealthJournalNotesUseCase>(),
       ),
     );
     gh.factory<_i698.AuthCubit>(

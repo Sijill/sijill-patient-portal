@@ -32,4 +32,7 @@ class Endpoints {
 
   static const String getHealthJournalDiagonsesApi =
       "/api/v1/patient/health-journal/diagnoses";
+
+  static const String healthJournalNotesApi =
+      "/api/v1/patient/health-journal/notes";
 }

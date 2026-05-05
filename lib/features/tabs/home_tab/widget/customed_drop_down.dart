@@ -25,6 +25,7 @@ class CustomedDropDown extends StatefulWidget {
   final double? paddingVerticalItem;
   final double? paddingHorizontalItem;
   final IconData? prefixIcon;
+  final Function(int index)? onChanged;
 
   const CustomedDropDown({
     super.key,
@@ -43,6 +44,7 @@ class CustomedDropDown extends StatefulWidget {
     this.bottomSheetRight,
     this.textColor,
     this.paddingHorizontalItem,
+    this.onChanged,
   });
 
   @override
@@ -94,6 +96,9 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
                       final value = widget.bottoShowSelectItem[index];
                       viewodel.changeSelectItem(key: widget.hint, value: value);
                       widget.controller.text = value;
+                      if (widget.onChanged != null) {
+                        widget.onChanged!(index);
+                      }
                       Navigator.of(context).pop();
                     },
                     child:

@@ -131,6 +131,13 @@ class AppValidators {
     return null;
   }
 
+  static String? validateMode(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Please select mode';
+    }
+    return null;
+  }
+
   static String? validateOtp(String? val) {
     if (val == null || val.trim().isEmpty) {
       return 'This field is required';
