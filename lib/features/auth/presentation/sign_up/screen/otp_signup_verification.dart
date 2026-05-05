@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
-import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/validators.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_resend_otp_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/register/register_verify_otp_request.dart';

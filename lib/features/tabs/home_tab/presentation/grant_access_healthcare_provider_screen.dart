@@ -9,7 +9,6 @@ import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
-import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_state.dart';

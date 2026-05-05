@@ -45,6 +45,7 @@ class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
         if (state is AddEmergencyContactSuccess) {
           DialogUtils.hideLoading(context);
           Navigator.of(context).pop();
+          context.read<MedicalIdentityCubit>().getMedicalIdentity();
         }
         if (state is AddEmergencyContactError) {
           DialogUtils.hideLoading(context);
@@ -155,9 +156,6 @@ class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
                                 isPrimary: cubit.selectItem,
                               ),
                             );
-                            context
-                                .read<MedicalIdentityCubit>()
-                                .getMedicalIdentity();
                           }
                         },
                       ),

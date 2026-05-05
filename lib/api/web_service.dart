@@ -18,6 +18,7 @@ import 'package:sijil_patient_portal/api/model/auth/response/password_reset/pass
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_verify_otp_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/health_journal/response/get_health_journal_diagonses/get_health_journal_diagonses_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/request/add_emergency_contact/add_emergency_contact_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/response/add_emergency_contact/add_emergency_contact_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/response/delete_emergency_contact/delete_emergency_contact_response_dto.dart';
@@ -125,4 +126,7 @@ abstract class WebService {
   Future<DeleteEmergencyContactResponseDto> deleteEmergencyContact(
     @Path("contactId") String contactId,
   );
+
+  @GET(Endpoints.getHealthJournalDiagonsesApi)
+  Future<GetHealthJournalDiagonsesResponseDto> getHealthJournalDiagonses();
 }

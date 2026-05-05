@@ -23,6 +23,7 @@ class CustomedDropDown extends StatefulWidget {
   final double? heightDrobdown;
   final double? widthDropdown;
   final double? paddingVerticalItem;
+  final double? paddingHorizontalItem;
   final IconData? prefixIcon;
 
   const CustomedDropDown({
@@ -41,6 +42,7 @@ class CustomedDropDown extends StatefulWidget {
     this.bottomSheetLeft,
     this.bottomSheetRight,
     this.textColor,
+    this.paddingHorizontalItem,
   });
 
   @override
@@ -68,10 +70,12 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
           onTap: () {
             showModalBottomSheet(
               backgroundColor: AppColors.transparent,
+              isScrollControlled: true,
               context: context,
               builder: (context) => Container(
                 padding: EdgeInsets.symmetric(
-                  vertical: widget.paddingVerticalItem ?? 2.h,
+                  vertical: widget.paddingVerticalItem ?? 8.h,
+                  horizontal: widget.paddingHorizontalItem ?? 5.w,
                 ),
                 margin: EdgeInsets.only(
                   bottom: widget.bottomSheetHeight ?? 50.h,
@@ -101,8 +105,8 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
                             ),
                             color: AppColors.primaryColor,
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 5.h),
-                              margin: EdgeInsets.symmetric(horizontal: 8.w),
+                              padding: EdgeInsets.symmetric(vertical: 8.h),
+                              margin: EdgeInsets.symmetric(horizontal: 10.w),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -130,7 +134,7 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 8.w,
-                                vertical: 5.h,
+                                vertical: 10.h,
                               ),
                               child: AutoSizeText(
                                 widget.bottoShowSelectItem[index],
