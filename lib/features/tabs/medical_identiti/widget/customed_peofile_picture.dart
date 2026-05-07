@@ -55,8 +55,6 @@ class _CustomedPeofilePictureState extends State<CustomedPeofilePicture> {
           },
 
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-
             child: cubit.selectedImage != null
                 ? Image.file(
                     cubit.selectedImage!,
@@ -64,15 +62,15 @@ class _CustomedPeofilePictureState extends State<CustomedPeofilePicture> {
                     width: 100.w,
                     fit: BoxFit.cover,
                   )
-                : cubit.imageBytes != null
+                : state is GetProfileImageLoading
+                ? const Center(child: CircularProgressIndicator())
+                : state is GetProfileImageSuccess && state.imageBytes != null
                 ? Image.memory(
-                    cubit.imageBytes!,
+                    state.imageBytes!,
                     height: 100.h,
                     width: 100.w,
                     fit: BoxFit.cover,
                   )
-                : state is GetProfileImageLoading
-                ? const Center(child: CircularProgressIndicator())
                 : Image.asset(
                     AppAssets.medicalIdentity,
                     height: 100.h,
