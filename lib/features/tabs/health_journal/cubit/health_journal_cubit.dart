@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
-import 'package:sijil_patient_portal/domain/entities/health_journal/response/get_health_journal_notes/get_health_journal_notes_response.dart';
 import 'package:sijil_patient_portal/domain/entities/health_journal/request/health_journal_notes_requst.dart';
 import 'package:sijil_patient_portal/domain/entities/health_journal/response/get_health_journal_diagonses/get_health_journal_diagonses_response.dart';
 import 'package:sijil_patient_portal/domain/use_cases/health_journal/get_health_journal_diagonse_use_case.dart';

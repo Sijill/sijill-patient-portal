@@ -25,6 +25,9 @@ class CustomedDropDown extends StatefulWidget {
   final double? paddingVerticalItem;
   final double? paddingHorizontalItem;
   final IconData? prefixIcon;
+  final TextStyle? hintStyle;
+  final Color? borderColor;
+  final EdgeInsets? edgeInsets;
   final Function(int index)? onChanged;
 
   const CustomedDropDown({
@@ -45,6 +48,9 @@ class CustomedDropDown extends StatefulWidget {
     this.textColor,
     this.paddingHorizontalItem,
     this.onChanged,
+    this.hintStyle,
+    this.borderColor,
+    this.edgeInsets,
   });
 
   @override
@@ -157,9 +163,11 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
             );
           },
           hint: widget.hint,
-          hintStyle: AppStyle.mediumBlack16.copyWith(
-            color: widget.textColor ?? AppColors.black,
-          ),
+          hintStyle:
+              widget.hintStyle ??
+              AppStyle.mediumBlack16.copyWith(
+                color: widget.textColor ?? AppColors.black,
+              ),
           fillColor: widget.backgroundColor,
           controller: widget.controller,
           readOnly: true,
@@ -172,6 +180,8 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
             size: 30.sp,
             color: AppColors.black,
           ),
+          borderColor: widget.borderColor,
+          edgeInsets: widget.edgeInsets,
         );
       },
     );
