@@ -24,7 +24,7 @@ class UploadProfileImageError extends MedicalIdentityState {
 class GetProfileImageLoading extends MedicalIdentityState {}
 
 class GetProfileImageSuccess extends MedicalIdentityState {
-  Uint8List imageBytes;
+  Uint8List? imageBytes;
   GetProfileImageSuccess({required this.imageBytes});
 }
 

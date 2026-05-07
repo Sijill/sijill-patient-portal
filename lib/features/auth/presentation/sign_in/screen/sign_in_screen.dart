@@ -25,8 +25,8 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text: "patient@gmail.com");
+  final _passwordController = TextEditingController(text: "12345678");
   bool isObscure = true;
   var viewModel = getIt<AuthCubit>();
 

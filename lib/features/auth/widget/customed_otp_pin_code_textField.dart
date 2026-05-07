@@ -36,6 +36,7 @@ class _CustomedOtpPinCodeTextfieldState
   @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
+      autoDisposeControllers: false,
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.disabled,
       errorTextSpace: 20.h,
