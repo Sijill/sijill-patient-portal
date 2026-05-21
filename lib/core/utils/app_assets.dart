@@ -54,6 +54,7 @@ class AppAssets {
   static const String calender = "assets/images/calender.png";
   static const String searchlight = "assets/images/searchlight.png";
   static const String location = "assets/images/location.png";
+  static const String clock = "assets/images/clock.png";
 
   static const String onboarding1 = "assets/svg/onboarding1.svg";
   static const String onboarding2 = "assets/svg/onboarding2.svg";

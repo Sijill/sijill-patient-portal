@@ -33,9 +33,11 @@ class AppColors {
   static const Color orange = Colors.orange;
   static const Color orangeAccent = Colors.orangeAccent;
   static const Color grey = Colors.grey;
+  static const Color lightGrey = Color(0xFFDADADA);
   static const Color darkGreen = Color.fromARGB(255, 40, 177, 45);
   static const Color darkGreen2 = Color(0xFF245353);
   static const Color green1 = Color(0xFF27FF00);
   static const Color green2 = Color(0xFF60A254);
   static const Color iceGrey = Color(0xFFF3F4F6);
+  static const Color teal = Color(0xFF00C8B3);
 }

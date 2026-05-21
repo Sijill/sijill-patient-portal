@@ -63,7 +63,7 @@ class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
             constraints: BoxConstraints(maxHeight: 0.55.sh),
             width: double.infinity,
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 25.h),
-            margin: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 10.h),
+            margin: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 60.h),
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(20.r),
@@ -111,7 +111,7 @@ class _AddNewEmergencyContactState extends State<AddNewEmergencyContact> {
                       bottomSheetLeft: 32.w,
                       bottomSheetRight: 32.w,
                       heightDrobdown: 150.h,
-                      bottomSheetHeight: 20.h,
+                      bottomSheetHeight: 50.h,
                       bottoShowSelectItem: [
                         "PARENT",
                         "SPOUSE",

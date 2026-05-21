@@ -45,7 +45,7 @@ class CustomedNotificationsItem extends StatelessWidget {
         ),
         subtitle: AutoSizeText(
           subTitle,
-          style: AppStyle.semiBoldGrey16.copyWith(fontSize: 12.sp),
+          style: AppStyle.mediumGray14.copyWith(fontSize: 12.sp),
         ),
       ),
     );
