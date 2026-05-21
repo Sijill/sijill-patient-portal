@@ -29,6 +29,7 @@ class AppColors {
   static const Color bageColor = Color(0xFFF9F6E9);
   static const Color brown = Color(0xFF914010);
   static const Color lightGreen2 = Color(0xFFF0FDF4);
+  static const Color lightBlue = Color(0xFFEBF7F7);
   static const Color transparent = Colors.transparent;
   static const Color orange = Colors.orange;
   static const Color orangeAccent = Colors.orangeAccent;

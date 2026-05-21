@@ -23,6 +23,7 @@ class AppAssets {
   static const String microscope = "assets/svg/microscope.svg";
   static const String revoke = "assets/svg/revoke.svg";
   static const String search = "assets/svg/search.svg";
+  static const String dismiss = "assets/svg/dismiss.svg";
 
   static const String loading = "assets/svg/loading3.json";
   static const String followUp = "assets/images/follow_up.png";
