@@ -31,6 +31,7 @@ class CustomTextField extends StatefulWidget {
   final Color? borderColor;
   final TextStyle? hintStyle;
   final Color? iconVisabilyColor;
+  final double? raduis;
 
   const CustomTextField({
     super.key,
@@ -72,6 +73,7 @@ class CustomTextField extends StatefulWidget {
     this.hintStyle,
     this.iconVisabilyColor,
     this.borderColor,
+    this.raduis,
   });
 
   @override
@@ -148,7 +150,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           fillColor: widget.fillColor ?? AppColors.primaryColor,
           filled: true,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(widget.raduis ?? 10.r),
             borderSide: BorderSide(
               color: widget.borderColor ?? AppColors.primaryColor,
               width: 1,
@@ -157,21 +159,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
           // suffix: isPass widget.suffixWidget,
           contentPadding: widget.edgeInsets,
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(widget.raduis ?? 10.r),
             borderSide: BorderSide(
               color: widget.borderColor ?? AppColors.primaryColor,
               width: 1,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(widget.raduis ?? 10.r),
             borderSide: BorderSide(
               color: widget.borderColor ?? AppColors.primaryColor,
               width: 1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(widget.raduis ?? 10.r),
             borderSide: BorderSide(
               color: widget.borderColor ?? AppColors.primaryColor,
               width: 1,
@@ -180,7 +182,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           errorStyle: AppStyle.meduimRed14,
           errorMaxLines: 6,
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(widget.raduis ?? 10.r),
             borderSide: BorderSide(color: AppColors.red, width: 1.w),
           ),
         ),

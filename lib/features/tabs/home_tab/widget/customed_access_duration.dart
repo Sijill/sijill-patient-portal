@@ -54,7 +54,7 @@ class _CustomedAccessDurationState extends State<CustomedAccessDuration> {
                 flex: 5,
                 child: CustomedDropDown(
                   fontSize: 18.sp,
-                  bottomSheetHeight: widget.bottomSheetHeight ?? 10.h,
+                  bottomSheetHeight: widget.bottomSheetHeight ?? 45.h,
                   bottomSheetRight: widget.bottomSheetRight ?? 150.w,
                   bottomSheetLeft: widget.bottomSheetLeft ?? 10.w,
                   onValidate: (val) {

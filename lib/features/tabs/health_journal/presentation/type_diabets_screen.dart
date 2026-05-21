@@ -167,7 +167,7 @@ class _TypeDiabetsScreenState extends State<TypeDiabetsScreen> {
                     ),
                     child: CustomedDropDown(
                       backgroundColor: AppColors.tabBarUnSelectedColor,
-                      bottomSheetHeight: 10.h,
+                      bottomSheetHeight: 50.h,
                       bottomSheetLeft: 20.w,
                       bottomSheetRight: 20.w,
                       widthDropdown: double.infinity,
