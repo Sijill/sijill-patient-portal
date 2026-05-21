@@ -39,15 +39,31 @@ class _TrackNewSymptomState extends State<TrackNewSymptom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: AutoSizeText("Health Journal", style: AppStyle.semiBoldBlack20),
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        context
+                            .read<HealthJournalCubit>()
+                            .getHealthJournalNotes();
+                      },
+                      child: Icon(Icons.arrow_back, size: 25.sp),
+                    ),
+                    SizedBox(width: 75.w),
+                    AutoSizeText(
+                      "Health Journal",
+                      style: AppStyle.semiBoldBlack20,
+                    ),
+                  ],
+                ),
                 SizedBox(height: 70.h),
                 AutoSizeText(
                   "Select the diagnosis you want to note about.",
