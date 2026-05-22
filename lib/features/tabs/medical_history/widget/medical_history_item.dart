@@ -7,14 +7,29 @@ import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 class MedicalHistoryItem extends StatelessWidget {
-  const MedicalHistoryItem({super.key});
+  final String doctorName;
+  final String icd11Code;
+  final String icd11Title;
+  final String doctorSpeciality;
+  final String encounterDate;
+  final String location;
+  final void Function()? onTap;
+
+  const MedicalHistoryItem({
+    super.key,
+    required this.doctorName,
+    required this.icd11Code,
+    required this.icd11Title,
+    required this.doctorSpeciality,
+    required this.encounterDate,
+    required this.location,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).pushNamed(AppRoutes.medicalHistroyDetails);
-      },
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
         decoration: BoxDecoration(
@@ -25,16 +40,17 @@ class MedicalHistoryItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 10.h,
           children: [
+            AutoSizeText(doctorName, style: AppStyle.boldBlack16),
             AutoSizeText(
-              "Dr. Layla Hassan (Cardiology)",
-              style: AppStyle.boldBlack16,
+              "$icd11Code — $icd11Code — Essential (primary)",
+              style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
             ),
             AutoSizeText(
-              "ICD-11 — BA80.1 — Essential (primary) hypertension",
+              doctorSpeciality,
               style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
             ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 3.w,
               children: [
                 Image.asset(
@@ -44,10 +60,13 @@ class MedicalHistoryItem extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                 ),
                 AutoSizeText(
-                  "March 3, 2026",
+                  encounterDate,
                   style: AppStyle.boldGrey14.copyWith(fontSize: 12.sp),
                 ),
-                SizedBox(width: 10.w),
+              ],
+            ),
+            Row(
+              children: [
                 Image.asset(
                   AppAssets.location,
                   height: 27.h,
@@ -56,7 +75,7 @@ class MedicalHistoryItem extends StatelessWidget {
                 ),
                 Expanded(
                   child: AutoSizeText(
-                    "Cairo University Hospital",
+                    location,
                     style: AppStyle.boldGrey14.copyWith(fontSize: 12.sp),
                   ),
                 ),

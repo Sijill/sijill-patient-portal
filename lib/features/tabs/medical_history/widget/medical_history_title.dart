@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_drop_down.dart';
 
 class MedicalHistoryTitle extends StatefulWidget {
   const MedicalHistoryTitle({super.key});
@@ -26,10 +25,10 @@ class _MedicalHistoryTitleState extends State<MedicalHistoryTitle> {
     return Row(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 11.h),
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.gray),
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(5.r),
           ),
           child: Image.asset(
             AppAssets.searchlight,
@@ -41,29 +40,30 @@ class _MedicalHistoryTitleState extends State<MedicalHistoryTitle> {
 
         SizedBox(width: 10.w),
         Expanded(
-          child: SizedBox(
-            height: 50.h,
-            child: CustomedDropDown(
-              edgeInsets: EdgeInsets.symmetric(vertical: 10.h, horizontal: 8.w),
-              borderColor: AppColors.gray,
-              hintStyle: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
-              backgroundColor: AppColors.transparent,
-              bottoShowSelectItem: [],
-              controller: healthcareProviderController,
-              hint: "Healthcare Provider",
-              bottomSheetHeight: 550.h,
-              bottomSheetLeft: 16.w,
-              bottomSheetRight: 16.w,
-              widthDropdown: double.infinity,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 5.w),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.r),
+              border: Border.all(color: AppColors.gray),
+            ),
+            child: Row(
+              spacing: 5.w,
+              children: [
+                AutoSizeText(
+                  "Healthcare Provider",
+                  style: AppStyle.meduimBlack14.copyWith(fontSize: 12.sp),
+                ),
+                Icon(Icons.arrow_drop_down),
+              ],
             ),
           ),
         ),
         SizedBox(width: 10.w),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 11.h),
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.gray),
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(5.r),
           ),
           child: Row(
             spacing: 5.w,

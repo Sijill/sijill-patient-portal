@@ -5,7 +5,15 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 class DiagnosesItem extends StatelessWidget {
-  const DiagnosesItem({super.key});
+  final String icd11Code;
+  final String icd11Title;
+  final String clinicalDescription;
+  const DiagnosesItem({
+    super.key,
+    required this.icd11Code,
+    required this.icd11Title,
+    required this.clinicalDescription,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,14 @@ class DiagnosesItem extends StatelessWidget {
         spacing: 5.h,
         children: [
           AutoSizeText(
-            "BA80.1 — Essential (primary) hypertension",
+            "$icd11Code — Essential (primary)",
+            style: AppStyle.boldBlack16.copyWith(
+              fontSize: 13.sp,
+              color: AppColors.darkGreen2,
+            ),
+          ),
+          AutoSizeText(
+            icd11Title,
             style: AppStyle.boldBlack16.copyWith(
               fontSize: 13.sp,
               color: AppColors.darkGreen2,
@@ -41,8 +56,7 @@ class DiagnosesItem extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text:
-                      "Patient presents with elevated blood pressure readings (systolic 145-160 mmHg, diastolic 90-100 mmHg) on multiple occasions. No secondary causes identified. Patient reports occasional headaches and mild fatigue. Lifestyle factors reviewed including salt intake and stress levels.",
+                  text: clinicalDescription,
                   style: AppStyle.mediumBlack16.copyWith(
                     fontSize: 12.sp,
                     height: 3.h,

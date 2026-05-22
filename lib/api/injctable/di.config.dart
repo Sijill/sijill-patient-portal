@@ -17,6 +17,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 import '../../data/data_sources/remote/auth/auth_data_sources.dart' as _i697;
 import '../../data/data_sources/remote/health_journal/health_journal_data_sources.dart'
     as _i1045;
+import '../../data/data_sources/remote/medical_history/medical_history_data_sources.dart'
+    as _i880;
 import '../../data/data_sources/remote/medical_identity/medical_identity_data_sources.dart'
     as _i927;
 import '../../data/data_sources/remote/permission_token/permission_token_data_sources.dart'
@@ -24,6 +26,8 @@ import '../../data/data_sources/remote/permission_token/permission_token_data_so
 import '../../data/repositories/auth/auth_repository_impl.dart' as _i24;
 import '../../data/repositories/health_journal/health_journal_repository_impl.dart'
     as _i1058;
+import '../../data/repositories/medical_history/medical_history_repository_impl.dart'
+    as _i792;
 import '../../data/repositories/medical_identity/medical_identity_repository_impl.dart'
     as _i846;
 import '../../data/repositories/permission_token/permission_token_repository_impl.dart'
@@ -31,6 +35,8 @@ import '../../data/repositories/permission_token/permission_token_repository_imp
 import '../../domain/repositories/auth/auth_repository.dart' as _i660;
 import '../../domain/repositories/health_journal/health_journal_repository.dart'
     as _i1022;
+import '../../domain/repositories/medical_history/medical_history_repository.dart'
+    as _i287;
 import '../../domain/repositories/medical_identity/medical_identity_repository.dart'
     as _i243;
 import '../../domain/repositories/permission_token/permission_token_repository.dart'
@@ -59,6 +65,10 @@ import '../../domain/use_cases/health_journal/get_health_journal_notes_use_case.
     as _i885;
 import '../../domain/use_cases/health_journal/health_journal_notes_use_case.dart'
     as _i482;
+import '../../domain/use_cases/medical_history/get_list_medical_history_use_case.dart'
+    as _i59;
+import '../../domain/use_cases/medical_history/get_medical_history_use_case.dart'
+    as _i474;
 import '../../domain/use_cases/medical_identity/add_emergency_contact_use_case.dart'
     as _i597;
 import '../../domain/use_cases/medical_identity/delete_emergency_contact_use_case.dart'
@@ -83,11 +93,15 @@ import '../../features/tabs/health_journal/cubit/health_journal_cubit.dart'
 import '../../features/tabs/home_tab/cubit/home_tab_cubt.dart' as _i348;
 import '../../features/tabs/home_tab/cubit/permission_token_cubit.dart'
     as _i182;
+import '../../features/tabs/medical_history/cubit/medical_history_cubit.dart'
+    as _i554;
 import '../../features/tabs/medical_identiti/cubit/medical_identity_cubit.dart'
     as _i495;
 import '../data_sources/remote/auth/auth_data_sources_impl.dart' as _i62;
 import '../data_sources/remote/health_journal/health_journal_data_sources_impl.dart'
     as _i496;
+import '../data_sources/remote/medical_history/medical_history_data_sources_impl.dart'
+    as _i238;
 import '../data_sources/remote/medical_identity/medical_identity_data_sources_impl.dart'
     as _i333;
 import '../data_sources/remote/permission_token/permission_token_data_sources_impl.dart'
@@ -133,6 +147,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i697.AuthDataSources>(
       () => _i62.AuthDataSourcesImpl(webService: gh<_i410.WebService>()),
     );
+    gh.factory<_i880.MedicalHistoryDataSources>(
+      () => _i238.MedicalHistoryDataSourcesImpl(
+        webService: gh<_i410.WebService>(),
+      ),
+    );
     gh.factory<_i32.PermissionTokenDataSources>(
       () => _i39.PermissionTokenDataSourcesImpl(
         webService: gh<_i410.WebService>(),
@@ -160,6 +179,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1022.HealthJournalRepository>(
       () => _i1058.HealthJournalRepositoryImpl(
         healthJournalDataSources: gh<_i1045.HealthJournalDataSources>(),
+      ),
+    );
+    gh.factory<_i287.MedicalHistoryRepository>(
+      () => _i792.MedicalHistoryRepositoryImpl(
+        medicalHistoryDataSources: gh<_i880.MedicalHistoryDataSources>(),
       ),
     );
     gh.factory<_i597.AddEmergencyContactUseCase>(
@@ -281,6 +305,16 @@ extension GetItInjectableX on _i174.GetIt {
         authRepository: gh<_i660.AuthRepository>(),
       ),
     );
+    gh.factory<_i59.GetListMedicalHistoryUseCase>(
+      () => _i59.GetListMedicalHistoryUseCase(
+        medicalHistoryRepository: gh<_i287.MedicalHistoryRepository>(),
+      ),
+    );
+    gh.factory<_i474.GetMedicalHistoryUseCase>(
+      () => _i474.GetMedicalHistoryUseCase(
+        medicalHistoryRepository: gh<_i287.MedicalHistoryRepository>(),
+      ),
+    );
     gh.factory<_i407.HealthJournalCubit>(
       () => _i407.HealthJournalCubit(
         getHealthJournalDiagonseUseCase:
@@ -303,6 +337,12 @@ extension GetItInjectableX on _i174.GetIt {
         passwordResetResendOtpUseCase:
             gh<_i355.PasswordResetResendOtpUseCase>(),
         passwordResetConfirmUseCase: gh<_i846.PasswordResetConfirmUseCase>(),
+      ),
+    );
+    gh.factory<_i554.MedicalHistoryCubit>(
+      () => _i554.MedicalHistoryCubit(
+        getListMedicalHistoryUseCase: gh<_i59.GetListMedicalHistoryUseCase>(),
+        getMedicalHistoryUseCase: gh<_i474.GetMedicalHistoryUseCase>(),
       ),
     );
     return this;
