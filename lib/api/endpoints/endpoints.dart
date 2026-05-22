@@ -41,4 +41,10 @@ class Endpoints {
 
   static const String getHealthJournalNotesDiagonsesIdApi =
       "/api/v1/patient/health-journal/notes/{diagnosisId}";
+
+  static const String getListMedicalHistoryApi =
+      "/api/v1/patient/medical-history";
+
+  static const String getMedicalHistoryApi =
+      "/api/v1/patient/medical-history/{encounterId}";
 }
