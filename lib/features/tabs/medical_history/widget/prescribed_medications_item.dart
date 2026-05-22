@@ -5,7 +5,24 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 class PrescribedMedicationsItem extends StatelessWidget {
-  const PrescribedMedicationsItem({super.key});
+  final String medicationName;
+  final String startDate;
+  final int dosageAmount;
+  final String dosageUnit;
+  final String from;
+  final String frequency;
+  final String instructions;
+
+  const PrescribedMedicationsItem({
+    super.key,
+    required this.medicationName,
+    required this.startDate,
+    required this.dosageAmount,
+    required this.dosageUnit,
+    required this.from,
+    required this.frequency,
+    required this.instructions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +43,12 @@ class PrescribedMedicationsItem extends StatelessWidget {
           Row(
             children: [
               AutoSizeText(
-                "Lisinopril",
+                medicationName,
                 style: AppStyle.boldBlack16.copyWith(fontSize: 14.sp),
               ),
               SizedBox(width: 55.w),
               AutoSizeText(
-                "May 2015 : June 2015",
+                startDate,
                 style: AppStyle.boldGrey14.copyWith(fontSize: 13.sp),
               ),
             ],
@@ -44,34 +61,44 @@ class PrescribedMedicationsItem extends StatelessWidget {
                 style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
               ),
               AutoSizeText(
-                "10mg",
+                "$dosageAmount $dosageUnit",
                 style: AppStyle.boldGrey14.copyWith(fontSize: 12.sp),
               ),
             ],
           ),
-          Row(
-            children: [
-              AutoSizeText(
-                "Form: ",
-                style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
-              ),
-              AutoSizeText(
-                "Tablet",
-                style: AppStyle.boldGrey14.copyWith(fontSize: 12.sp),
-              ),
-            ],
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "Form: ",
+                  style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
+                ),
+                TextSpan(
+                  text: from,
+                  style: AppStyle.boldGrey14.copyWith(
+                    fontSize: 12.sp,
+                    height: 1.5.h,
+                  ),
+                ),
+              ],
+            ),
           ),
-          Row(
-            children: [
-              AutoSizeText(
-                "Frequency: ",
-                style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
-              ),
-              AutoSizeText(
-                "Once Daily",
-                style: AppStyle.boldGrey14.copyWith(fontSize: 12.sp),
-              ),
-            ],
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "Frequency: ",
+                  style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
+                ),
+                TextSpan(
+                  text: frequency,
+                  style: AppStyle.boldGrey14.copyWith(
+                    fontSize: 12.sp,
+                    height: 1.5.h,
+                  ),
+                ),
+              ],
+            ),
           ),
           Text.rich(
             TextSpan(
@@ -81,7 +108,7 @@ class PrescribedMedicationsItem extends StatelessWidget {
                   style: AppStyle.boldBlack14.copyWith(fontSize: 12.sp),
                 ),
                 TextSpan(
-                  text: "Take in the morning with or without food",
+                  text: instructions,
                   style: AppStyle.boldGrey14.copyWith(
                     fontSize: 12.sp,
                     height: 1.5.h,

@@ -10,6 +10,7 @@ import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/cubit/health_journal_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_cubit.dart';
+import 'package:sijil_patient_portal/features/tabs/medical_history/cubit/medical_history_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_cubit.dart';
 
 Future<void> main() async {
@@ -27,6 +28,7 @@ Future<void> main() async {
         BlocProvider(create: (context) => getIt<PermissionTokenCubit>()),
         BlocProvider(create: (context) => getIt<MedicalIdentityCubit>()),
         BlocProvider(create: (context) => getIt<HealthJournalCubit>()),
+        BlocProvider(create: (context) => getIt<MedicalHistoryCubit>()),
       ],
       child: MyApp(onboarding: onboarding, accessToken: accessToken),
     ),
