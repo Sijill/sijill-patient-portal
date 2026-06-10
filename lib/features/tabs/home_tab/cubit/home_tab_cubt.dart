@@ -51,13 +51,6 @@ class HomeTabCubt extends Cubit<HomeTabState> {
     emit(SelectItemFromRemindersSuccessState());
   }
 
-  List<String> readMessage = ["ALL", "READ", "UNREAD"];
-  int selectIndexFromReadMessage = 0;
-  void changeSelectIndexFromReadMessage(int index) {
-    selectIndexFromReadMessage = index;
-    emit(SelectItemFromReadMessageSuccessState());
-  }
-
   Map<int, Time> medicationTimes = {};
   Time getMedicationTime(int index) {
     return medicationTimes[index] ?? Time(hour: 4, minute: 30);

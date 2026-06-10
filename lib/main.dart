@@ -1,20 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/api/firebase_options.dart';
 import 'package:sijil_patient_portal/api/injctable/di.dart';
+import 'package:sijil_patient_portal/api/notifications/local_notification_service.dart';
 import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/my_bloc_observer.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/cubit/health_journal_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/cubit/medical_history_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await LocalNotificationService.init();
   configureDependencies();
   Bloc.observer = MyBlocObserver();
   await SharedPrefsUtils.init();
@@ -29,6 +35,7 @@ Future<void> main() async {
         BlocProvider(create: (context) => getIt<MedicalIdentityCubit>()),
         BlocProvider(create: (context) => getIt<HealthJournalCubit>()),
         BlocProvider(create: (context) => getIt<MedicalHistoryCubit>()),
+        BlocProvider(create: (context) => getIt<NotificationCubit>()),
       ],
       child: MyApp(onboarding: onboarding, accessToken: accessToken),
     ),
