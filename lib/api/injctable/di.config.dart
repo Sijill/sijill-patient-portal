@@ -85,6 +85,8 @@ import '../../domain/use_cases/medical_identity/get_profile_image_use_case.dart'
     as _i913;
 import '../../domain/use_cases/medical_identity/upload_profile_image_use_case.dart'
     as _i238;
+import '../../domain/use_cases/notification/list_active_patient_reminders_use_case.dart'
+    as _i844;
 import '../../domain/use_cases/notification/list_all_patient_notification_use_case.dart'
     as _i172;
 import '../../domain/use_cases/notification/notification_read_use_case.dart'
@@ -203,6 +205,11 @@ extension GetItInjectableX on _i174.GetIt {
         healthJournalDataSources: gh<_i1045.HealthJournalDataSources>(),
       ),
     );
+    gh.factory<_i844.ListActivePatientRemindersUseCase>(
+      () => _i844.ListActivePatientRemindersUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
+      ),
+    );
     gh.factory<_i172.ListAllPatientNotificationUseCase>(
       () => _i172.ListAllPatientNotificationUseCase(
         notificationRepository: gh<_i87.NotificationRepository>(),
@@ -216,6 +223,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i287.MedicalHistoryRepository>(
       () => _i792.MedicalHistoryRepositoryImpl(
         medicalHistoryDataSources: gh<_i880.MedicalHistoryDataSources>(),
+      ),
+    );
+    gh.factory<_i332.NotificationCubit>(
+      () => _i332.NotificationCubit(
+        listAllPatientNotificationUseCase:
+            gh<_i172.ListAllPatientNotificationUseCase>(),
+        notificationReadUseCase: gh<_i406.NotificationReadUseCase>(),
+        listActivePatientRemindersUseCase:
+            gh<_i844.ListActivePatientRemindersUseCase>(),
       ),
     );
     gh.factory<_i597.AddEmergencyContactUseCase>(
@@ -335,13 +351,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
-      ),
-    );
-    gh.factory<_i332.NotificationCubit>(
-      () => _i332.NotificationCubit(
-        listAllPatientNotificationUseCase:
-            gh<_i172.ListAllPatientNotificationUseCase>(),
-        notificationReadUseCase: gh<_i406.NotificationReadUseCase>(),
       ),
     );
     gh.factory<_i59.GetListMedicalHistoryUseCase>(

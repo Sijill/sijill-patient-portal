@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/reminder_days_widget.dart';
 
 class CustomChangeDays extends StatelessWidget {
@@ -65,7 +65,7 @@ class CustomChangeDays extends StatelessWidget {
                     radius: 5.r,
                     text: "Save",
                     onPressed: () {
-                      context.read<HomeTabCubt>().saveSelectedDays(index);
+                      context.read<NotificationCubit>().saveSelectedDays(index);
                       Navigator.pop(context);
                     },
                   ),

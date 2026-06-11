@@ -1,9 +1,12 @@
+import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/api/notifications/local_notification_service.dart';
 import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
+import 'package:sijil_patient_portal/domain/entities/notfication/response/list_active_patient_remiders_response/list_active_patient_remiders_response.dart';
+import 'package:sijil_patient_portal/domain/use_cases/notification/list_active_patient_reminders_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/list_all_patient_notification_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/notification_read_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_state.dart';
@@ -11,15 +14,19 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_sta
 @injectable
 class NotificationCubit extends Cubit<NotifcatonState> {
   ListAllPatientNotificationUseCase listAllPatientNotificationUseCase;
+  ListActivePatientRemindersUseCase listActivePatientRemindersUseCase;
   NotificationReadUseCase notificationReadUseCase;
 
   NotificationCubit({
     required this.listAllPatientNotificationUseCase,
     required this.notificationReadUseCase,
+    required this.listActivePatientRemindersUseCase,
   }) : super(NotifcatonIniialState());
 
   List<dynamic> allNotifications = [];
   List<dynamic> filteredNotifications = [];
+
+  ListActivePatientRemidersResponse? remindersResponse;
 
   List<String> readMessage = ["ALL", "READ", "UNREAD"];
   int selectIndexFromReadMessage = 0;
@@ -125,5 +132,97 @@ class NotificationCubit extends Cubit<NotifcatonState> {
       emit(GetNotificationReadError(message: e.toString()));
     }
     return;
+  }
+
+  Future<void> getListActivePatientReminders() async {
+    try {
+      emit(GetListActivePatientRemindersLoading());
+      final response = await listActivePatientRemindersUseCase.invoke();
+      remindersResponse = response;
+
+      medicationDays.clear();
+
+      final reminders = response.reminders ?? [];
+      int index = 0;
+
+      for (final reminder in reminders) {
+        if (reminder.medication == null) continue;
+
+        final customDays = reminder.customDays;
+
+        if (customDays == null) {
+          medicationDays[index] = List.from(days); // Every Day
+        } else {
+          medicationDays[index] = (customDays as List)
+              .map((e) => days[e as int])
+              .toList();
+        }
+
+        index++;
+      }
+      emit(
+        GetListActivePatientRemindersSuccess(
+          listActivePatientRemidersResponse: response,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(GetListActivePatientRemindersError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(GetListActivePatientRemindersError(message: message));
+    } catch (e) {
+      emit(GetListActivePatientRemindersError(message: e.toString()));
+    }
+    return;
+  }
+
+  List<String> days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+
+  /// DATA SOURCE
+  Map<int, List<String>> medicationDays = {};
+  Map<int, List<String>> tempMedicationDays = {};
+  Map<int, Time> medicationTimes = {};
+
+  Time getMedicationTime(int index) {
+    return medicationTimes[index] ?? Time(hour: 4, minute: 30);
+  }
+
+  void changeMedicationTime({required int index, required Time newTime}) {
+    medicationTimes[index] = newTime;
+    emit(ChangeTimeSuccessState());
+  }
+
+  List<String> getMedicationDays(int index) {
+    final sortedDays = List<String>.from(medicationDays[index] ?? []);
+
+    sortedDays.sort((a, b) => days.indexOf(a).compareTo(days.indexOf(b)));
+
+    return sortedDays;
+  }
+
+  void initTempDays(int index) {
+    tempMedicationDays[index] = List.from(medicationDays[index] ?? []);
+
+    emit(ChangeMedicationDaysState());
+  }
+
+  void toggleTempDay({required int index, required String day}) {
+    tempMedicationDays[index] ??= [];
+
+    if (tempMedicationDays[index]!.contains(day)) {
+      tempMedicationDays[index]!.remove(day);
+    } else {
+      tempMedicationDays[index]!.add(day);
+    }
+
+    emit(ChangeMedicationDaysState());
+  }
+
+  void saveSelectedDays(int index) {
+    medicationDays[index] = List.from(tempMedicationDays[index] ?? []);
+
+    emit(ChangeMedicationDaysState());
   }
 }

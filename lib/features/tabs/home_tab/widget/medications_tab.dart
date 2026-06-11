@@ -5,14 +5,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_state.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/custom_change_days.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/reminders_button.dart';
 
 class MedicationsTab extends StatefulWidget {
+  final String? name;
+  final String? reminderTime;
+  final int? dosageAmount;
+  final String? dosageUnit;
+  final String? frequency;
+  final String? startDate;
+  final String? endDate;
   final int index;
-  const MedicationsTab({super.key, required this.index});
+  const MedicationsTab({
+    super.key,
+    required this.index,
+    this.name,
+    this.dosageAmount,
+    this.dosageUnit,
+    this.frequency,
+    this.startDate,
+    this.endDate,
+    this.reminderTime,
+  });
 
   @override
   State<MedicationsTab> createState() => _MedicationsTabState();
@@ -27,10 +44,13 @@ class _MedicationsTabState extends State<MedicationsTab> {
         borderRadius: BorderRadius.circular(15.r),
         color: AppColors.tabBarUnSelectedColor,
       ),
-      child: BlocBuilder<HomeTabCubt, HomeTabState>(
+      child: BlocBuilder<NotificationCubit, NotifcatonState>(
         builder: (context, state) {
-          final viewModel = context.read<HomeTabCubt>();
+          final viewModel = context.read<NotificationCubit>();
+
           final selectedDays = viewModel.getMedicationDays(widget.index);
+          final isEveryDay = selectedDays.length == 7;
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -38,18 +58,18 @@ class _MedicationsTabState extends State<MedicationsTab> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AutoSizeText(
-                    "Amoxicillin",
+                    widget.name ?? "",
                     style: AppStyle.semiBoldBlack20.copyWith(fontSize: 13.sp),
                   ),
                   AutoSizeText(
-                    "May 2015 : June 2015",
+                    "${widget.startDate} : ${widget.endDate}",
                     style: AppStyle.semiBoldGrey16.copyWith(fontSize: 13.sp),
                   ),
                 ],
               ),
               SizedBox(height: 8.h),
               AutoSizeText(
-                "500mg · Capsule · 3 times a week",
+                "${widget.dosageAmount} ${widget.dosageUnit} · Capsule · ${widget.frequency}",
                 style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
               ),
               SizedBox(height: 8.h),
@@ -70,7 +90,7 @@ class _MedicationsTabState extends State<MedicationsTab> {
                     child: Wrap(
                       spacing: 5.w,
                       runSpacing: 5.h,
-                      children: selectedDays.length == 7
+                      children: isEveryDay
                           ? [
                               Container(
                                 padding: EdgeInsets.symmetric(
