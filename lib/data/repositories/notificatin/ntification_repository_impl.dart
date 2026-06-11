@@ -3,6 +3,7 @@ import 'package:sijil_patient_portal/data/data_sources/remote/notification/notif
 import 'package:sijil_patient_portal/domain/entities/notfication/response/list_active_patient_remiders_response/list_active_patient_remiders_response.dart';
 import 'package:sijil_patient_portal/domain/entities/notfication/response/list_all_patient_notification/list_all_patient_notification_response.dart';
 import 'package:sijil_patient_portal/domain/entities/notfication/response/notification_read_response/notification_read_response.dart';
+import 'package:sijil_patient_portal/domain/entities/notfication/response/pending_notification_response/pending_notification_response.dart';
 import 'package:sijil_patient_portal/domain/repositories/notification/notification_repository.dart';
 
 @Injectable(as: NotificationRepository)
@@ -26,5 +27,10 @@ class NotificationRepositoryImpl extends NotificationRepository {
   @override
   Future<ListActivePatientRemidersResponse> getListActivePatientReminders() {
     return notificationDataSource.getListActivePatientReminders();
+  }
+
+  @override
+  Future<PendingNotificationResponse> getPendingNotifications() {
+    return notificationDataSource.getPendingNotifications();
   }
 }

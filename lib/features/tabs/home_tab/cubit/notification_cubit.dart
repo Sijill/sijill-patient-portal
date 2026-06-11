@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,18 +11,21 @@ import 'package:sijil_patient_portal/domain/entities/notfication/response/list_a
 import 'package:sijil_patient_portal/domain/use_cases/notification/list_active_patient_reminders_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/list_all_patient_notification_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/notification_read_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/notification/peanding_notification_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_state.dart';
 
-@injectable
+@lazySingleton
 class NotificationCubit extends Cubit<NotifcatonState> {
   ListAllPatientNotificationUseCase listAllPatientNotificationUseCase;
   ListActivePatientRemindersUseCase listActivePatientRemindersUseCase;
   NotificationReadUseCase notificationReadUseCase;
+  PeandingNotificationUseCase peandingNotificationUseCase;
 
   NotificationCubit({
     required this.listAllPatientNotificationUseCase,
     required this.notificationReadUseCase,
     required this.listActivePatientRemindersUseCase,
+    required this.peandingNotificationUseCase,
   }) : super(NotifcatonIniialState());
 
   List<dynamic> allNotifications = [];
@@ -224,5 +229,81 @@ class NotificationCubit extends Cubit<NotifcatonState> {
     medicationDays[index] = List.from(tempMedicationDays[index] ?? []);
 
     emit(ChangeMedicationDaysState());
+  }
+
+  Future<void> getPendingNotifications() async {
+    if (_isFetchingPending) return;
+
+    _isFetchingPending = true;
+
+    try {
+      final response = await peandingNotificationUseCase.invoke();
+      final notifications = response.notifications ?? [];
+
+      bool hasNew = false;
+
+      for (final notification in notifications) {
+        final id = notification.notificationId;
+        if (id == null) continue;
+
+        if (!_seenNotifications.contains(id)) {
+          await LocalNotificationService.showBasicNotification(
+            title: notification.title ?? '',
+            message: notification.message ?? '',
+          );
+
+          _seenNotifications.add(id);
+          hasNew = true;
+        }
+      }
+
+      if (hasNew) {
+        await SharedPrefsUtils.saveData(
+          key: _pendingKey,
+          value: _seenNotifications.toList(),
+        );
+      }
+    } on AppException catch (e) {
+      emit(GetPeandingNotificationError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(GetPeandingNotificationError(message: message));
+    } catch (e) {
+      emit(GetPeandingNotificationError(message: e.toString()));
+    } finally {
+      _isFetchingPending = false;
+    }
+  }
+
+  Timer? _pendingTimer;
+  bool _isFetchingPending = false;
+
+  static const String _pendingKey = 'pending_notifications';
+  Set<String> _seenNotifications = {};
+
+  void startPendingNotificationsPolling({
+    Duration interval = const Duration(seconds: 60),
+  }) {
+    _pendingTimer?.cancel();
+
+    _seenNotifications =
+        (SharedPrefsUtils.getStringList(key: _pendingKey) ?? []).toSet();
+
+    _pendingTimer = Timer.periodic(interval, (_) {
+      getPendingNotifications();
+    });
+  }
+
+  void stopPendingNotificationsPolling() {
+    _pendingTimer?.cancel();
+    _pendingTimer = null;
+  }
+
+  @override
+  Future<void> close() {
+    _pendingTimer?.cancel();
+    return super.close();
   }
 }

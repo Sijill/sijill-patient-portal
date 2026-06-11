@@ -10,6 +10,7 @@ import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/my_bloc_observer.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
+import 'package:sijil_patient_portal/features/home/cubit/home_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/cubit/health_journal_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
@@ -30,6 +31,9 @@ Future<void> main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => getIt<HomeCubit>()..startAppPolling(),
+        ),
         BlocProvider(create: (context) => getIt<HomeTabCubt>()),
         BlocProvider(create: (context) => getIt<PermissionTokenCubit>()),
         BlocProvider(create: (context) => getIt<MedicalIdentityCubit>()),

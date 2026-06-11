@@ -33,6 +33,7 @@ import 'package:sijil_patient_portal/api/model/medical_identity/response/upload_
 import 'package:sijil_patient_portal/api/model/notfication/response/list_active_patient_reminders_response/list_active_patient_reminders_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/notfication/response/list_all_patient_notification_response/list_all_patient_notification_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/notfication/response/notification_read_response/notification_read_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/notfication/response/pending_notification_response/pending_notification_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/permission_token_revoke/permission_token_revoke_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/generate_permission_token/generate_permission_token_response_dto.dart';
@@ -169,4 +170,7 @@ abstract class WebService {
 
   @GET(Endpoints.getListActivePatientRemindersApi)
   Future<ListActivePatientRemindersResponseDto> getListActivePatientReminders();
+
+  @GET(Endpoints.getPendingNotificationApi)
+  Future<PendingNotificationResponseDto> getPendingNotification();
 }

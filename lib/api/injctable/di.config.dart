@@ -91,6 +91,8 @@ import '../../domain/use_cases/notification/list_all_patient_notification_use_ca
     as _i172;
 import '../../domain/use_cases/notification/notification_read_use_case.dart'
     as _i406;
+import '../../domain/use_cases/notification/peanding_notification_use_case.dart'
+    as _i945;
 import '../../domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart'
     as _i535;
 import '../../domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart'
@@ -132,7 +134,6 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
-    gh.factory<_i1032.HomeCubit>(() => _i1032.HomeCubit());
     gh.factory<_i547.OnboardingCubit>(() => _i547.OnboardingCubit());
     gh.factory<_i348.HomeTabCubt>(() => _i348.HomeTabCubt());
     gh.lazySingleton<_i361.BaseOptions>(() => dioModule.provideBaseOptions());
@@ -220,18 +221,24 @@ extension GetItInjectableX on _i174.GetIt {
         notificationRepository: gh<_i87.NotificationRepository>(),
       ),
     );
+    gh.factory<_i945.PeandingNotificationUseCase>(
+      () => _i945.PeandingNotificationUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
+      ),
+    );
     gh.factory<_i287.MedicalHistoryRepository>(
       () => _i792.MedicalHistoryRepositoryImpl(
         medicalHistoryDataSources: gh<_i880.MedicalHistoryDataSources>(),
       ),
     );
-    gh.factory<_i332.NotificationCubit>(
+    gh.lazySingleton<_i332.NotificationCubit>(
       () => _i332.NotificationCubit(
         listAllPatientNotificationUseCase:
             gh<_i172.ListAllPatientNotificationUseCase>(),
         notificationReadUseCase: gh<_i406.NotificationReadUseCase>(),
         listActivePatientRemindersUseCase:
             gh<_i844.ListActivePatientRemindersUseCase>(),
+        peandingNotificationUseCase: gh<_i945.PeandingNotificationUseCase>(),
       ),
     );
     gh.factory<_i597.AddEmergencyContactUseCase>(
@@ -372,6 +379,9 @@ extension GetItInjectableX on _i174.GetIt {
         getHealthJournalNotesDiagonseIdUseCase:
             gh<_i539.GetHealthJournalNotesDiagonseIdUseCase>(),
       ),
+    );
+    gh.factory<_i1032.HomeCubit>(
+      () => _i1032.HomeCubit(notificationCubit: gh<_i332.NotificationCubit>()),
     );
     gh.factory<_i698.AuthCubit>(
       () => _i698.AuthCubit(

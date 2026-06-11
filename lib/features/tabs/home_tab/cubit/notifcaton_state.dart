@@ -1,6 +1,7 @@
 import 'package:sijil_patient_portal/domain/entities/notfication/response/list_active_patient_remiders_response/list_active_patient_remiders_response.dart';
 import 'package:sijil_patient_portal/domain/entities/notfication/response/list_all_patient_notification/list_all_patient_notification_response.dart';
 import 'package:sijil_patient_portal/domain/entities/notfication/response/notification_read_response/notification_read_response.dart';
+import 'package:sijil_patient_portal/domain/entities/notfication/response/pending_notification_response/pending_notification_response.dart';
 
 abstract class NotifcatonState {}
 
@@ -53,3 +54,15 @@ class GetListActivePatientRemindersError extends NotifcatonState {
 class ChangeMedicationDaysState extends NotifcatonState {}
 
 class ChangeTimeSuccessState extends NotifcatonState {}
+
+class GetPeandingNotificationLoading extends NotifcatonState {}
+
+class GetPeandingNotificationSuccess extends NotifcatonState {
+  PendingNotificationResponse pendingNotificationRespons;
+  GetPeandingNotificationSuccess({required this.pendingNotificationRespons});
+}
+
+class GetPeandingNotificationError extends NotifcatonState {
+  String message;
+  GetPeandingNotificationError({required this.message});
+}
