@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "831517584985",
+    "project_id": "sijil-notifications",
+    "storage_bucket": "sijil-notifications.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831517584985:android:89d59d5280fc478afc0b48",
+        "android_client_info": {
+          "package_name": "com.example.sijil_patient_portal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL3wX6GWnG1UmQZ2KWRIGO0OOItLBHA_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

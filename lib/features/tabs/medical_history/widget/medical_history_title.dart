@@ -24,24 +24,28 @@ class _MedicalHistoryTitleState extends State<MedicalHistoryTitle> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.gray),
-            borderRadius: BorderRadius.circular(5.r),
-          ),
-          child: Image.asset(
-            AppAssets.searchlight,
-            height: 25.h,
-            width: 25.w,
-            fit: BoxFit.scaleDown,
+        Expanded(
+          flex: 1,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray),
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+            child: Image.asset(
+              AppAssets.searchlight,
+              height: 25.h,
+              width: 25.w,
+              fit: BoxFit.scaleDown,
+            ),
           ),
         ),
 
-        SizedBox(width: 10.w),
+        SizedBox(width: 8.w),
         Expanded(
+          flex: 5,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 5.w),
+            padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.r),
               border: Border.all(color: AppColors.gray),
@@ -51,53 +55,56 @@ class _MedicalHistoryTitleState extends State<MedicalHistoryTitle> {
               children: [
                 AutoSizeText(
                   "Healthcare Provider",
-                  style: AppStyle.meduimBlack14.copyWith(fontSize: 12.sp),
+                  style: AppStyle.meduimBlack14.copyWith(fontSize: 10.sp),
                 ),
-                Icon(Icons.arrow_drop_down),
+                Expanded(child: Icon(Icons.arrow_drop_down)),
               ],
             ),
           ),
         ),
-        SizedBox(width: 10.w),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.gray),
-            borderRadius: BorderRadius.circular(5.r),
-          ),
-          child: Row(
-            spacing: 5.w,
-            children: [
-              AutoSizeText(
-                "From",
-                style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
-              ),
-
-              Image.asset(
-                AppAssets.calender,
-                height: 25.h,
-                width: 25.w,
-                fit: BoxFit.scaleDown,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: BoxBorder.symmetric(
-                    vertical: BorderSide(color: AppColors.black),
-                  ),
+        SizedBox(width: 8.w),
+        Expanded(
+          flex: 4,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.gray),
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+            child: Row(
+              spacing: 5.w,
+              children: [
+                AutoSizeText(
+                  "From",
+                  style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
                 ),
-                height: 25.h,
-              ),
-              AutoSizeText(
-                "To",
-                style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
-              ),
-              Image.asset(
-                AppAssets.calender,
-                height: 25.h,
-                width: 25.w,
-                fit: BoxFit.scaleDown,
-              ),
-            ],
+
+                Image.asset(
+                  AppAssets.calender,
+                  height: 25.h,
+                  width: 25.w,
+                  fit: BoxFit.scaleDown,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: BoxBorder.symmetric(
+                      vertical: BorderSide(color: AppColors.black),
+                    ),
+                  ),
+                  height: 25.h,
+                ),
+                AutoSizeText(
+                  "To",
+                  style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
+                ),
+                Image.asset(
+                  AppAssets.calender,
+                  height: 25.h,
+                  width: 25.w,
+                  fit: BoxFit.scaleDown,
+                ),
+              ],
+            ),
           ),
         ),
       ],

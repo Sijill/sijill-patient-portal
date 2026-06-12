@@ -18,6 +18,8 @@ class SharedPrefsUtils {
       return await sharedPrefs.setDouble(key, value);
     } else if (value is String) {
       return await sharedPrefs.setString(key, value);
+    } else if (value is List<String>) {
+      return await sharedPrefs.setStringList(key, value);
     } else {
       return await sharedPrefs.setBool(key, value);
     }
@@ -47,5 +49,9 @@ class SharedPrefsUtils {
   // todo: get refreshToken
   static String? getRefreshToken() {
     return sharedPrefs.getString("refreshToken");
+  }
+
+  static List<String>? getStringList({required String key}) {
+    return sharedPrefs.getStringList(key);
   }
 }

@@ -30,6 +30,12 @@ import 'package:sijil_patient_portal/api/model/medical_identity/response/add_eme
 import 'package:sijil_patient_portal/api/model/medical_identity/response/delete_emergency_contact/delete_emergency_contact_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/response/get_medical_identity/get_medical_identity_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_identity/response/upload_profile_image/upload_profile_image_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/notfication/request/update_patient_reminder_request/update_patient_reminder_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/notfication/response/list_active_patient_reminders_response/list_active_patient_reminders_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/notfication/response/list_all_patient_notification_response/list_all_patient_notification_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/notfication/response/notification_read_response/notification_read_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/notfication/response/pending_notification_response/pending_notification_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/notfication/response/update_patient_reminders_response/update_patient_reminders_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/permission_token_revoke/permission_token_revoke_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/generate_permission_token/generate_permission_token_response_dto.dart';
@@ -154,5 +160,25 @@ abstract class WebService {
   @GET(Endpoints.getMedicalHistoryApi)
   Future<GetMedicalHistoryResponseDto> getMedicalHistory(
     @Path("encounterId") String encounterId,
+  );
+
+  @GET(Endpoints.getListAllPatientNotificationsApi)
+  Future<ListAllPatientNotificationResponseDto> getListAllPatientNotification();
+
+  @PATCH(Endpoints.getNotificationReadApi)
+  Future<NotificationReadResponseDto> getNotificationRead(
+    @Path("notificationId") String notificationId,
+  );
+
+  @GET(Endpoints.getListActivePatientRemindersApi)
+  Future<ListActivePatientRemindersResponseDto> getListActivePatientReminders();
+
+  @GET(Endpoints.getPendingNotificationApi)
+  Future<PendingNotificationResponseDto> getPendingNotification();
+
+  @PATCH(Endpoints.updatePatientRemindersApi)
+  Future<UpdatePatientRemindersResponseDto> updatePatientReminders(
+    @Path("reminderId") String reminderId,
+    @Body() UpdatePatientReminderRequestDto updatePatientReminderRequest,
   );
 }

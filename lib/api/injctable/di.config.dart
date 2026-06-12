@@ -21,6 +21,8 @@ import '../../data/data_sources/remote/medical_history/medical_history_data_sour
     as _i880;
 import '../../data/data_sources/remote/medical_identity/medical_identity_data_sources.dart'
     as _i927;
+import '../../data/data_sources/remote/notification/notificatin_data_source.dart'
+    as _i1029;
 import '../../data/data_sources/remote/permission_token/permission_token_data_sources.dart'
     as _i32;
 import '../../data/repositories/auth/auth_repository_impl.dart' as _i24;
@@ -30,6 +32,8 @@ import '../../data/repositories/medical_history/medical_history_repository_impl.
     as _i792;
 import '../../data/repositories/medical_identity/medical_identity_repository_impl.dart'
     as _i846;
+import '../../data/repositories/notificatin/ntification_repository_impl.dart'
+    as _i175;
 import '../../data/repositories/permission_token/permission_token_repository_impl.dart'
     as _i324;
 import '../../domain/repositories/auth/auth_repository.dart' as _i660;
@@ -39,6 +43,8 @@ import '../../domain/repositories/medical_history/medical_history_repository.dar
     as _i287;
 import '../../domain/repositories/medical_identity/medical_identity_repository.dart'
     as _i243;
+import '../../domain/repositories/notification/notification_repository.dart'
+    as _i87;
 import '../../domain/repositories/permission_token/permission_token_repository.dart'
     as _i241;
 import '../../domain/use_cases/auth/login/login_resend_otp_use_case.dart'
@@ -79,6 +85,16 @@ import '../../domain/use_cases/medical_identity/get_profile_image_use_case.dart'
     as _i913;
 import '../../domain/use_cases/medical_identity/upload_profile_image_use_case.dart'
     as _i238;
+import '../../domain/use_cases/notification/list_active_patient_reminders_use_case.dart'
+    as _i844;
+import '../../domain/use_cases/notification/list_all_patient_notification_use_case.dart'
+    as _i172;
+import '../../domain/use_cases/notification/notification_read_use_case.dart'
+    as _i406;
+import '../../domain/use_cases/notification/peanding_notification_use_case.dart'
+    as _i945;
+import '../../domain/use_cases/notification/update_patient_reminders_use_case.dart'
+    as _i841;
 import '../../domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart'
     as _i535;
 import '../../domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart'
@@ -91,6 +107,7 @@ import '../../features/onboarding/cubit/onboarding_cubit.dart' as _i547;
 import '../../features/tabs/health_journal/cubit/health_journal_cubit.dart'
     as _i407;
 import '../../features/tabs/home_tab/cubit/home_tab_cubt.dart' as _i348;
+import '../../features/tabs/home_tab/cubit/notification_cubit.dart' as _i332;
 import '../../features/tabs/home_tab/cubit/permission_token_cubit.dart'
     as _i182;
 import '../../features/tabs/medical_history/cubit/medical_history_cubit.dart'
@@ -104,6 +121,8 @@ import '../data_sources/remote/medical_history/medical_history_data_sources_impl
     as _i238;
 import '../data_sources/remote/medical_identity/medical_identity_data_sources_impl.dart'
     as _i333;
+import '../data_sources/remote/notification/notifiation_data_sources_impl.dart'
+    as _i338;
 import '../data_sources/remote/permission_token/permission_token_data_sources_impl.dart'
     as _i39;
 import '../dio/dio_medule.dart' as _i322;
@@ -117,7 +136,6 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
-    gh.factory<_i1032.HomeCubit>(() => _i1032.HomeCubit());
     gh.factory<_i547.OnboardingCubit>(() => _i547.OnboardingCubit());
     gh.factory<_i348.HomeTabCubt>(() => _i348.HomeTabCubt());
     gh.lazySingleton<_i361.BaseOptions>(() => dioModule.provideBaseOptions());
@@ -139,9 +157,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i410.WebService>(
       () => dioModule.provideWebService(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
+    gh.factory<_i1029.NotificationDataSource>(
+      () =>
+          _i338.NotifiationDataSourcesImpl(webService: gh<_i410.WebService>()),
+    );
     gh.factory<_i927.MedicalIdentityDataSources>(
       () => _i333.MedicalIdentityDataSourcesImpl(
         webservice: gh<_i410.WebService>(),
+      ),
+    );
+    gh.factory<_i87.NotificationRepository>(
+      () => _i175.NotificationRepositoryImpl(
+        notificationDataSource: gh<_i1029.NotificationDataSource>(),
       ),
     );
     gh.factory<_i697.AuthDataSources>(
@@ -179,6 +206,31 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1022.HealthJournalRepository>(
       () => _i1058.HealthJournalRepositoryImpl(
         healthJournalDataSources: gh<_i1045.HealthJournalDataSources>(),
+      ),
+    );
+    gh.factory<_i844.ListActivePatientRemindersUseCase>(
+      () => _i844.ListActivePatientRemindersUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
+      ),
+    );
+    gh.factory<_i172.ListAllPatientNotificationUseCase>(
+      () => _i172.ListAllPatientNotificationUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
+      ),
+    );
+    gh.factory<_i406.NotificationReadUseCase>(
+      () => _i406.NotificationReadUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
+      ),
+    );
+    gh.factory<_i945.PeandingNotificationUseCase>(
+      () => _i945.PeandingNotificationUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
+      ),
+    );
+    gh.factory<_i841.UpdatePatientRemindersUseCase>(
+      () => _i841.UpdatePatientRemindersUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
       ),
     );
     gh.factory<_i287.MedicalHistoryRepository>(
@@ -264,6 +316,18 @@ extension GetItInjectableX on _i174.GetIt {
         permissionTokenRevokeUseCase: gh<_i90.PermissionTokenRevokeUseCase>(),
       ),
     );
+    gh.lazySingleton<_i332.NotificationCubit>(
+      () => _i332.NotificationCubit(
+        listAllPatientNotificationUseCase:
+            gh<_i172.ListAllPatientNotificationUseCase>(),
+        notificationReadUseCase: gh<_i406.NotificationReadUseCase>(),
+        listActivePatientRemindersUseCase:
+            gh<_i844.ListActivePatientRemindersUseCase>(),
+        peandingNotificationUseCase: gh<_i945.PeandingNotificationUseCase>(),
+        updatePatientRemindersUseCase:
+            gh<_i841.UpdatePatientRemindersUseCase>(),
+      ),
+    );
     gh.factory<_i553.LoginResendOtpUseCase>(
       () => _i553.LoginResendOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
@@ -324,6 +388,9 @@ extension GetItInjectableX on _i174.GetIt {
         getHealthJournalNotesDiagonseIdUseCase:
             gh<_i539.GetHealthJournalNotesDiagonseIdUseCase>(),
       ),
+    );
+    gh.factory<_i1032.HomeCubit>(
+      () => _i1032.HomeCubit(notificationCubit: gh<_i332.NotificationCubit>()),
     );
     gh.factory<_i698.AuthCubit>(
       () => _i698.AuthCubit(

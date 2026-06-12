@@ -14,6 +14,7 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_a
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/home_tab.dart';
 import 'package:sijil_patient_portal/features/home/presentation/home_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/notification_details_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/notifications_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/reminders_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/presentation/medical_history_tab.dart';
@@ -66,6 +67,7 @@ class AppRoutes {
       "/trackConditionTypeDiabetsScreen";
   static const String medicalHistroyDetails = "/medicalHistroyDetails";
   static const String remindersScreen = "/remindersScreen";
+  static const String notificationDetailsScreen = "/notificationDetailsScreen";
 
   static Map<String, Widget Function(BuildContext)> routeScreen = {
     AppRoutes.homeScreen: (context) => HomeScreen(),
@@ -103,5 +105,7 @@ class AppRoutes {
         TrackConditionTypeDiabetsScreen(),
     AppRoutes.medicalHistroyDetails: (context) => MedicalHistroyDetails(),
     AppRoutes.remindersScreen: (context) => RemindersScreen(),
+    AppRoutes.notificationDetailsScreen: (context) =>
+        NotificationDetailsScreen(),
   };
 }
