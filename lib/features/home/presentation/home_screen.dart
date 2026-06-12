@@ -24,11 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  var viewModel = getIt<HomeCubit>();
+  late HomeCubit viewModel;
   @override
   Widget build(BuildContext context) {
+    viewModel = context.read<HomeCubit>();
     return BlocBuilder<HomeCubit, HomeState>(
-      bloc: viewModel,
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: BottomNavigationBar(

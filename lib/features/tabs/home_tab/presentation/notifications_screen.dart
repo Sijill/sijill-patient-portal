@@ -1,17 +1,33 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_state.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_notifications_item.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_read_message.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_tab_bar.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
+
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<NotificationCubit>().getListAllPatientNotification();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,61 +76,92 @@ class NotificationsScreen extends StatelessWidget {
               CustomedTabBar(),
               SizedBox(height: 10.h),
               CustomedReadMessage(),
-              CustomedNotificationsItem(
-                title: "Account Access",
-                imageName: AppAssets.system,
-                onTap: () {},
-                time: "2m ago",
-                subTitle: "Upcoming: Appointment with doctor....",
-              ),
-              CustomedNotificationsItem(
-                title: "New Encounter Added",
-                imageName: AppAssets.system,
-                onTap: () {},
-                time: "23m ago",
-                subTitle: "Time for your Lisropril (10mg)",
-              ),
-              CustomedNotificationsItem(
-                title: "Upcoming Appointment",
-                imageName: AppAssets.appointment,
-                onTap: () {},
-                time: "2h ago",
-                subTitle: "Upcoming: Appointment with doctor....",
-              ),
-              CustomedNotificationsItem(
-                title: "Appointment Soon",
-                imageName: AppAssets.appointment,
-                onTap: () {},
-                time: "6h ago",
-                subTitle: "Complete your blood count",
-              ),
-              CustomedNotificationsItem(
-                title: "Medication",
-                imageName: AppAssets.medicines,
-                onTap: () {},
-                time: "14h ago",
-                subTitle: "Hey Alex how is your pain level today....",
-              ),
-              CustomedNotificationsItem(
-                title: "Lab Test",
-                imageName: AppAssets.labTest,
-                onTap: () {},
-                time: "2d ago",
-                subTitle: "Alert: doctor Williams has accessed ....",
-              ),
-              CustomedNotificationsItem(
-                title: "Imaging Order",
-                imageName: AppAssets.imagingOrder,
-                onTap: () {},
-                time: "2d ago",
-                subTitle: "Alert: doctor Williams has accessed ....",
-              ),
-              CustomedNotificationsItem(
-                title: "Follow Up",
-                imageName: AppAssets.followUp,
-                onTap: () {},
-                time: "2d ago",
-                subTitle: "Alert: doctor Williams has accessed ....",
+              SizedBox(height: 10.h),
+              BlocConsumer<NotificationCubit, NotifcatonState>(
+                listener: (context, state) {
+                  if (state is GetListAllPatentNotificatinError) {
+                    DialogUtils.showDialogMessage(message: state.message);
+                  }
+                },
+                builder: (context, state) {
+                  final cubit = context.read<NotificationCubit>();
+                  if (state is GetListAllPatentNotificatinLoading) {
+                    return SizedBox(
+                      height: 300.h,
+                      child: const Center(
+                        child: CircularProgressIndicator(color: AppColors.teal),
+                      ),
+                    );
+                  }
+                  final data = cubit.filteredNotifications;
+                  return Column(
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return CustomedNotificationsItem(
+                            title: data[index].title ?? "",
+                            imageName: data[index].notificationType == "SYSTEM"
+                                ? AppAssets.system
+                                : AppAssets.appointment,
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.notificationDetailsScreen,
+                                arguments: data[index].notificationId,
+                              );
+                            },
+                            time: (data[index].sentAt != null)
+                                ? timeago.format(
+                                    DateTime.parse(
+                                      data[index].sentAt!,
+                                    ).toLocal(),
+                                  )
+                                : "",
+                            message: data[index].message ?? "",
+                            isUnread: data[index].readAt == null,
+                          );
+                        },
+                        itemCount: data.length,
+                      ),
+                      if (cubit.selectIndexFromReadMessage == 0 ||
+                          cubit.selectIndexFromReadMessage == 1) ...[
+                        CustomedNotificationsItem(
+                          title: "Medication",
+                          imageName: AppAssets.medicines,
+                          onTap: () {},
+                          time: "14h ago",
+                          message: "Hey Alex how is your pain level today....",
+                          isUnread: false,
+                        ),
+                        CustomedNotificationsItem(
+                          title: "Lab Test",
+                          imageName: AppAssets.labTest,
+                          onTap: () {},
+                          time: "2d ago",
+                          message: "Alert: doctor Williams has accessed ....",
+                          isUnread: false,
+                        ),
+                        CustomedNotificationsItem(
+                          title: "Imaging Order",
+                          imageName: AppAssets.imagingOrder,
+                          onTap: () {},
+                          time: "2d ago",
+                          message: "Alert: doctor Williams has accessed ....",
+                          isUnread: false,
+                        ),
+                        CustomedNotificationsItem(
+                          title: "Follow Up",
+                          imageName: AppAssets.followUp,
+                          onTap: () {},
+                          time: "2d ago",
+                          message: "Alert: doctor Williams has accessed ....",
+                          isUnread: false,
+                        ),
+                      ],
+                    ],
+                  );
+                },
               ),
             ],
           ),

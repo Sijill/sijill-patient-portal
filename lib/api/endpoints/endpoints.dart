@@ -1,5 +1,5 @@
 class Endpoints {
-  static const String baseUrl = "http://192.168.1.7:8000";
+  static const String baseUrl = "http://192.168.1.3:8000";
   static const String registerApi = "/api/v1/auth/register";
   static const String registerResendOtpApi = "/api/v1/auth/register/resend-otp";
   static const String registerVerifyOtpApi = "/api/v1/auth/register/verify-otp";
@@ -47,4 +47,19 @@ class Endpoints {
 
   static const String getMedicalHistoryApi =
       "/api/v1/patient/medical-history/{encounterId}";
+
+  static const String getListAllPatientNotificationsApi =
+      "/api/v1/patient/notifications";
+
+  static const String getNotificationReadApi =
+      "/api/v1/patient/notifications/{notificationId}/read";
+
+  static const String getListActivePatientRemindersApi =
+      "/api/v1/patient/reminders/active";
+
+  static const String getPendingNotificationApi =
+      "/api/v1/patient/notifications/pending";
+
+  static const String updatePatientRemindersApi =
+      "/api/v1/patient/reminders/{reminderId}";
 }

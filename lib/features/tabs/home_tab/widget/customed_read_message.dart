@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_state.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
 
 class CustomedReadMessage extends StatefulWidget {
   const CustomedReadMessage({super.key});
@@ -17,9 +17,9 @@ class CustomedReadMessage extends StatefulWidget {
 class _CustomedReadMessageState extends State<CustomedReadMessage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeTabCubt, HomeTabState>(
+    return BlocBuilder<NotificationCubit, NotifcatonState>(
       builder: (context, state) {
-        final viewModel = context.watch<HomeTabCubt>();
+        final viewModel = context.watch<NotificationCubit>();
         return Container(
           margin: EdgeInsets.only(top: 12.h, left: 16.w),
           padding: EdgeInsets.all(5.sp),
@@ -37,7 +37,10 @@ class _CustomedReadMessageState extends State<CustomedReadMessage> {
               dividerColor: AppColors.transparent,
               isScrollable: true,
               indicator: BoxDecoration(color: AppColors.transparent),
-              onTap: viewModel.changeSelectIndexFromReadMessage,
+              onTap: (index) {
+                viewModel.changeSelectIndexFromReadMessage(index);
+                viewModel.filterNotifications(index);
+              },
               tabs: viewModel.readMessage.asMap().entries.map((entry) {
                 final index = entry.key;
                 final element = entry.value;
