@@ -7,11 +7,13 @@ import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/api/notifications/local_notification_service.dart';
 import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
+import 'package:sijil_patient_portal/domain/entities/notfication/request/update_patient_reminder_request/update_patient_reminder_request.dart';
 import 'package:sijil_patient_portal/domain/entities/notfication/response/list_active_patient_remiders_response/list_active_patient_remiders_response.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/list_active_patient_reminders_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/list_all_patient_notification_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/notification_read_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/notification/peanding_notification_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/notification/update_patient_reminders_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_state.dart';
 
 @lazySingleton
@@ -20,12 +22,14 @@ class NotificationCubit extends Cubit<NotifcatonState> {
   ListActivePatientRemindersUseCase listActivePatientRemindersUseCase;
   NotificationReadUseCase notificationReadUseCase;
   PeandingNotificationUseCase peandingNotificationUseCase;
+  UpdatePatientRemindersUseCase updatePatientRemindersUseCase;
 
   NotificationCubit({
     required this.listAllPatientNotificationUseCase,
     required this.notificationReadUseCase,
     required this.listActivePatientRemindersUseCase,
     required this.peandingNotificationUseCase,
+    required this.updatePatientRemindersUseCase,
   }) : super(NotifcatonIniialState());
 
   List<dynamic> allNotifications = [];
@@ -34,6 +38,7 @@ class NotificationCubit extends Cubit<NotifcatonState> {
   ListActivePatientRemidersResponse? remindersResponse;
 
   List<String> readMessage = ["ALL", "READ", "UNREAD"];
+
   int selectIndexFromReadMessage = 0;
   void changeSelectIndexFromReadMessage(int index) {
     selectIndexFromReadMessage = index;
@@ -49,31 +54,31 @@ class NotificationCubit extends Cubit<NotifcatonState> {
       allNotifications = response.notifications ?? [];
       filteredNotifications = List.from(allNotifications);
 
-      final notifications = response.notifications ?? [];
+      // final notifications = response.notifications ?? [];
 
       //todo:Previously viewed notifications
-      List<String> shownNotifications =
-          SharedPrefsUtils.getStringList(key: 'shown_notifications') ?? [];
+      // List<String> shownNotifications =
+      //     SharedPrefsUtils.getStringList(key: 'shown_notifications') ?? [];
 
-      for (final notification in notifications) {
-        final notificationId = notification.notificationId;
+      // for (final notification in notifications) {
+      //   final notificationId = notification.notificationId;
 
-        if (notificationId == null) continue;
+      //   if (notificationId == null) continue;
 
-        if (!shownNotifications.contains(notificationId)) {
-          await LocalNotificationService.showBasicNotification(
-            title: notification.title ?? '',
-            message: notification.message ?? '',
-          );
-          shownNotifications.add(notificationId);
+      //   if (!shownNotifications.contains(notificationId)) {
+      //     await LocalNotificationService.showBasicNotification(
+      //       title: notification.title ?? '',
+      //       message: notification.message ?? '',
+      //     );
+      //     shownNotifications.add(notificationId);
 
-          await Future.delayed(const Duration(milliseconds: 500));
-        }
-      }
-      await SharedPrefsUtils.saveData(
-        key: 'shown_notifications',
-        value: shownNotifications,
-      );
+      //     await Future.delayed(const Duration(milliseconds: 500));
+      //   }
+      // }
+      // await SharedPrefsUtils.saveData(
+      //   key: 'shown_notifications',
+      //   value: shownNotifications,
+      // );
 
       emit(
         GetListAllPatentNotificatinSuccess(
@@ -122,7 +127,7 @@ class NotificationCubit extends Cubit<NotifcatonState> {
 
   Future<void> getNotificationRead({required String notificationId}) async {
     try {
-      emit(GetNotificationReadLoading());
+      emit(UpdatePatientRemindersLoading());
       final response = await notificationReadUseCase.invoke(notificationId);
 
       emit(GetNotificationReadSuccess(notificationReadResponse: response));
@@ -136,7 +141,6 @@ class NotificationCubit extends Cubit<NotifcatonState> {
     } catch (e) {
       emit(GetNotificationReadError(message: e.toString()));
     }
-    return;
   }
 
   Future<void> getListActivePatientReminders() async {
@@ -146,6 +150,7 @@ class NotificationCubit extends Cubit<NotifcatonState> {
       remindersResponse = response;
 
       medicationDays.clear();
+      medicationTimes.clear();
 
       final reminders = response.reminders ?? [];
       int index = 0;
@@ -159,12 +164,37 @@ class NotificationCubit extends Cubit<NotifcatonState> {
           medicationDays[index] = List.from(days); // Every Day
         } else {
           medicationDays[index] = (customDays as List)
-              .map((e) => days[e as int])
+              .map((e) => days[(e as int) - 1])
               .toList();
+        }
+
+        //todo: Time
+        final reminderTime = reminder.reminderTime;
+
+        if (reminderTime != null) {
+          final parts = reminderTime.split(':');
+
+          medicationTimes[index] = Time(
+            hour: int.parse(parts[0]),
+            minute: int.parse(parts[1]),
+          );
         }
 
         index++;
       }
+      await Future.wait(
+        reminders
+            .where((r) => r.reminderTime != null)
+            .map(
+              (reminder) =>
+                  LocalNotificationService.scheduleMedicalOrderReminder(
+                    reminderId: reminder.reminderId.toString(),
+                    orderName: reminder.medication?.name ?? 'Medication',
+                    priority: reminder.medicalOrder?.priority ?? 'ROUTINE',
+                    reminderTime: reminder.reminderTime!,
+                  ),
+            ),
+      );
       emit(
         GetListActivePatientRemindersSuccess(
           listActivePatientRemidersResponse: response,
@@ -180,7 +210,6 @@ class NotificationCubit extends Cubit<NotifcatonState> {
     } catch (e) {
       emit(GetListActivePatientRemindersError(message: e.toString()));
     }
-    return;
   }
 
   List<String> days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -231,6 +260,41 @@ class NotificationCubit extends Cubit<NotifcatonState> {
     emit(ChangeMedicationDaysState());
   }
 
+  String formatReminderTime(Time time) {
+    return '${time.hour.toString().padLeft(2, '0')}:'
+        '${time.minute.toString().padLeft(2, '0')}:00';
+  }
+
+  Future<void> updatePatientReminders({
+    required String reminderId,
+    required UpdatePatientReminderRequest updatePatientReminderRequest,
+  }) async {
+    try {
+      emit(UpdatePatientRemindersLoading());
+      final updatePatientRemindersResponse = await updatePatientRemindersUseCase
+          .invoke(
+            reminderId: reminderId,
+            updatePatientReminderRequest: updatePatientReminderRequest,
+          );
+
+      emit(
+        UpdatePatientRemindersSuccess(
+          updatePatientRemindersResponse: updatePatientRemindersResponse,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(UpdatePatientRemindersError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(UpdatePatientRemindersError(message: message));
+    } catch (e) {
+      emit(UpdatePatientRemindersError(message: e.toString()));
+    }
+    return;
+  }
+
   Future<void> getPendingNotifications() async {
     if (_isFetchingPending) return;
 
@@ -251,7 +315,7 @@ class NotificationCubit extends Cubit<NotifcatonState> {
             title: notification.title ?? '',
             message: notification.message ?? '',
           );
-
+          await Future.delayed(const Duration(milliseconds: 1200));
           _seenNotifications.add(id);
           hasNew = true;
         }
@@ -284,7 +348,7 @@ class NotificationCubit extends Cubit<NotifcatonState> {
   Set<String> _seenNotifications = {};
 
   void startPendingNotificationsPolling({
-    Duration interval = const Duration(seconds: 60),
+    Duration interval = const Duration(seconds: 40),
   }) {
     _pendingTimer?.cancel();
 

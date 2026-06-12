@@ -17,10 +17,12 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_c
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/cubit/medical_history_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/cubit/medical_identity_cubit.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  tz.initializeTimeZones();
   await LocalNotificationService.init();
   configureDependencies();
   Bloc.observer = MyBlocObserver();
@@ -32,6 +34,10 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) =>
+              getIt<NotificationCubit>()..startPendingNotificationsPolling(),
+        ),
+        BlocProvider(
           create: (context) => getIt<HomeCubit>()..startAppPolling(),
         ),
         BlocProvider(create: (context) => getIt<HomeTabCubt>()),
@@ -39,7 +45,6 @@ Future<void> main() async {
         BlocProvider(create: (context) => getIt<MedicalIdentityCubit>()),
         BlocProvider(create: (context) => getIt<HealthJournalCubit>()),
         BlocProvider(create: (context) => getIt<MedicalHistoryCubit>()),
-        BlocProvider(create: (context) => getIt<NotificationCubit>()),
       ],
       child: MyApp(onboarding: onboarding, accessToken: accessToken),
     ),

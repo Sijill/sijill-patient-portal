@@ -3,14 +3,14 @@
 // import 'package:workmanager/workmanager.dart';
 
 // class WorkMangerService {
-//   //todo:init work manager
-//   Future<void> init() async {
+   //todo:init work manager
+//   static Future<void> init() async {
 //     await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 //     registerPeriodicTask();
 //   }
 
-//   //todo:register periodic task
-//   void registerPeriodicTask() {
+   //todo:register periodic task
+//   static void registerPeriodicTask() {
 //     Workmanager().registerPeriodicTask(
 //       'id1',
 //       'show_notification',
@@ -28,24 +28,16 @@
 // @pragma('vm:entry-point')
 // void callbackDispatcher() {
 //   Workmanager().executeTask((task, inputData) async {
-//     LocalNotificationService.showBasicNotification(
-//       RemoteMessage(
-//         notification: RemoteNotification(
-//           title: 'Periodic Notification',
-//           body: 'This is a periodic notification from WorkManager.',
-//         ),
-//       ),
-//     );
 //     return Future.value(true);
 //   });
 // }
 
-// // void listenToNotification() {
-// //   LocalNotificationService.streamController.stream.listen((details) {
-// //     Navigator.of(context).push(
-// //       MaterialPageRoute(
-// //         builder: (context) => NotificationDetailsScreen(details: details),
-// //       ),
-// //     );
-// //   });
-// // }
+// void listenToNotification() {
+//   LocalNotificationService.streamController.stream.listen((details) {
+//     Navigator.of(context).push(
+//       MaterialPageRoute(
+//         builder: (context) => NotificationDetailsScreen(details: details),
+//       ),
+//     );
+//   });
+// }

@@ -59,4 +59,7 @@ class Endpoints {
 
   static const String getPendingNotificationApi =
       "/api/v1/patient/notifications/pending";
+
+  static const String updatePatientRemindersApi =
+      "/api/v1/patient/reminders/{reminderId}";
 }

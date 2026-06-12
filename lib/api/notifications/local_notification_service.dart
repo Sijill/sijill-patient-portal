@@ -3,6 +3,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+enum ReminderPriority { stat, urgent, routine }
+
 class LocalNotificationService {
   static int _notificationId = 0;
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -61,7 +63,11 @@ class LocalNotificationService {
   }
 
   //todo: Repeated notification
-  static Future<void> showRepeatedNotification() async {
+  static Future<void> showRepeatedNotification({
+    required String title,
+    required String message,
+    required RepeatInterval repeatInterval,
+  }) async {
     NotificationDetails notificationDetails = const NotificationDetails(
       android: AndroidNotificationDetails(
         'id2',
@@ -72,10 +78,10 @@ class LocalNotificationService {
       iOS: DarwinNotificationDetails(),
     );
     await flutterLocalNotificationsPlugin.periodicallyShow(
-      1,
-      'Repeated Notification',
-      'Body of the repeated notification',
-      RepeatInterval.everyMinute,
+      _notificationId++,
+      title,
+      message,
+      repeatInterval,
       androidScheduleMode: AndroidScheduleMode.alarmClock,
       notificationDetails,
       payload: 'Flutter Local Notification Payload',
@@ -111,7 +117,10 @@ class LocalNotificationService {
   }
 
   //todo: Daily Scheduled notification
-  static Future<void> showDailyScheduledNotification() async {
+  static Future<void> showDailyScheduledNotification({
+    required String title,
+    required String message,
+  }) async {
     NotificationDetails notificationDetails = const NotificationDetails(
       android: AndroidNotificationDetails(
         'id4',
@@ -124,7 +133,6 @@ class LocalNotificationService {
     tz.initializeTimeZones();
     // tz.setLocalLocation(tz.getLocation('AAfrica/Cairo'));
     var currentTime = tz.TZDateTime.now(tz.local);
-    print('current time: ${currentTime.hour}:${currentTime.minute}');
 
     var scheduledTime = tz.TZDateTime(
       tz.local,
@@ -139,9 +147,9 @@ class LocalNotificationService {
     }
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      3,
-      'Daily Scheduled Notification',
-      'Body of the daily scheduled notification',
+      _notificationId++,
+      title,
+      message,
       payload: 'Flutter Local Notification Payload',
       scheduledTime,
       // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
@@ -150,6 +158,164 @@ class LocalNotificationService {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
+  }
+
+  //todo:Schedule Date & Time
+  static Future<void> scheduleMedicationReminderDateAndTime({
+    required String reminderId,
+    required String reminderTime,
+    required String medicationName,
+    required List<int>? customDays, // null = everyday
+  }) async {
+    // cancel old
+    await flutterLocalNotificationsPlugin.cancel(reminderId.hashCode);
+
+    final now = DateTime.now();
+    final timeParts = reminderTime.split(':');
+
+    // base time = today with reminder time
+    final baseTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      int.parse(timeParts[0]),
+      int.parse(timeParts[1]),
+      int.parse(timeParts[2]),
+    );
+
+    // =========================
+    // EVERYDAY
+    // =========================
+    if (customDays == null) {
+      final scheduled = baseTime.isBefore(now)
+          ? baseTime.add(const Duration(days: 1))
+          : baseTime;
+
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        reminderId.hashCode,
+        "Medication Reminder",
+        "Take $medicationName",
+        tz.TZDateTime.from(scheduled, tz.local),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'medication_channel',
+            'Medications',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+        ),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+    }
+    // =========================
+    // CUSTOM DAYS
+    // =========================
+    else {
+      for (final day in customDays) {
+        DateTime scheduledDate = baseTime;
+
+        // move to next valid weekday
+        while (scheduledDate.weekday != day) {
+          scheduledDate = scheduledDate.add(const Duration(days: 1));
+        }
+
+        // avoid past time on same day
+        if (scheduledDate.isBefore(now)) {
+          scheduledDate = scheduledDate.add(const Duration(days: 7));
+        }
+
+        await flutterLocalNotificationsPlugin.zonedSchedule(
+          (reminderId + day.toString()).hashCode,
+          "Medication Reminder",
+          "Take $medicationName",
+          tz.TZDateTime.from(scheduledDate, tz.local),
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'medication_channel',
+              'Medications',
+              importance: Importance.max,
+              priority: Priority.high,
+            ),
+          ),
+          androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
+        );
+      }
+    }
+  }
+
+  //todo:Scedule Repeat reminders (STAT,ROUTINE,URGENT)
+  static Future<void> scheduleMedicalOrderReminder({
+    required String reminderId,
+    required String orderName,
+    required String priority,
+    required String reminderTime,
+  }) async {
+    for (int i = 0; i < 100; i++) {
+      await flutterLocalNotificationsPlugin.cancel('$reminderId$i'.hashCode);
+    }
+
+    final now = DateTime.now();
+
+    final timeParts = reminderTime.split(':');
+
+    DateTime firstDate = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      int.parse(timeParts[0]),
+      int.parse(timeParts[1]),
+      int.parse(timeParts[2]),
+    );
+
+    Duration interval;
+
+    switch (priority.toUpperCase()) {
+      case 'STAT':
+        interval = const Duration(hours: 3);
+        break;
+
+      case 'URGENT':
+        interval = const Duration(hours: 10);
+        break;
+
+      case 'ROUTINE':
+      default:
+        interval = const Duration(days: 1);
+        break;
+    }
+
+    if (firstDate.isBefore(now)) {
+      firstDate = firstDate.add(interval);
+    }
+
+    for (int i = 0; i < 30; i++) {
+      final scheduledDate = firstDate.add(
+        Duration(seconds: interval.inSeconds * i),
+      );
+
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        '$reminderId$i'.hashCode,
+        'Medical Order Reminder',
+        'Please complete $orderName',
+        tz.TZDateTime.from(scheduledDate, tz.local),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'medical_order_channel',
+            'Medical Orders',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+        ),
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    }
   }
 
   //todo: Cancel notification

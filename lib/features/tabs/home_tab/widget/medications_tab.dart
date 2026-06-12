@@ -3,14 +3,18 @@ import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/api/notifications/local_notification_service.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
+import 'package:sijil_patient_portal/domain/entities/notfication/request/update_patient_reminder_request/update_patient_reminder_request.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_state.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/custom_change_days.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/reminders_button.dart';
 
 class MedicationsTab extends StatefulWidget {
+  final String? reminderId;
   final String? name;
   final String? reminderTime;
   final int? dosageAmount;
@@ -29,6 +33,7 @@ class MedicationsTab extends StatefulWidget {
     this.startDate,
     this.endDate,
     this.reminderTime,
+    this.reminderId,
   });
 
   @override
@@ -136,79 +141,151 @@ class _MedicationsTabState extends State<MedicationsTab> {
                 ],
               ),
               SizedBox(height: 20.h),
-              Row(
-                spacing: 16.w,
-                children: [
-                  Expanded(
-                    child: RemindersButton(
-                      icon: Icons.watch_later_outlined,
-                      text: "Change Time",
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          showPicker(
-                            context: context,
-                            value: viewModel.getMedicationTime(widget.index),
-                            onChange: (newTime) {
-                              viewModel.changeMedicationTime(
+              BlocListener<NotificationCubit, NotifcatonState>(
+                listener: (context, state) {
+                  if (state is UpdatePatientRemindersError) {
+                    DialogUtils.showDialogMessage(message: state.message);
+                  }
+                },
+                child: BlocListener<NotificationCubit, NotifcatonState>(
+                  listener: (context, state) {
+                    if (state is UpdatePatientRemindersError) {
+                      DialogUtils.showDialogMessage(message: state.message);
+                    }
+                  },
+                  child: Row(
+                    spacing: 16.w,
+                    children: [
+                      Expanded(
+                        child: RemindersButton(
+                          icon: Icons.watch_later_outlined,
+                          text: "Change Time",
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              showPicker(
+                                context: context,
+                                value: viewModel.getMedicationTime(
+                                  widget.index,
+                                ),
+                                onChange: (newTime) async {
+                                  viewModel.changeMedicationTime(
+                                    index: widget.index,
+                                    newTime: newTime,
+                                  );
+                                  final currentDays = viewModel
+                                      .getMedicationDays(widget.index)
+                                      .map((e) => viewModel.days.indexOf(e) + 1)
+                                      .toList();
+
+                                  final currentTime = viewModel
+                                      .formatReminderTime(newTime);
+
+                                  await viewModel.updatePatientReminders(
+                                    reminderId: widget.reminderId!,
+                                    updatePatientReminderRequest:
+                                        UpdatePatientReminderRequest(
+                                          reminderTime: currentTime,
+                                          customDays: currentDays,
+                                        ),
+                                  );
+                                  await LocalNotificationService.scheduleMedicationReminderDateAndTime(
+                                    reminderId: widget.reminderId!,
+                                    reminderTime: currentTime,
+                                    medicationName: widget.name!,
+                                    customDays: currentDays.isEmpty
+                                        ? null
+                                        : currentDays,
+                                  );
+                                },
+                                is24HrFormat: false,
+                                accentColor: AppColors.teal,
+                                okStyle: AppStyle.mediumWhite16.copyWith(
+                                  fontSize: 12.sp,
+                                ),
+                                buttonStyle: ButtonStyle(
+                                  shape: WidgetStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.r),
+                                    ),
+                                  ),
+                                  backgroundColor: WidgetStateProperty.all(
+                                    AppColors.teal,
+                                  ),
+                                ),
+                                buttonsSpacing: 16.w,
+                                cancelStyle: AppStyle.mediumWhite16.copyWith(
+                                  fontSize: 12.sp,
+                                ),
+                                iosStylePicker: false,
+                                themeData: ThemeData.light(),
+                                showCancelButton: true,
+                                isOnChangeValueMode: false,
+                                cancelButtonStyle: ButtonStyle(
+                                  shape: WidgetStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.r),
+                                    ),
+                                  ),
+                                  backgroundColor: WidgetStateProperty.all(
+                                    AppColors.red,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: RemindersButton(
+                          icon: Icons.calendar_month_rounded,
+                          text: "Change Days",
+                          onPressed: () {
+                            viewModel.initTempDays(widget.index);
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: AppColors.transparent,
+                              context: context,
+                              builder: (context) => CustomChangeDays(
                                 index: widget.index,
-                                newTime: newTime,
-                              );
-                            },
-                            is24HrFormat: false,
-                            accentColor: AppColors.teal,
-                            okStyle: AppStyle.mediumWhite16.copyWith(
-                              fontSize: 12.sp,
-                            ),
-                            buttonStyle: ButtonStyle(
-                              shape: WidgetStatePropertyAll(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                ),
+                                saveDayClick: () async {
+                                  final currentTime = viewModel
+                                      .formatReminderTime(
+                                        viewModel.getMedicationTime(
+                                          widget.index,
+                                        ),
+                                      );
+
+                                  final currentDays = viewModel
+                                      .getMedicationDays(widget.index)
+                                      .map((e) => viewModel.days.indexOf(e) + 1)
+                                      .toList();
+
+                                  await viewModel.updatePatientReminders(
+                                    reminderId: widget.reminderId!,
+                                    updatePatientReminderRequest:
+                                        UpdatePatientReminderRequest(
+                                          reminderTime: currentTime,
+                                          customDays: currentDays,
+                                        ),
+                                  );
+
+                                  await LocalNotificationService.scheduleMedicationReminderDateAndTime(
+                                    reminderId: widget.reminderId!,
+                                    reminderTime: currentTime,
+                                    medicationName: widget.name!,
+                                    customDays: currentDays.isEmpty
+                                        ? null
+                                        : currentDays,
+                                  );
+                                },
                               ),
-                              backgroundColor: WidgetStateProperty.all(
-                                AppColors.teal,
-                              ),
-                            ),
-                            buttonsSpacing: 16.w,
-                            cancelStyle: AppStyle.mediumWhite16.copyWith(
-                              fontSize: 12.sp,
-                            ),
-                            iosStylePicker: false,
-                            themeData: ThemeData.light(),
-                            showCancelButton: true,
-                            isOnChangeValueMode: false,
-                            cancelButtonStyle: ButtonStyle(
-                              shape: WidgetStatePropertyAll(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                ),
-                              ),
-                              backgroundColor: WidgetStateProperty.all(
-                                AppColors.red,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: RemindersButton(
-                      icon: Icons.calendar_month_rounded,
-                      text: "Change Days",
-                      onPressed: () {
-                        viewModel.initTempDays(widget.index);
-                        showModalBottomSheet(
-                          isScrollControlled: true,
-                          backgroundColor: AppColors.transparent,
-                          context: context,
-                          builder: (context) =>
-                              CustomChangeDays(index: widget.index),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           );

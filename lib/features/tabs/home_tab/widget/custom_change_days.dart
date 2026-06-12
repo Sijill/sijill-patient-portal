@@ -10,7 +10,12 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/widget/reminder_days
 
 class CustomChangeDays extends StatelessWidget {
   final int index;
-  const CustomChangeDays({super.key, required this.index});
+  final void Function() saveDayClick;
+  const CustomChangeDays({
+    super.key,
+    required this.index,
+    required this.saveDayClick,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +71,7 @@ class CustomChangeDays extends StatelessWidget {
                     text: "Save",
                     onPressed: () {
                       context.read<NotificationCubit>().saveSelectedDays(index);
+                      saveDayClick();
                       Navigator.pop(context);
                     },
                   ),

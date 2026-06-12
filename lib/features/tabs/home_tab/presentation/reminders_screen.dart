@@ -133,6 +133,8 @@ class _RemindersScreenState extends State<RemindersScreen> {
                                 padding: EdgeInsets.only(top: 30.h),
                                 itemBuilder: (context, index) => MedicationsTab(
                                   index: index,
+                                  reminderId:
+                                      medicationData[index].reminderId ?? "",
                                   name: medicationData[index].medication?.name,
                                   dosageAmount: medicationData[index]
                                       .medication

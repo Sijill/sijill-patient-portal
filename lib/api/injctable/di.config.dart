@@ -93,6 +93,8 @@ import '../../domain/use_cases/notification/notification_read_use_case.dart'
     as _i406;
 import '../../domain/use_cases/notification/peanding_notification_use_case.dart'
     as _i945;
+import '../../domain/use_cases/notification/update_patient_reminders_use_case.dart'
+    as _i841;
 import '../../domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart'
     as _i535;
 import '../../domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart'
@@ -226,19 +228,14 @@ extension GetItInjectableX on _i174.GetIt {
         notificationRepository: gh<_i87.NotificationRepository>(),
       ),
     );
+    gh.factory<_i841.UpdatePatientRemindersUseCase>(
+      () => _i841.UpdatePatientRemindersUseCase(
+        notificationRepository: gh<_i87.NotificationRepository>(),
+      ),
+    );
     gh.factory<_i287.MedicalHistoryRepository>(
       () => _i792.MedicalHistoryRepositoryImpl(
         medicalHistoryDataSources: gh<_i880.MedicalHistoryDataSources>(),
-      ),
-    );
-    gh.lazySingleton<_i332.NotificationCubit>(
-      () => _i332.NotificationCubit(
-        listAllPatientNotificationUseCase:
-            gh<_i172.ListAllPatientNotificationUseCase>(),
-        notificationReadUseCase: gh<_i406.NotificationReadUseCase>(),
-        listActivePatientRemindersUseCase:
-            gh<_i844.ListActivePatientRemindersUseCase>(),
-        peandingNotificationUseCase: gh<_i945.PeandingNotificationUseCase>(),
       ),
     );
     gh.factory<_i597.AddEmergencyContactUseCase>(
@@ -317,6 +314,18 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i535.GeneratePermissionTokenUseCase>(),
         getPermissionTokenUseCase: gh<_i690.GetPermissionTokenUseCase>(),
         permissionTokenRevokeUseCase: gh<_i90.PermissionTokenRevokeUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i332.NotificationCubit>(
+      () => _i332.NotificationCubit(
+        listAllPatientNotificationUseCase:
+            gh<_i172.ListAllPatientNotificationUseCase>(),
+        notificationReadUseCase: gh<_i406.NotificationReadUseCase>(),
+        listActivePatientRemindersUseCase:
+            gh<_i844.ListActivePatientRemindersUseCase>(),
+        peandingNotificationUseCase: gh<_i945.PeandingNotificationUseCase>(),
+        updatePatientRemindersUseCase:
+            gh<_i841.UpdatePatientRemindersUseCase>(),
       ),
     );
     gh.factory<_i553.LoginResendOtpUseCase>(
