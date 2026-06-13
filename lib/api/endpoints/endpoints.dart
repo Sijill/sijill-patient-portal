@@ -62,4 +62,7 @@ class Endpoints {
 
   static const String updatePatientRemindersApi =
       "/api/v1/patient/reminders/{reminderId}";
+
+  static const String homeReminderCountersApi =
+      "/api/v1/patient/home/reminders/counters";
 }

@@ -1,12 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
+import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
+import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
 import 'package:sijil_patient_portal/features/auth/widget/customed_logo.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_gradient_container_item.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_reminders_item.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_today_schedule_item.dart';
@@ -19,6 +24,12 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeTabCubt>().homeReminderCounters();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -88,34 +99,51 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               ),
               SizedBox(height: 25.h),
-              CustomedGradientContainerItem(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AutoSizeText(
-                      "Reminders",
-                      style: AppStyle.mediumBlack16.copyWith(fontSize: 20.sp),
-                    ),
-                    SizedBox(height: 16.h),
-                    CustomedRemindersItem(
-                      imageIcon: AppAssets.pendingMedications,
-                      number: "4",
-                      text: "Pending Medications",
-                    ),
-                    SizedBox(height: 12.h),
-                    CustomedRemindersItem(
-                      imageIcon: AppAssets.upcomingAppoinments,
-                      number: "1",
-                      text: "Upcoming Appointments",
-                    ),
-                    SizedBox(height: 12.h),
-                    CustomedRemindersItem(
-                      imageIcon: AppAssets.pendingTestOrders,
-                      number: "2",
-                      text: "Pending Test Orders",
-                    ),
-                  ],
-                ),
+              BlocBuilder<HomeTabCubt, HomeTabState>(
+                builder: (context, state) {
+                  if (state is GetHomeReminderCountersLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(color: AppColors.teal),
+                    );
+                  } else if (state is GetHomeReminderCountersError) {
+                    DialogUtils.showDialogMessage(message: state.message);
+                  } else if (state is GetHomeReminderCountersSuccess) {
+                    final viewModel =
+                        state.homeReminderCountersResponse.counters;
+                    return CustomedGradientContainerItem(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            "Reminders",
+                            style: AppStyle.mediumBlack16.copyWith(
+                              fontSize: 20.sp,
+                            ),
+                          ),
+                          SizedBox(height: 16.h),
+                          CustomedRemindersItem(
+                            imageIcon: AppAssets.pendingMedications,
+                            number: "${viewModel?.medicationReminders ?? 0}",
+                            text: "Medications Reminders",
+                          ),
+                          SizedBox(height: 12.h),
+                          CustomedRemindersItem(
+                            imageIcon: AppAssets.upcomingAppoinments,
+                            number: "${viewModel?.upcomingAppointments ?? 0}",
+                            text: "Upcoming Appointments",
+                          ),
+                          SizedBox(height: 12.h),
+                          CustomedRemindersItem(
+                            imageIcon: AppAssets.pendingTestOrders,
+                            number: "${viewModel?.pendingTestOrders ?? 0}",
+                            text: "Pending Test Orders",
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
               ),
               SizedBox(height: 10.h),
               Divider(endIndent: 12.w, indent: 12.w),

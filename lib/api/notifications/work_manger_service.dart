@@ -3,13 +3,13 @@
 // import 'package:workmanager/workmanager.dart';
 
 // class WorkMangerService {
-   //todo:init work manager
+//todo:init work manager
 //   static Future<void> init() async {
 //     await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 //     registerPeriodicTask();
 //   }
 
-   //todo:register periodic task
+//todo:register periodic task
 //   static void registerPeriodicTask() {
 //     Workmanager().registerPeriodicTask(
 //       'id1',
