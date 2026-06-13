@@ -2,11 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
+import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_imaging_center_laboratory.dart';
 
-class GrantAccessImagingCenterLaboratoryScreen extends StatelessWidget {
-  const GrantAccessImagingCenterLaboratoryScreen({super.key});
+class GrantAccessImagingCenterScreen extends StatelessWidget {
+  const GrantAccessImagingCenterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +22,14 @@ class GrantAccessImagingCenterLaboratoryScreen extends StatelessWidget {
             child: Column(
               children: [
                 CustomedImagingCenterLaboratory(
-                  imageName: AppAssets.microscope,
-                  title1: "Ordered By: Dr William",
-                  title2: "Ordered At: 13/5/2026",
-                ),
-                SizedBox(height: 20.h),
-                CustomedImagingCenterLaboratory(
                   imageName: AppAssets.imaging,
                   title1: "Ordered By: Dr William",
                   title2: "Ordered At: 13/5/2026",
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.grantAccessPermissionTokenImagingOrderScreen,
+                    );
+                  },
                 ),
               ],
             ),

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
-import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
 
@@ -12,12 +11,14 @@ class CustomedImagingCenterLaboratory extends StatelessWidget {
   final String imageName;
   final String title1;
   final String title2;
+  final void Function() onPressed;
 
   const CustomedImagingCenterLaboratory({
     super.key,
     required this.imageName,
     required this.title1,
     required this.title2,
+    required this.onPressed,
   });
 
   @override
@@ -57,11 +58,7 @@ class CustomedImagingCenterLaboratory extends StatelessWidget {
               sufficImageName: AppAssets.key,
               spaceAfterText: 17.w,
               backgroundColor: AppColors.tabBarSelectedColor,
-              onPressed: () {
-                Navigator.of(
-                  context,
-                ).pushNamed(AppRoutes.grantAccessPermissionToken);
-              },
+              onPressed: onPressed,
             ),
           ],
         ),

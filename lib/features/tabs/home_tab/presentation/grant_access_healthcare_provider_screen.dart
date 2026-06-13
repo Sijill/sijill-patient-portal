@@ -129,10 +129,10 @@ class _GrantAccessHealthcareProviderScreenState
                             if (!context.mounted) return;
                             Navigator.of(context)
                                 .pushNamed(
-                                  AppRoutes.grantAccessPermissionToken,
-                                  arguments: state
-                                      .generatePermissionTokenResponse
-                                      .tokenId,
+                                  AppRoutes
+                                      .grantAccessPermissionTokenHealthcareProviderScreen,
+                                  arguments:
+                                      state.generatePermissionTokenResponse,
                                 )
                                 .then((_) {
                                   final cubit = context

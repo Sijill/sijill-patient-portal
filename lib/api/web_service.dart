@@ -39,9 +39,10 @@ import 'package:sijil_patient_portal/api/model/notfication/response/notification
 import 'package:sijil_patient_portal/api/model/notfication/response/pending_notification_response/pending_notification_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/notfication/response/update_patient_reminders_response/update_patient_reminders_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
-import 'package:sijil_patient_portal/api/model/permission_token/request/permission_token_revoke/permission_token_revoke_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/response/generate_lab_permission_token_response/generate_lab_permission_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/generate_permission_token/generate_permission_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/get_permission_token/get_permission_token_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/response/list_patient_active_lab_order_response/list_patient_active_lab_order_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/permission_token_revoke/permission_token_revoke_response_dto.dart';
 
 part 'web_service.g.dart';
@@ -116,7 +117,7 @@ abstract class WebService {
 
   @PATCH(Endpoints.permissionTokenRevokeApi)
   Future<PermissionTokenRevokeResponseDto> permissionTokenRevoke(
-    @Path() PermissionTokenRevokeRequestDto permissionTokenRevokeRequest,
+    @Path() String tokenId,
   );
 
   @POST(Endpoints.uploadProfileImageApi)
@@ -189,4 +190,12 @@ abstract class WebService {
 
   @GET(Endpoints.getTodayScheduleApi)
   Future<TodayScheduleResponseDto> getTodaySchedule();
+
+  @GET(Endpoints.getListPatientActiveLabOrderApi)
+  Future<ListPatientActiveLabOrderResponseDto> getListPatientActiveLabOrder();
+
+  @POST(Endpoints.generateLabPermissionTokenApi)
+  Future<GenerateLabPermissionTokenResponseDto> generateLabOrderPermissionToken(
+    @Path("orderId") String orderId,
+  );
 }

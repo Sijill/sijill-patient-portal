@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
-import 'package:sijil_patient_portal/domain/entities/permission_token/request/permission_token_revoke/permission_token_revoke_request.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/response/get_permission_token/get_permission_token_response.dart';
+import 'package:sijil_patient_portal/domain/use_cases/permission_token/generate_lab_order_permission_token/generate_lab_order_permission_token_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/permission_token/list_patient_active_lab_order/list_patient_active_lab_order_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/permission_token_revoke/permission_token_revoke_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_state.dart';
 
@@ -14,11 +16,17 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
   GeneratePermissionTokenUseCase generatePermissionTokenUseCase;
   GetPermissionTokenUseCase getPermissionTokenUseCase;
   PermissionTokenRevokeUseCase permissionTokenRevokeUseCase;
+  GenerateLabOrderPermissionTokenUseCase generateLabOrderPermissionTokenUseCase;
+  ListPatientActiveLabOrderUseCase listPatientActiveLabOrderUseCase;
   PermissionTokenCubit({
     required this.generatePermissionTokenUseCase,
     required this.getPermissionTokenUseCase,
     required this.permissionTokenRevokeUseCase,
+    required this.generateLabOrderPermissionTokenUseCase,
+    required this.listPatientActiveLabOrderUseCase,
   }) : super(PermissionTokenInitial());
+
+  GetPermissionTokenResponse? getPermissionTokenResponse;
 
   int selectedAccessType = 0;
   String getAccessTypeValue() {
@@ -73,11 +81,10 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
   Future<void> getPermissionToken() async {
     emit(GetPermissionTokenILoading());
     try {
-      final getPermissionTokenResponse = await getPermissionTokenUseCase
-          .invoke();
+      getPermissionTokenResponse = await getPermissionTokenUseCase.invoke();
       emit(
         GetPermissionTokenSuccess(
-          getPermissionTokenResponse: getPermissionTokenResponse,
+          getPermissionTokenResponse: getPermissionTokenResponse!,
         ),
       );
     } on AppException catch (e) {
@@ -92,13 +99,11 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
     }
   }
 
-  Future<void> permissionRevokeToken({
-    required PermissionTokenRevokeRequest permissionTokenRevokeRequest,
-  }) async {
+  Future<void> permissionRevokeToken({required String tokenId}) async {
     try {
       emit(PermissionTokenRevokeILoading());
       final permissionTokenRevokeResponse = await permissionTokenRevokeUseCase
-          .invoke(permissionTokenRevokeRequest: permissionTokenRevokeRequest);
+          .invoke(tokenId: tokenId);
       emit(
         PermissionTokenRevokeSuccess(
           permissionTokenRevokeResponse: permissionTokenRevokeResponse,
@@ -113,6 +118,52 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
       emit(PermissionTokenRevokeError(message: message));
     } catch (e) {
       emit(PermissionTokenRevokeError(message: e.toString()));
+    }
+  }
+
+  Future<void> getListPatientActiveLabOrders() async {
+    try {
+      emit(GetListPatientActiveLabOrdersLoading());
+      final getListPatientActiveLabOrdersResponse =
+          await listPatientActiveLabOrderUseCase.invoke();
+      emit(
+        GetListPatientActiveLabOrdersSuccess(
+          getListPatientActiveLabOrdersResponse:
+              getListPatientActiveLabOrdersResponse,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(GetListPatientActiveLabOrdersError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(GetListPatientActiveLabOrdersError(message: message));
+    } catch (e) {
+      emit(GetListPatientActiveLabOrdersError(message: e.toString()));
+    }
+  }
+
+  Future<void> generateLabpermissionToken({required String orderId}) async {
+    try {
+      emit(GenerateLabPermissionTokenLoading());
+      final generateLabPermissionTokenResponse =
+          await generateLabOrderPermissionTokenUseCase.invoke(orderId: orderId);
+      emit(
+        GenerateLabPermissionTokenSuccess(
+          generateLabPermissionTokenResponse:
+              generateLabPermissionTokenResponse,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(GenerateLabPermissionTokenError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(GenerateLabPermissionTokenError(message: message));
+    } catch (e) {
+      emit(GenerateLabPermissionTokenError(message: e.toString()));
     }
   }
 }
