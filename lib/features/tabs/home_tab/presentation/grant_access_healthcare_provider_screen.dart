@@ -129,7 +129,8 @@ class _GrantAccessHealthcareProviderScreenState
                             if (!context.mounted) return;
                             Navigator.of(context)
                                 .pushNamed(
-                                  AppRoutes.grantAccessPermissionToken,
+                                  AppRoutes
+                                      .grantAccessPermissionTokenHealthcareProviderScreen,
                                   arguments:
                                       state.generatePermissionTokenResponse,
                                 )

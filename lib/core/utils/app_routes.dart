@@ -11,7 +11,9 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_a
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_healthcare_provider_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_imaging_center_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_laboratory_screen.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_permission_token.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_permission_token_imaging_order_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_permission_token_laboratory_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_permission_token_healthcare_provider_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/home_tab.dart';
 import 'package:sijil_patient_portal/features/home/presentation/home_screen.dart';
@@ -58,8 +60,12 @@ class AppRoutes {
       "/grantAccessLaboratoryScreen";
   static const String grantAccessImagingCenterScreen =
       "/grantAccessImagingCenterScreen";
-  static const String grantAccessPermissionToken =
-      "/grantAccessPermissionToken";
+  static const String grantAccessPermissionTokenHealthcareProviderScreen =
+      "/grantAccessPermissionTokenHealthcareProviderScreen";
+  static const String grantAccessPermissionTokenLaboratoryScreen =
+      "/grantAccessPermissionTokenLaboratoryScreen";
+  static const String grantAccessPermissionTokenImagingOrderScreen =
+      "/grantAccessPermissionTokenImagingOrderScreen";
   static const String grantAccessActiveTokensScreen =
       "/grantAccessActiveTokensScreen";
   static const String notificationsScreen = "/notificationsScreen";
@@ -96,11 +102,15 @@ class AppRoutes {
         GrantAccessHealthcareProviderScreen(),
     AppRoutes.grantAccessLaboratoryScreen: (context) =>
         GrantAccessLaboratoryScreen(),
+    AppRoutes.grantAccessPermissionTokenLaboratoryScreen: (context) =>
+        GrantAccessPermissionTokenLaboratoryScreen(),
+    AppRoutes.grantAccessPermissionTokenImagingOrderScreen: (context) =>
+        GrantAccessPermissionTokenImagingOrderScreen(),
 
     AppRoutes.grantAccessImagingCenterScreen: (context) =>
         GrantAccessImagingCenterScreen(),
-    AppRoutes.grantAccessPermissionToken: (context) =>
-        GrantAccessPermissionToken(),
+    AppRoutes.grantAccessPermissionTokenHealthcareProviderScreen: (context) =>
+        GrantAccessPermissionTokenHealthcareProviderScreen(),
     AppRoutes.grantAccessActiveTokensScreen: (context) =>
         GrantAccessActiveTokensScreen(),
     AppRoutes.notificationsScreen: (context) => NotificationsScreen(),

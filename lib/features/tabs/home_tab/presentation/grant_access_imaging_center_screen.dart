@@ -26,9 +26,9 @@ class GrantAccessImagingCenterScreen extends StatelessWidget {
                   title1: "Ordered By: Dr William",
                   title2: "Ordered At: 13/5/2026",
                   onPressed: () {
-                    Navigator.of(
-                      context,
-                    ).pushNamed(AppRoutes.grantAccessPermissionToken);
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.grantAccessPermissionTokenImagingOrderScreen,
+                    );
                   },
                 ),
               ],

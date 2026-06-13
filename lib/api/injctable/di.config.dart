@@ -103,10 +103,14 @@ import '../../domain/use_cases/notification/peanding_notification_use_case.dart'
     as _i945;
 import '../../domain/use_cases/notification/update_patient_reminders_use_case.dart'
     as _i841;
+import '../../domain/use_cases/permission_token/generate_lab_order_permission_token/generate_lab_order_permission_token_use_case.dart'
+    as _i406;
 import '../../domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart'
     as _i535;
 import '../../domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart'
     as _i690;
+import '../../domain/use_cases/permission_token/list_patient_active_lab_order/list_patient_active_lab_order_use_case.dart'
+    as _i739;
 import '../../domain/use_cases/permission_token/permission_token_revoke/permission_token_revoke_use_case.dart'
     as _i90;
 import '../../features/auth/cubit/auth_cubit.dart' as _i698;
@@ -290,6 +294,11 @@ extension GetItInjectableX on _i174.GetIt {
         homeTabRepository: gh<_i469.HomeTabRepository>(),
       ),
     );
+    gh.factory<_i406.GenerateLabOrderPermissionTokenUseCase>(
+      () => _i406.GenerateLabOrderPermissionTokenUseCase(
+        permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
+      ),
+    );
     gh.factory<_i535.GeneratePermissionTokenUseCase>(
       () => _i535.GeneratePermissionTokenUseCase(
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
@@ -297,6 +306,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i690.GetPermissionTokenUseCase>(
       () => _i690.GetPermissionTokenUseCase(
+        permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
+      ),
+    );
+    gh.factory<_i739.ListPatientActiveLabOrderUseCase>(
+      () => _i739.ListPatientActiveLabOrderUseCase(
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
       ),
     );
@@ -339,14 +353,6 @@ extension GetItInjectableX on _i174.GetIt {
         getMedicalIdentityUseCase: gh<_i315.GetMedicalIdentityUseCase>(),
         deleteEmergencyContactUseCase:
             gh<_i590.DeleteEmergencyContactUseCase>(),
-      ),
-    );
-    gh.factory<_i182.PermissionTokenCubit>(
-      () => _i182.PermissionTokenCubit(
-        generatePermissionTokenUseCase:
-            gh<_i535.GeneratePermissionTokenUseCase>(),
-        getPermissionTokenUseCase: gh<_i690.GetPermissionTokenUseCase>(),
-        permissionTokenRevokeUseCase: gh<_i90.PermissionTokenRevokeUseCase>(),
       ),
     );
     gh.lazySingleton<_i332.NotificationCubit>(
@@ -400,6 +406,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
+      ),
+    );
+    gh.factory<_i182.PermissionTokenCubit>(
+      () => _i182.PermissionTokenCubit(
+        generatePermissionTokenUseCase:
+            gh<_i535.GeneratePermissionTokenUseCase>(),
+        getPermissionTokenUseCase: gh<_i690.GetPermissionTokenUseCase>(),
+        permissionTokenRevokeUseCase: gh<_i90.PermissionTokenRevokeUseCase>(),
+        generateLabOrderPermissionTokenUseCase:
+            gh<_i406.GenerateLabOrderPermissionTokenUseCase>(),
+        listPatientActiveLabOrderUseCase:
+            gh<_i739.ListPatientActiveLabOrderUseCase>(),
       ),
     );
     gh.factory<_i59.GetListMedicalHistoryUseCase>(

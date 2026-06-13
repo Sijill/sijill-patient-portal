@@ -13,8 +13,9 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_tok
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_state.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_permission_token_item.dart';
 
-class GrantAccessPermissionToken extends StatelessWidget {
-  const GrantAccessPermissionToken({super.key});
+class GrantAccessPermissionTokenHealthcareProviderScreen
+    extends StatelessWidget {
+  const GrantAccessPermissionTokenHealthcareProviderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

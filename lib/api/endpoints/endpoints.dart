@@ -68,4 +68,10 @@ class Endpoints {
 
   static const String getTodayScheduleApi =
       "/api/v1/patient/home/today-schedule";
+
+  static const String getListPatientActiveLabOrderApi =
+      "/api/v1/clinical/medical-orders/lab";
+
+  static const String generateLabPermissionTokenApi =
+      "/api/v1/clinical/medical-orders/{orderId}/permission-tokens/lab";
 }
