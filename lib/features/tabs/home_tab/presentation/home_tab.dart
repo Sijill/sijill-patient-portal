@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
@@ -15,6 +16,7 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_state
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_gradient_container_item.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_reminders_item.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_today_schedule_item.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/widget/implement_today_schedule.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -28,6 +30,7 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
     context.read<HomeTabCubt>().homeReminderCounters();
+    context.read<HomeTabCubt>().getTodaySchedule();
   }
 
   @override
@@ -100,49 +103,54 @@ class _HomeTabState extends State<HomeTab> {
               ),
               SizedBox(height: 25.h),
               BlocBuilder<HomeTabCubt, HomeTabState>(
+                buildWhen: (previous, current) {
+                  return current is GetHomeReminderCountersLoading ||
+                      current is GetHomeReminderCountersSuccess ||
+                      current is GetHomeReminderCountersError;
+                },
                 builder: (context, state) {
+                  final viewModel = context
+                      .read<HomeTabCubt>()
+                      .homeReminderCountersResponse
+                      ?.counters;
                   if (state is GetHomeReminderCountersLoading) {
                     return Center(
                       child: CircularProgressIndicator(color: AppColors.teal),
                     );
                   } else if (state is GetHomeReminderCountersError) {
                     DialogUtils.showDialogMessage(message: state.message);
-                  } else if (state is GetHomeReminderCountersSuccess) {
-                    final viewModel =
-                        state.homeReminderCountersResponse.counters;
-                    return CustomedGradientContainerItem(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AutoSizeText(
-                            "Reminders",
-                            style: AppStyle.mediumBlack16.copyWith(
-                              fontSize: 20.sp,
-                            ),
-                          ),
-                          SizedBox(height: 16.h),
-                          CustomedRemindersItem(
-                            imageIcon: AppAssets.pendingMedications,
-                            number: "${viewModel?.medicationReminders ?? 0}",
-                            text: "Medications Reminders",
-                          ),
-                          SizedBox(height: 12.h),
-                          CustomedRemindersItem(
-                            imageIcon: AppAssets.upcomingAppoinments,
-                            number: "${viewModel?.upcomingAppointments ?? 0}",
-                            text: "Upcoming Appointments",
-                          ),
-                          SizedBox(height: 12.h),
-                          CustomedRemindersItem(
-                            imageIcon: AppAssets.pendingTestOrders,
-                            number: "${viewModel?.pendingTestOrders ?? 0}",
-                            text: "Pending Test Orders",
-                          ),
-                        ],
-                      ),
-                    );
                   }
-                  return const SizedBox();
+                  return CustomedGradientContainerItem(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          "Reminders",
+                          style: AppStyle.mediumBlack16.copyWith(
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                        SizedBox(height: 16.h),
+                        CustomedRemindersItem(
+                          imageIcon: AppAssets.pendingMedications,
+                          number: "${viewModel?.medicationReminders ?? 0}",
+                          text: "Medications Reminders",
+                        ),
+                        SizedBox(height: 12.h),
+                        CustomedRemindersItem(
+                          imageIcon: AppAssets.upcomingAppoinments,
+                          number: "${viewModel?.upcomingAppointments ?? 0}",
+                          text: "Upcoming Appointments",
+                        ),
+                        SizedBox(height: 12.h),
+                        CustomedRemindersItem(
+                          imageIcon: AppAssets.pendingTestOrders,
+                          number: "${viewModel?.pendingTestOrders ?? 0}",
+                          text: "Pending Test Orders",
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
               SizedBox(height: 10.h),
@@ -162,24 +170,44 @@ class _HomeTabState extends State<HomeTab> {
                     ),
                     Spacer(),
                     AutoSizeText(
-                      "Monday, Oct 28",
+                      DateFormat('EEEE, MMM d').format(DateTime.now()),
                       style: AppStyle.meduimGray14,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 300.h,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => CustomedTodayScheduleItem(
-                    index: index,
-                    time: "08:00\nAM",
-                    title: "Morning Vitamins",
-                  ),
-                  separatorBuilder: (context, index) => SizedBox(),
-                  itemCount: 5,
-                ),
+              BlocBuilder<HomeTabCubt, HomeTabState>(
+                builder: (context, state) {
+                  final cubit = context.read<HomeTabCubt>();
+
+                  final todaySchedule =
+                      cubit.todayScheduleResponse?.schedule ?? [];
+
+                  if (state is GetTodayScheduleLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(color: AppColors.teal),
+                    );
+                  } else if (state is GetTodayScheduleError) {
+                    DialogUtils.showDialogMessage(message: state.message);
+                  } else if (todaySchedule.isEmpty ||
+                      cubit.choiceValue.length == todaySchedule.length) {
+                    return ImplementTodaySchedule();
+                  }
+
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: todaySchedule.length,
+                    itemBuilder: (context, index) {
+                      return CustomedTodayScheduleItem(
+                        index: index,
+                        time: todaySchedule[index].time ?? "",
+                        title: todaySchedule[index].what ?? "",
+                      );
+                    },
+                    separatorBuilder: (_, _) => const SizedBox(),
+                  );
+                },
               ),
             ],
           ),

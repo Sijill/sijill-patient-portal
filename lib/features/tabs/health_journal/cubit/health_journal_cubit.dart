@@ -117,4 +117,11 @@ class HealthJournalCubit extends Cubit<HealthJournalState> {
       emit(GetHealthJournalNotesDiagonsesIdError(message: e.toString()));
     }
   }
+
+  int selectedIndex = -1;
+
+  void changeIndex(int index) {
+    selectedIndex = index;
+    emit(ChangeSelectItemState());
+  }
 }

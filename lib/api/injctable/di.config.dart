@@ -78,6 +78,7 @@ import '../../domain/use_cases/health_journal/health_journal_notes_use_case.dart
     as _i482;
 import '../../domain/use_cases/home_tab/home_reminder_counters_use_case.dart'
     as _i905;
+import '../../domain/use_cases/home_tab/today_schedule_use_case.dart' as _i331;
 import '../../domain/use_cases/medical_history/get_list_medical_history_use_case.dart'
     as _i59;
 import '../../domain/use_cases/medical_history/get_medical_history_use_case.dart'
@@ -284,6 +285,11 @@ extension GetItInjectableX on _i174.GetIt {
         homeTabRepository: gh<_i469.HomeTabRepository>(),
       ),
     );
+    gh.factory<_i331.TodayScheduleUseCase>(
+      () => _i331.TodayScheduleUseCase(
+        homeTabRepository: gh<_i469.HomeTabRepository>(),
+      ),
+    );
     gh.factory<_i535.GeneratePermissionTokenUseCase>(
       () => _i535.GeneratePermissionTokenUseCase(
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
@@ -297,6 +303,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i90.PermissionTokenRevokeUseCase>(
       () => _i90.PermissionTokenRevokeUseCase(
         permissionTokenRepository: gh<_i241.PermissionTokenRepository>(),
+      ),
+    );
+    gh.factory<_i348.HomeTabCubt>(
+      () => _i348.HomeTabCubt(
+        homeReminderCountersUseCase: gh<_i905.HomeReminderCountersUseCase>(),
+        todayScheduleUseCase: gh<_i331.TodayScheduleUseCase>(),
       ),
     );
     gh.factory<_i244.GetHealthJournalDiagonseUseCase>(
@@ -398,11 +410,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i474.GetMedicalHistoryUseCase>(
       () => _i474.GetMedicalHistoryUseCase(
         medicalHistoryRepository: gh<_i287.MedicalHistoryRepository>(),
-      ),
-    );
-    gh.factory<_i348.HomeTabCubt>(
-      () => _i348.HomeTabCubt(
-        homeReminderCountersUseCase: gh<_i905.HomeReminderCountersUseCase>(),
       ),
     );
     gh.factory<_i407.HealthJournalCubit>(

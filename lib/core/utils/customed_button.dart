@@ -12,6 +12,7 @@ class CustomedButton extends StatelessWidget {
   final double? horizontal;
   final double? vertical;
   final Color? backgroundColor;
+  final Color? borderColor;
   final Color? textColor;
   final double? radius;
   final double? spaceBeforeText;
@@ -34,6 +35,7 @@ class CustomedButton extends StatelessWidget {
     this.spaceAfterText,
     this.vertical,
     this.textStyle,
+    this.borderColor,
   });
 
   @override
@@ -46,7 +48,7 @@ class CustomedButton extends StatelessWidget {
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadiusGeometry.circular(radius ?? 10.r),
-        side: BorderSide(color: AppColors.primaryColor),
+        side: BorderSide(color: borderColor ?? AppColors.primaryColor),
       ),
       color: backgroundColor ?? AppColors.primaryColor,
       onPressed: () {

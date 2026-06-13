@@ -141,7 +141,7 @@ class _CustomedDropDownState extends State<CustomedDropDown> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.r),
                             ),
-                            color: AppColors.lightGray,
+                            color: AppColors.bgColor,
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 8.w,

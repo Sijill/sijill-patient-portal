@@ -1,8 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/api/mapper/home_tab/home_reminder_counters_mapper.dart';
+import 'package:sijil_patient_portal/api/mapper/home_tab/today_schedule_response_mapper.dart';
 import 'package:sijil_patient_portal/api/web_service.dart';
 import 'package:sijil_patient_portal/data/data_sources/remote/home_tab/home_tab_data_sources.dart';
 import 'package:sijil_patient_portal/domain/entities/home_tab/response/home_reminder_counters_response/home_reminder_counters_response.dart';
+import 'package:sijil_patient_portal/domain/entities/home_tab/response/today_schedule_response/today_schedule_response.dart';
 
 @Injectable(as: HomeTabDataSources)
 class HomeTabDataSourcesImpl extends HomeTabDataSources {
@@ -16,5 +18,13 @@ class HomeTabDataSourcesImpl extends HomeTabDataSources {
     //todo: HomeReminderCountersResponseDto => HomeReminderCountersResponse
     return homeReminderCountersResponseDto
         .convertToHomeReminderCountersResponse();
+  }
+
+  @override
+  Future<TodayScheduleResponse> getTodaySchedule() async {
+    final todayScheduleResponseDto = await webService.getTodaySchedule();
+
+    //todo: TodayScheduleResponseDto => TodayScheduleResponse
+    return todayScheduleResponseDto.convertToTodayScheduleResponse();
   }
 }

@@ -67,53 +67,74 @@ class _TypeDiabetsScreenState extends State<TypeDiabetsScreen> {
                   SizedBox(height: 10.h),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                      spacing: 7.w,
-                      children: [
-                        CustomedButton(
-                          horizontal: 10.w,
-                          backgroundColor: AppColors.lightGreen,
-                          textStyle: AppStyle.semiBoldBlack22.copyWith(
-                            fontSize: 12.sp,
-                          ),
-                          text: "Fully Recovered",
-                          onPressed: () {
-                            patientOutcome = "FULLY_RECOVERED";
-                          },
-                        ),
-                        CustomedButton(
-                          backgroundColor: AppColors.tabBarSelectedColor,
-                          horizontal: 30.w,
-                          textStyle: AppStyle.semiBoldBlack22.copyWith(
-                            fontSize: 12.sp,
-                          ),
-                          text: "Improved",
-                          onPressed: () {
-                            patientOutcome = "IMPROVED";
-                          },
-                        ),
-                        CustomedButton(
-                          textStyle: AppStyle.semiBoldBlack22.copyWith(
-                            fontSize: 12.sp,
-                          ),
-                          text: "No Change",
-                          onPressed: () {
-                            patientOutcome = "NO_CHANGE";
-                          },
-                        ),
-                        CustomedButton(
-                          backgroundColor: AppColors.rose,
-                          horizontal: 35.w,
-                          textStyle: AppStyle.semiBoldBlack22.copyWith(
-                            fontSize: 12.sp,
-                          ),
-                          text: "Worse",
-                          onPressed: () {
-                            patientOutcome = "WORSE";
-                          },
-                        ),
-                        SizedBox(width: 16.w),
-                      ],
+                    child: BlocBuilder<HealthJournalCubit, HealthJournalState>(
+                      builder: (context, state) {
+                        final viewModel = context.read<HealthJournalCubit>();
+                        return Row(
+                          spacing: 7.w,
+                          children: [
+                            CustomedButton(
+                              horizontal: 10.w,
+                              backgroundColor: AppColors.lightGreen,
+                              borderColor: viewModel.selectedIndex == 0
+                                  ? AppColors.black
+                                  : AppColors.primaryColor,
+                              textStyle: AppStyle.semiBoldBlack22.copyWith(
+                                fontSize: 12.sp,
+                              ),
+                              text: "Fully Recovered",
+                              onPressed: () {
+                                patientOutcome = "FULLY_RECOVERED";
+                                viewModel.changeIndex(0);
+                              },
+                            ),
+                            CustomedButton(
+                              backgroundColor: AppColors.tabBarSelectedColor,
+                              horizontal: 30.w,
+                              textStyle: AppStyle.semiBoldBlack22.copyWith(
+                                fontSize: 12.sp,
+                              ),
+                              text: "Improved",
+                              borderColor: viewModel.selectedIndex == 1
+                                  ? AppColors.black
+                                  : AppColors.primaryColor,
+                              onPressed: () {
+                                patientOutcome = "IMPROVED";
+                                viewModel.changeIndex(1);
+                              },
+                            ),
+                            CustomedButton(
+                              textStyle: AppStyle.semiBoldBlack22.copyWith(
+                                fontSize: 12.sp,
+                              ),
+                              text: "No Change",
+                              borderColor: viewModel.selectedIndex == 2
+                                  ? AppColors.black
+                                  : AppColors.primaryColor,
+                              onPressed: () {
+                                patientOutcome = "NO_CHANGE";
+                                viewModel.changeIndex(2);
+                              },
+                            ),
+                            CustomedButton(
+                              backgroundColor: AppColors.rose,
+                              horizontal: 35.w,
+                              textStyle: AppStyle.semiBoldBlack22.copyWith(
+                                fontSize: 12.sp,
+                              ),
+                              text: "Worse",
+                              borderColor: viewModel.selectedIndex == 3
+                                  ? AppColors.black
+                                  : AppColors.primaryColor,
+                              onPressed: () {
+                                patientOutcome = "WORSE";
+                                viewModel.changeIndex(3);
+                              },
+                            ),
+                            SizedBox(width: 16.w),
+                          ],
+                        );
+                      },
                     ),
                   ),
                   Padding(
@@ -167,9 +188,10 @@ class _TypeDiabetsScreenState extends State<TypeDiabetsScreen> {
                     ),
                     child: CustomedDropDown(
                       backgroundColor: AppColors.tabBarUnSelectedColor,
-                      bottomSheetHeight: 50.h,
+                      bottomSheetHeight: 15.h,
                       bottomSheetLeft: 20.w,
                       bottomSheetRight: 20.w,
+                      heightDrobdown: 150.h,
                       widthDropdown: double.infinity,
                       onValidate: (val) {
                         return AppValidators.validateMode(val);
@@ -203,7 +225,7 @@ class _TypeDiabetsScreenState extends State<TypeDiabetsScreen> {
                         DialogUtils.hideLoading(context);
                         Navigator.of(
                           context,
-                        ).pushNamed(AppRoutes.healthSnapshotScreen);
+                        ).pushReplacementNamed(AppRoutes.healthSnapshotScreen);
                       }
                     },
                     child: Center(

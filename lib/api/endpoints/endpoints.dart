@@ -65,4 +65,7 @@ class Endpoints {
 
   static const String homeReminderCountersApi =
       "/api/v1/patient/home/reminders/counters";
+
+  static const String getTodayScheduleApi =
+      "/api/v1/patient/home/today-schedule";
 }
