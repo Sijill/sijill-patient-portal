@@ -51,9 +51,9 @@ class _GrantAccessScreenState extends State<GrantAccessScreen> {
                       "Authorize blood work facilities, pathology centers, diagnostic labs etc.... ",
                   imageName: AppAssets.laboratory,
                   selectItemClick: () {
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.grantAccessImagingCenterLaboratoryScreen,
-                    );
+                    Navigator.of(
+                      context,
+                    ).pushNamed(AppRoutes.grantAccessLaboratoryScreen);
                   },
                 ),
                 CustomedGrantAccessItem(
@@ -62,9 +62,9 @@ class _GrantAccessScreenState extends State<GrantAccessScreen> {
                       "Authorize X-ray, MRI, CT scans and other radiological imaging services",
                   imageName: AppAssets.imagingCenter,
                   selectItemClick: () {
-                    Navigator.of(context).pushNamed(
-                      AppRoutes.grantAccessImagingCenterLaboratoryScreen,
-                    );
+                    Navigator.of(
+                      context,
+                    ).pushNamed(AppRoutes.grantAccessImagingCenterScreen);
                   },
                 ),
                 Padding(

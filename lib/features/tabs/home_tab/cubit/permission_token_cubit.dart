@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/core/exceptions/app_exception.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
-import 'package:sijil_patient_portal/domain/entities/permission_token/request/permission_token_revoke/permission_token_revoke_request.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/response/get_permission_token/get_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/generate_permission_token/generate_permission_token_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/get_permission_token/get_permission_token_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/permission_token/permission_token_revoke/permission_token_revoke_use_case.dart';
@@ -19,6 +19,8 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
     required this.getPermissionTokenUseCase,
     required this.permissionTokenRevokeUseCase,
   }) : super(PermissionTokenInitial());
+
+  GetPermissionTokenResponse? getPermissionTokenResponse;
 
   int selectedAccessType = 0;
   String getAccessTypeValue() {
@@ -73,11 +75,10 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
   Future<void> getPermissionToken() async {
     emit(GetPermissionTokenILoading());
     try {
-      final getPermissionTokenResponse = await getPermissionTokenUseCase
-          .invoke();
+      getPermissionTokenResponse = await getPermissionTokenUseCase.invoke();
       emit(
         GetPermissionTokenSuccess(
-          getPermissionTokenResponse: getPermissionTokenResponse,
+          getPermissionTokenResponse: getPermissionTokenResponse!,
         ),
       );
     } on AppException catch (e) {
@@ -92,13 +93,11 @@ class PermissionTokenCubit extends Cubit<PermissionTokenState> {
     }
   }
 
-  Future<void> permissionRevokeToken({
-    required PermissionTokenRevokeRequest permissionTokenRevokeRequest,
-  }) async {
+  Future<void> permissionRevokeToken({required String tokenId}) async {
     try {
       emit(PermissionTokenRevokeILoading());
       final permissionTokenRevokeResponse = await permissionTokenRevokeUseCase
-          .invoke(permissionTokenRevokeRequest: permissionTokenRevokeRequest);
+          .invoke(tokenId: tokenId);
       emit(
         PermissionTokenRevokeSuccess(
           permissionTokenRevokeResponse: permissionTokenRevokeResponse,

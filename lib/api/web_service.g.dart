@@ -375,7 +375,7 @@ class _WebService implements WebService {
 
   @override
   Future<PermissionTokenRevokeResponseDto> permissionTokenRevoke(
-    PermissionTokenRevokeRequestDto permissionTokenRevokeRequest,
+    String tokenId,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -385,7 +385,7 @@ class _WebService implements WebService {
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/clinical/permission-tokens/{tokenId}/revoke',
+            '/api/v1/clinical/permission-tokens/${tokenId}/revoke',
             queryParameters: queryParameters,
             data: _data,
           )

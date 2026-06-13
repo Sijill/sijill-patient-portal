@@ -39,7 +39,6 @@ import 'package:sijil_patient_portal/api/model/notfication/response/notification
 import 'package:sijil_patient_portal/api/model/notfication/response/pending_notification_response/pending_notification_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/notfication/response/update_patient_reminders_response/update_patient_reminders_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
-import 'package:sijil_patient_portal/api/model/permission_token/request/permission_token_revoke/permission_token_revoke_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/generate_permission_token/generate_permission_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/get_permission_token/get_permission_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/permission_token_revoke/permission_token_revoke_response_dto.dart';
@@ -116,7 +115,7 @@ abstract class WebService {
 
   @PATCH(Endpoints.permissionTokenRevokeApi)
   Future<PermissionTokenRevokeResponseDto> permissionTokenRevoke(
-    @Path() PermissionTokenRevokeRequestDto permissionTokenRevokeRequest,
+    @Path() String tokenId,
   );
 
   @POST(Endpoints.uploadProfileImageApi)

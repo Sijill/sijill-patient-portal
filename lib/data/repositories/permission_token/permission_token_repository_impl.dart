@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/data/data_sources/remote/permission_token/permission_token_data_sources.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
-import 'package:sijil_patient_portal/domain/entities/permission_token/request/permission_token_revoke/permission_token_revoke_request.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_permission_token/generate_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/get_permission_token/get_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/permission_token_revoke/permission_token_revoke_response.dart';
@@ -27,10 +26,8 @@ class PermissionTokenRepositoryImpl implements PermissionTokenRepository {
 
   @override
   Future<PermissionTokenRevokeResponse> permissionTokenRevoke({
-    required PermissionTokenRevokeRequest permissionTokenRevokeRequest,
+    required String tokenId,
   }) {
-    return permissionTokenDataSources.permissionTokenRevoke(
-      permissionTokenRevokeRequest: permissionTokenRevokeRequest,
-    );
+    return permissionTokenDataSources.permissionTokenRevoke(tokenId: tokenId);
   }
 }

@@ -1,14 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sijil_patient_portal/api/model/home_tab/active_tokens_model.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
 
 class CustomedActiveTokensItem extends StatelessWidget {
-  final ActiveTokensModel model;
-  const CustomedActiveTokensItem({super.key, required this.model});
+  final String accessTo;
+  final String accessType;
+  final String experiseAt;
+
+  const CustomedActiveTokensItem({
+    super.key,
+    required this.accessTo,
+    required this.accessType,
+    required this.experiseAt,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class CustomedActiveTokensItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText(model.title, style: AppStyle.mediumBlack16),
+              AutoSizeText(accessType, style: AppStyle.mediumBlack16),
               SizedBox(
                 height: 33.h,
                 child: CustomedButton(
@@ -39,12 +46,12 @@ class CustomedActiveTokensItem extends StatelessWidget {
             ],
           ),
           AutoSizeText(
-            model.access,
+            accessTo,
             style: AppStyle.mediumGray14.copyWith(fontSize: 12.sp),
           ),
           SizedBox(height: 7.h),
           AutoSizeText(
-            model.time,
+            experiseAt,
             style: AppStyle.mediumGray14.copyWith(fontSize: 12.sp),
           ),
         ],

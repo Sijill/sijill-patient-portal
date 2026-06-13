@@ -130,9 +130,8 @@ class _GrantAccessHealthcareProviderScreenState
                             Navigator.of(context)
                                 .pushNamed(
                                   AppRoutes.grantAccessPermissionToken,
-                                  arguments: state
-                                      .generatePermissionTokenResponse
-                                      .tokenId,
+                                  arguments:
+                                      state.generatePermissionTokenResponse,
                                 )
                                 .then((_) {
                                   final cubit = context

@@ -9,7 +9,8 @@ import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/h
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/type_diabets_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_active_tokens_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_healthcare_provider_screen.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_imaging_center_laboratory_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_imaging_center_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_laboratory_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_permission_token.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/home_tab.dart';
@@ -53,8 +54,10 @@ class AppRoutes {
   static const String grantAccessScreen = "/grantAccessScreen";
   static const String grantAccessHealthcareProviderScreen =
       "/grantAccessHealthcareProviderScreen";
-  static const String grantAccessImagingCenterLaboratoryScreen =
-      "/grantAccessImagingCenterLaboratoryScreen";
+  static const String grantAccessLaboratoryScreen =
+      "/grantAccessLaboratoryScreen";
+  static const String grantAccessImagingCenterScreen =
+      "/grantAccessImagingCenterScreen";
   static const String grantAccessPermissionToken =
       "/grantAccessPermissionToken";
   static const String grantAccessActiveTokensScreen =
@@ -91,8 +94,11 @@ class AppRoutes {
     AppRoutes.grantAccessScreen: (context) => GrantAccessScreen(),
     AppRoutes.grantAccessHealthcareProviderScreen: (context) =>
         GrantAccessHealthcareProviderScreen(),
-    AppRoutes.grantAccessImagingCenterLaboratoryScreen: (context) =>
-        GrantAccessImagingCenterLaboratoryScreen(),
+    AppRoutes.grantAccessLaboratoryScreen: (context) =>
+        GrantAccessLaboratoryScreen(),
+
+    AppRoutes.grantAccessImagingCenterScreen: (context) =>
+        GrantAccessImagingCenterScreen(),
     AppRoutes.grantAccessPermissionToken: (context) =>
         GrantAccessPermissionToken(),
     AppRoutes.grantAccessActiveTokensScreen: (context) =>

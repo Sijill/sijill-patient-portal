@@ -3,11 +3,9 @@ import 'package:sijil_patient_portal/api/mapper/permission_token/generate_permis
 import 'package:sijil_patient_portal/api/mapper/permission_token/generate_permission_token_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/get_permission_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/perimission_token_revoke_response_mapper.dart';
-import 'package:sijil_patient_portal/api/mapper/permission_token/permission_token_revoke_request_mapper.dart';
 import 'package:sijil_patient_portal/api/web_service.dart';
 import 'package:sijil_patient_portal/data/data_sources/remote/permission_token/permission_token_data_sources.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
-import 'package:sijil_patient_portal/domain/entities/permission_token/request/permission_token_revoke/permission_token_revoke_request.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_permission_token/generate_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/get_permission_token/get_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/permission_token_revoke/permission_token_revoke_response.dart';
@@ -42,14 +40,11 @@ class PermissionTokenDataSourcesImpl implements PermissionTokenDataSources {
 
   @override
   Future<PermissionTokenRevokeResponse> permissionTokenRevoke({
-    required PermissionTokenRevokeRequest permissionTokenRevokeRequest,
+    required String tokenId,
   }) async {
     //todo: PermissionTokenRevokeRequest => PermissionTokenRevokeRequestDto
     final permissionTokenRevokeResponseDto = await webService
-        .permissionTokenRevoke(
-          permissionTokenRevokeRequest
-              .convertTopermissionTokenRevokeRequestDto(),
-        );
+        .permissionTokenRevoke(tokenId);
     //todo: PermissionTokenRevokeResponseDto => PermissionTokenRevokeResponse
     return permissionTokenRevokeResponseDto
         .convertToPermissionTokenRevokeResponse();
