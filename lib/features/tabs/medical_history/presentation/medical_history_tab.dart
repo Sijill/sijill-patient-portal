@@ -52,6 +52,9 @@ class _MedicalHistoryTabState extends State<MedicalHistoryTab> {
                         child: const Center(child: CircularProgressIndicator()),
                       );
                     }
+                    if (state is GetListMedicalHistoryError) {
+                      DialogUtils.showDialogMessage(message: state.message);
+                    }
                     if (state is GetListMedicalHistorySuccess) {
                       final data =
                           state.getListMedicalHistoryResponse.encounters ?? [];

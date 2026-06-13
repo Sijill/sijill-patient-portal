@@ -6,6 +6,8 @@ abstract class HealthJournalState {}
 
 class HealthJournalInitial extends HealthJournalState {}
 
+class ChangeSelectItemState extends HealthJournalState {}
+
 class GetHealthJournalDiagonsesLoading extends HealthJournalState {}
 
 class GetHealthJournalDiagonsesError extends HealthJournalState {

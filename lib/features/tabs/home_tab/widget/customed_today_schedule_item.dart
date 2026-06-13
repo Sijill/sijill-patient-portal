@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sijil_patient_portal/api/injctable/di.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
@@ -26,13 +25,6 @@ class CustomedTodayScheduleItem extends StatefulWidget {
 }
 
 class _CustomedTodayScheduleItemState extends State<CustomedTodayScheduleItem> {
-  late HomeTabCubt viewModel;
-  @override
-  void initState() {
-    viewModel = getIt<HomeTabCubt>();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,8 +50,8 @@ class _CustomedTodayScheduleItemState extends State<CustomedTodayScheduleItem> {
           ),
           Spacer(),
           BlocBuilder<HomeTabCubt, HomeTabState>(
-            bloc: viewModel,
             builder: (context, state) {
+              final viewModel = context.read<HomeTabCubt>();
               return CustomedCheckBoxShadow(
                 index: widget.index,
                 choiceValue: viewModel.choiceValue,

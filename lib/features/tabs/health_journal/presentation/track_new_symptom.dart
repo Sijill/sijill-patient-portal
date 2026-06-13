@@ -117,7 +117,7 @@ class _TrackNewSymptomState extends State<TrackNewSymptom> {
                               controller: controller,
                               hint: "Choose a condition...",
                               widthDropdown: double.infinity,
-                              bottomSheetHeight: 300.h,
+                              bottomSheetHeight: 330.h,
                               bottomSheetRight: 32.w,
                               bottomSheetLeft: 32.w,
                               heightDrobdown: 150.h,
