@@ -1,9 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/data/data_sources/remote/permission_token/permission_token_data_sources.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_imaging_permission_token_response/generate_imaging_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_lab_permission_token_response/generate_lab_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_permission_token/generate_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/get_permission_token/get_permission_token_response.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/response/list_patient_active_imaging_order_response/list_patient_active_imaging_order_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/list_patient_active_lab_order_response/list_patient_active_lab_order_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/permission_token_revoke/permission_token_revoke_response.dart';
 import 'package:sijil_patient_portal/domain/repositories/permission_token/permission_token_repository.dart';
@@ -45,5 +47,19 @@ class PermissionTokenRepositoryImpl implements PermissionTokenRepository {
     return permissionTokenDataSources.generateLabOrderPermissionToken(
       orderId: orderId,
     );
+  }
+
+  @override
+  Future<GenerateImagingPermissionTokenResponse>
+  generateImagingOrderPermissionToken({required String orderId}) {
+    return permissionTokenDataSources.generateImagingOrderPermissionToken(
+      orderId: orderId,
+    );
+  }
+
+  @override
+  Future<ListPatientActiveImagingOrderResponse>
+  getListPatientActiveImagingOrder() {
+    return permissionTokenDataSources.getListPatientActiveImagingOrder();
   }
 }

@@ -74,4 +74,10 @@ class Endpoints {
 
   static const String generateLabPermissionTokenApi =
       "/api/v1/clinical/medical-orders/{orderId}/permission-tokens/lab";
+
+  static const String getListPatientActiveImagingOrderApi =
+      "/api/v1/clinical/medical-orders/imaging";
+
+  static const String generateImagingPermissionTokenApi =
+      "/api/v1/clinical/medical-orders/{orderId}/permission-tokens/imaging";
 }

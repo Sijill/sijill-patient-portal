@@ -1,16 +1,20 @@
 import 'package:injectable/injectable.dart';
+import 'package:sijil_patient_portal/api/mapper/permission_token/generate_imaging_permission_token_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/generate_lap_permission_token_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/generate_permission_token_request_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/generate_permission_token_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/get_permission_response_mapper.dart';
+import 'package:sijil_patient_portal/api/mapper/permission_token/list_patient_active_imaging_order_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/list_patient_active_lab_order_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/permission_token/perimission_token_revoke_response_mapper.dart';
 import 'package:sijil_patient_portal/api/web_service.dart';
 import 'package:sijil_patient_portal/data/data_sources/remote/permission_token/permission_token_data_sources.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/request/generate_permission_token/generate_permission_token_request.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_imaging_permission_token_response/generate_imaging_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_lab_permission_token_response/generate_lab_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/generate_permission_token/generate_permission_token_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/get_permission_token/get_permission_token_response.dart';
+import 'package:sijil_patient_portal/domain/entities/permission_token/response/list_patient_active_imaging_order_response/list_patient_active_imaging_order_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/list_patient_active_lab_order_response/list_patient_active_lab_order_response.dart';
 import 'package:sijil_patient_portal/domain/entities/permission_token/response/permission_token_revoke/permission_token_revoke_response.dart';
 
@@ -76,5 +80,27 @@ class PermissionTokenDataSourcesImpl implements PermissionTokenDataSources {
     //todo: GenerateLabPermissionTokenResponseDto => GenerateLabPermissionTokenResponse
     return generateLabPermissionTokenResponseDto
         .convertToGenerateLabPermissionTokenResponse();
+  }
+
+  @override
+  Future<GenerateImagingPermissionTokenResponse>
+  generateImagingOrderPermissionToken({required String orderId}) async {
+    final generateImagingPermissionTokenResponseDto = await webService
+        .generateImagingOrderPermissionToken(orderId);
+
+    //todo: GenerateImagingPermissionTokenResponseDto => GenerateImagingPermissionTokenResponse
+    return generateImagingPermissionTokenResponseDto
+        .convertToGenerateImagingPermissionTokenResponse();
+  }
+
+  @override
+  Future<ListPatientActiveImagingOrderResponse>
+  getListPatientActiveImagingOrder() async {
+    final listPatientActiveImagingOrderResponseDto = await webService
+        .getListPatientActiveImagingOrder();
+
+    //todo: ListPatientActiveImagingOrderResponseDt => ListPatientActiveImagingOrderResponse
+    return listPatientActiveImagingOrderResponseDto
+        .convertToListPatientActiveImagingOrderResponse();
   }
 }
