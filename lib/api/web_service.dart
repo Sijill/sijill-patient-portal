@@ -39,9 +39,11 @@ import 'package:sijil_patient_portal/api/model/notfication/response/notification
 import 'package:sijil_patient_portal/api/model/notfication/response/pending_notification_response/pending_notification_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/notfication/response/update_patient_reminders_response/update_patient_reminders_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/request/generate_permission_token/generate_permission_token_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/response/generate_imaging_permission_token_response/generate_imaging_permission_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/generate_lab_permission_token_response/generate_lab_permission_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/generate_permission_token/generate_permission_token_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/get_permission_token/get_permission_token_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/permission_token/response/list_patient_active_imaging_order_response/list_patient_active_imaging_order_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/list_patient_active_lab_order_response/list_patient_active_lab_order_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/permission_token/response/permission_token_revoke/permission_token_revoke_response_dto.dart';
 
@@ -198,4 +200,12 @@ abstract class WebService {
   Future<GenerateLabPermissionTokenResponseDto> generateLabOrderPermissionToken(
     @Path("orderId") String orderId,
   );
+
+  @GET(Endpoints.getListPatientActiveImagingOrderApi)
+  Future<ListPatientActiveImagingOrderResponseDto>
+  getListPatientActiveImagingOrder();
+
+  @POST(Endpoints.generateImagingPermissionTokenApi)
+  Future<GenerateImagingPermissionTokenResponseDto>
+  generateImagingOrderPermissionToken(@Path("orderId") String orderId);
 }
