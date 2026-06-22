@@ -82,4 +82,7 @@ class Endpoints {
       "/api/v1/clinical/medical-orders/{orderId}/permission-tokens/imaging";
 
   static const String logoutApi = "/api/v1/auth/logout";
+
+  static const String createNewChatSessionApi =
+      "/api/v1/patient/ai/chat/sessions";
 }
