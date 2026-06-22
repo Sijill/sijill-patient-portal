@@ -1106,7 +1106,7 @@ class _WebService implements WebService {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/patient/ai/chat/sessions/${sessionId}/messages',
+            '/api/v1/patient/ai/chat/sessions/${sessionId}/messages',
             queryParameters: queryParameters,
             data: _data,
           )

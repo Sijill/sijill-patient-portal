@@ -4,6 +4,7 @@ import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/s
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/sign_up_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot_archive.dart';
+import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/send_message_to_chatbot.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/health_journal_tab.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/track_condition_type_diabets_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/track_new_symptom.dart';
@@ -79,6 +80,7 @@ class AppRoutes {
   static const String medicalHistroyDetails = "/medicalHistroyDetails";
   static const String remindersScreen = "/remindersScreen";
   static const String notificationDetailsScreen = "/notificationDetailsScreen";
+  static const String sendMessageToChatbot = "/sendMessageToChatbot";
 
   static Map<String, Widget Function(BuildContext)> routeScreen = {
     AppRoutes.homeScreen: (context) => HomeScreen(),
@@ -126,5 +128,6 @@ class AppRoutes {
     AppRoutes.notificationDetailsScreen: (context) =>
         NotificationDetailsScreen(),
     AppRoutes.chatbotArchive: (context) => ChatbotArchive(),
+    AppRoutes.sendMessageToChatbot: (context) => SendMessageToChatbot(),
   };
 }
