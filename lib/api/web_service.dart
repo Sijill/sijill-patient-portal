@@ -4,6 +4,7 @@ import 'package:sijil_patient_portal/api/endpoints/endpoints.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/login/login_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/login/login_resend_otp_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/login/login_verify_otp_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/auth/request/logout/logout_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_confirm_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/request/password_reset/password_reset_resend_otp_request_dto.dart';
@@ -12,6 +13,7 @@ import 'package:sijil_patient_portal/api/model/auth/request/register/register_ve
 import 'package:sijil_patient_portal/api/model/auth/response/login/login_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/login/login_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/login/login_verify_otp_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/auth/response/logout/logout_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/password_reset/password_reset_confirm_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/password_reset/password_reset_resend_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/password_reset/password_reset_response_dto.dart';
@@ -208,4 +210,7 @@ abstract class WebService {
   @POST(Endpoints.generateImagingPermissionTokenApi)
   Future<GenerateImagingPermissionTokenResponseDto>
   generateImagingOrderPermissionToken(@Path("orderId") String orderId);
+
+  @POST(Endpoints.logoutApi)
+  Future<LogoutResponseDto> logout(@Body() LogoutRequestDto logoutRequest);
 }

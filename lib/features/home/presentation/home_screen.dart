@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 indx: 3,
               ),
               customedBottomNavigationBarItem(
-                iconimage: AppAssets.settings,
+                iconimage: AppAssets.chatbotIcon,
                 indx: 4,
               ),
             ],

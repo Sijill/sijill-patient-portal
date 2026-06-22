@@ -1,5 +1,5 @@
 class Endpoints {
-  static const String baseUrl = "http://192.168.1.3:8000";
+  static const String baseUrl = "http://192.168.1.4:8000";
   static const String registerApi = "/api/v1/auth/register";
   static const String registerResendOtpApi = "/api/v1/auth/register/resend-otp";
   static const String registerVerifyOtpApi = "/api/v1/auth/register/verify-otp";
@@ -80,4 +80,6 @@ class Endpoints {
 
   static const String generateImagingPermissionTokenApi =
       "/api/v1/clinical/medical-orders/{orderId}/permission-tokens/imaging";
+
+  static const String logoutApi = "/api/v1/auth/logout";
 }

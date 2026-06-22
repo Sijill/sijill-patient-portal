@@ -57,6 +57,7 @@ import '../../domain/use_cases/auth/login/login_resend_otp_use_case.dart'
 import '../../domain/use_cases/auth/login/login_use_case.dart' as _i396;
 import '../../domain/use_cases/auth/login/login_verify_otp_use_case.dart'
     as _i255;
+import '../../domain/use_cases/auth/logout/logout_use_case.dart' as _i988;
 import '../../domain/use_cases/auth/password_reset/password_reset_confirm_use_case.dart'
     as _i846;
 import '../../domain/use_cases/auth/password_reset/password_reset_resend_otp_use_case.dart'
@@ -394,6 +395,9 @@ extension GetItInjectableX on _i174.GetIt {
         authRepository: gh<_i660.AuthRepository>(),
       ),
     );
+    gh.factory<_i988.LogoutUseCase>(
+      () => _i988.LogoutUseCase(authRepository: gh<_i660.AuthRepository>()),
+    );
     gh.factory<_i846.PasswordResetConfirmUseCase>(
       () => _i846.PasswordResetConfirmUseCase(
         authRepository: gh<_i660.AuthRepository>(),
@@ -420,6 +424,21 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i757.RegisterVerifyOtpUseCase>(
       () => _i757.RegisterVerifyOtpUseCase(
         authRepository: gh<_i660.AuthRepository>(),
+      ),
+    );
+    gh.factory<_i698.AuthCubit>(
+      () => _i698.AuthCubit(
+        registerUseCase: gh<_i350.RegisterUseCase>(),
+        registerResendOtpUseCase: gh<_i245.RegisterResendOtpUseCase>(),
+        registerVerifyOtpUseCase: gh<_i757.RegisterVerifyOtpUseCase>(),
+        loginUseCase: gh<_i396.LoginUseCase>(),
+        loginResendOtpUseCase: gh<_i553.LoginResendOtpUseCase>(),
+        loginVerifyOtpUseCase: gh<_i255.LoginVerifyOtpUseCase>(),
+        passwordResetUseCase: gh<_i801.PasswordResetUseCase>(),
+        passwordResetResendOtpUseCase:
+            gh<_i355.PasswordResetResendOtpUseCase>(),
+        passwordResetConfirmUseCase: gh<_i846.PasswordResetConfirmUseCase>(),
+        logoutUseCase: gh<_i988.LogoutUseCase>(),
       ),
     );
     gh.factory<_i182.PermissionTokenCubit>(
@@ -460,20 +479,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1032.HomeCubit>(
       () => _i1032.HomeCubit(notificationCubit: gh<_i332.NotificationCubit>()),
-    );
-    gh.factory<_i698.AuthCubit>(
-      () => _i698.AuthCubit(
-        registerUseCase: gh<_i350.RegisterUseCase>(),
-        registerResendOtpUseCase: gh<_i245.RegisterResendOtpUseCase>(),
-        registerVerifyOtpUseCase: gh<_i757.RegisterVerifyOtpUseCase>(),
-        loginUseCase: gh<_i396.LoginUseCase>(),
-        loginResendOtpUseCase: gh<_i553.LoginResendOtpUseCase>(),
-        loginVerifyOtpUseCase: gh<_i255.LoginVerifyOtpUseCase>(),
-        passwordResetUseCase: gh<_i801.PasswordResetUseCase>(),
-        passwordResetResendOtpUseCase:
-            gh<_i355.PasswordResetResendOtpUseCase>(),
-        passwordResetConfirmUseCase: gh<_i846.PasswordResetConfirmUseCase>(),
-      ),
     );
     gh.factory<_i554.MedicalHistoryCubit>(
       () => _i554.MedicalHistoryCubit(

@@ -8,6 +8,8 @@ import 'package:sijil_patient_portal/api/mapper/auth/login_resend_otp_response_m
 import 'package:sijil_patient_portal/api/mapper/auth/login_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/login_verify_otp_request_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/login_verify_otp_response_mapper.dart';
+import 'package:sijil_patient_portal/api/mapper/auth/logout_request_mapper.dart';
+import 'package:sijil_patient_portal/api/mapper/auth/logout_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/password_reset_confirm_request_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/password_reset_confirm_response_mapper.dart';
 import 'package:sijil_patient_portal/api/mapper/auth/password_reset_request_mapper.dart';
@@ -25,6 +27,7 @@ import 'package:sijil_patient_portal/data/data_sources/remote/auth/auth_data_sou
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_resend_otp_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_verfiy_otp_request.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/request/logout/logout_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_confirm_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_resend_otp_request.dart';
@@ -34,6 +37,7 @@ import 'package:sijil_patient_portal/domain/entities/auth/request/register/regis
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_verify_otp_response.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/response/logout/logout_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_confirm_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_response.dart';
@@ -208,5 +212,16 @@ class AuthDataSourcesImpl implements AuthDataSources {
 
     //todo: PasswordResetConfirmResponseDto => PasswordResetConfirmResponse
     return passwordResetConfirmResponse.convertToPasswordResetConfirmResponse();
+  }
+
+  @override
+  Future<LogoutResponse> logout(LogoutRequest logoutRequest) async {
+    //todo: LogoutRequest => LogoutRequestDto
+    final logoutResponseDto = await webService.logout(
+      logoutRequest.convertToLogoutRequestDto(),
+    );
+
+    //todo:LogoutResponseDto => LogoutResponse
+    return logoutResponseDto.convertToLogoutResponse();
   }
 }
