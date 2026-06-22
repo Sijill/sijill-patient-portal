@@ -21,7 +21,9 @@ import 'package:sijil_patient_portal/api/model/auth/response/register/register_r
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/auth/response/register/register_verify_otp_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/chat/request/create_new_chat_session_request/create_new_chat_session_request_dto.dart';
+import 'package:sijil_patient_portal/api/model/chat/request/send_message_to_ai_assistant_request/send_message_to_ai_assistant_request_dto.dart';
 import 'package:sijil_patient_portal/api/model/chat/response/create_new_chat_session_response/create_new_chat_session_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/chat/response/send_message_to_ai_assistant_response/send_message_to_ai_assistant_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/health_journal/request/health_journal_notes/health_journal_notes_requst_dto.dart';
 import 'package:sijil_patient_portal/api/model/health_journal/response/get_health_journal_diagonses/get_health_journal_diagonses_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/health_journal/response/get_health_journal_notes/get_health_journal_notes_response_dto.dart';
@@ -219,5 +221,11 @@ abstract class WebService {
   @POST(Endpoints.createNewChatSessionApi)
   Future<CreateNewChatSessionResponseDto> createNewChatSession(
     @Body() CreateNewChatSessionRequestDto createNewChatSessionRequest,
+  );
+
+  @POST(Endpoints.sendMessageToAiAssistantApi)
+  Future<SendMessageToAiAssistantResponseDto> sendMessageToAiAssistant(
+    @Path("sessionId") String sessionId,
+    @Body() SendMessageToAiAssistantRequestDto sendMessageToAiAssistantRequest,
   );
 }

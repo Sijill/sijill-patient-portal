@@ -85,4 +85,7 @@ class Endpoints {
 
   static const String createNewChatSessionApi =
       "/api/v1/patient/ai/chat/sessions";
+
+  static const String sendMessageToAiAssistantApi =
+      "/patient/ai/chat/sessions/{sessionId}/messages";
 }
