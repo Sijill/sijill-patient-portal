@@ -19,6 +19,7 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_a
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_permission_token_laboratory_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_permission_token_healthcare_provider_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/grant_access_view_active_token_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/home_tab.dart';
 import 'package:sijil_patient_portal/features/home/presentation/home_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/presentation/notification_details_screen.dart';
@@ -83,6 +84,8 @@ class AppRoutes {
   static const String notificationDetailsScreen = "/notificationDetailsScreen";
   static const String sendMessageToChatbot = "/sendMessageToChatbot";
   static const String chatRecentWithMessage = "/chatRecentWithMessage";
+  static const String grantAccessViewActiveTokenScreen =
+      "/grantAccessViewActiveTokenScreen";
 
   static Map<String, Widget Function(BuildContext)> routeScreen = {
     AppRoutes.homeScreen: (context) => HomeScreen(),
@@ -132,5 +135,7 @@ class AppRoutes {
     AppRoutes.chatbotRecent: (context) => ChatbotRecent(),
     AppRoutes.sendMessageToChatbot: (context) => SendMessageToChatbot(),
     AppRoutes.chatRecentWithMessage: (context) => ChatRecentWithMessage(),
+    AppRoutes.grantAccessViewActiveTokenScreen: (context) =>
+        GrantAccessViewActiveTokenScreen(),
   };
 }

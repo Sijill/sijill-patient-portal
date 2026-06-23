@@ -35,10 +35,6 @@ class _CutomLogoutButtonState extends State<CutomLogoutButton> {
           } else if (state is LogoutSccessState) {
             DialogUtils.hideLoading(context);
             SharedPrefsUtils.logout();
-            DialogUtils.showDialogMessage(
-              message: state.logoutResponse.message,
-              backgroundColor: AppColors.green,
-            );
             Navigator.of(
               context,
             ).pushNamedAndRemoveUntil(AppRoutes.signInScreen, (route) => false);

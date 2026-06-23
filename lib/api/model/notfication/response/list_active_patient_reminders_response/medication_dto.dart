@@ -11,7 +11,7 @@ class MedicationDto {
   String? form;
   String? frequency;
   DateTime? startDate;
-  dynamic endDate;
+  DateTime? endDate;
   String? prescribedBy;
 
   MedicationDto({

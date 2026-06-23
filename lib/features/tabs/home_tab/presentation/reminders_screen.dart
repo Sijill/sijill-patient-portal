@@ -152,8 +152,8 @@ class _RemindersScreenState extends State<RemindersScreen> {
                                           null
                                       ? DateFormat('MMMM yyyy').format(
                                           medicationData[index]
-                                              .medication
-                                              ?.endDate!,
+                                              .medication!
+                                              .endDate!,
                                         )
                                       : '',
                                   startDate:

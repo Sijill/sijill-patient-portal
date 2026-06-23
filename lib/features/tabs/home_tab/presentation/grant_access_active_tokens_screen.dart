@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
+import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
+import 'package:sijil_patient_portal/domain/entities/home_tab/request/grant_access_view_model.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/permission_token_state.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_active_tokens_item.dart';
@@ -61,6 +63,19 @@ class _GrantAccessActiveTokensScreenState
                     experiseAt: DateFormat(
                       'EEEE, MMM d',
                     ).format(tokenList[index].expiresAt!),
+                    viewClick: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.grantAccessViewActiveTokenScreen,
+                        arguments: GrantAccessViewModel(
+                          accessTo: tokenList[index].entityType ?? "",
+                          accessType: tokenList[index].accessType ?? "",
+                          experiseAt: DateFormat(
+                            'EEEE, MMM d',
+                          ).format(tokenList[index].expiresAt!),
+                          tokenId: tokenList[index].tokenId ?? "",
+                        ),
+                      );
+                    },
                   );
                 },
 

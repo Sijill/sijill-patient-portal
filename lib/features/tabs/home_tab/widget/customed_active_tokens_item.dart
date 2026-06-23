@@ -9,12 +9,14 @@ class CustomedActiveTokensItem extends StatelessWidget {
   final String accessTo;
   final String accessType;
   final String experiseAt;
+  final void Function() viewClick;
 
   const CustomedActiveTokensItem({
     super.key,
     required this.accessTo,
     required this.accessType,
     required this.experiseAt,
+    required this.viewClick,
   });
 
   @override
@@ -40,7 +42,7 @@ class CustomedActiveTokensItem extends StatelessWidget {
                   text: "View",
                   textStyle: AppStyle.meduimBlack14,
                   vertical: 3.h,
-                  onPressed: () {},
+                  onPressed: viewClick,
                 ),
               ),
             ],
