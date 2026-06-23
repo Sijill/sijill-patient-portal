@@ -76,6 +76,8 @@ import '../../domain/use_cases/chat/create_new_chat_session_use_case.dart'
     as _i515;
 import '../../domain/use_cases/chat/delete_all_chat_session_use_case.dart'
     as _i817;
+import '../../domain/use_cases/chat/get_chat_session_with_message_use_case.dart'
+    as _i944;
 import '../../domain/use_cases/chat/list_chat_session_use_case.dart' as _i299;
 import '../../domain/use_cases/chat/send_message_to_ai_assistant_use_case.dart'
     as _i605;
@@ -389,6 +391,11 @@ extension GetItInjectableX on _i174.GetIt {
         chatRepository: gh<_i175.ChatRepository>(),
       ),
     );
+    gh.factory<_i944.GetChatSessionWithMessageUseCase>(
+      () => _i944.GetChatSessionWithMessageUseCase(
+        chatRepository: gh<_i175.ChatRepository>(),
+      ),
+    );
     gh.factory<_i299.ListChatSessionUseCase>(
       () => _i299.ListChatSessionUseCase(
         chatRepository: gh<_i175.ChatRepository>(),
@@ -513,6 +520,8 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i605.SendMessageToAiAssistantUseCase>(),
         listChatSessionUseCase: gh<_i299.ListChatSessionUseCase>(),
         deleteAllChatSessionUseCase: gh<_i817.DeleteAllChatSessionUseCase>(),
+        getChatSessionWithMessageUseCase:
+            gh<_i944.GetChatSessionWithMessageUseCase>(),
       ),
     );
     gh.factory<_i407.HealthJournalCubit>(

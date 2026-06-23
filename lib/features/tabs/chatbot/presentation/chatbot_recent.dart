@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
+import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/custom_text_field.dart';
 import 'package:sijil_patient_portal/core/utils/dialog_utils.dart';
@@ -29,7 +30,12 @@ class _ChatbotRecentState extends State<ChatbotRecent> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChatCubit, ChatState>(
+    return BlocConsumer<ChatCubit, ChatState>(
+      listener: (context, state) {
+        if (state is GetChatSessionWithMessageSuccess) {
+          Navigator.pushNamed(context, AppRoutes.chatRecentWithMessage);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -95,11 +101,20 @@ class _ChatbotRecentState extends State<ChatbotRecent> {
                       return ListView.separated(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => ChatbotRecentItem(
-                          title: "${data[index].title}",
-                          time: DateFormat(
-                            'MMMM d, yyyy',
-                          ).format(data[index].createdAt!),
+                        itemBuilder: (context, index) => InkWell(
+                          onTap: () async {
+                            await context
+                                .read<ChatCubit>()
+                                .getChatSessionWithMessage(
+                                  sessionId: data[index].id!,
+                                );
+                          },
+                          child: ChatbotRecentItem(
+                            title: "${data[index].title}",
+                            time: DateFormat(
+                              'MMMM d, yyyy',
+                            ).format(data[index].createdAt!),
+                          ),
                         ),
                         separatorBuilder: (context, index) =>
                             SizedBox(height: 20.h),

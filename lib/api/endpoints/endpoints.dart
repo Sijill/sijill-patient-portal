@@ -94,4 +94,7 @@ class Endpoints {
 
   static const String deleteAllChatSessionApi =
       "/api/v1/patient/ai/chat/sessions";
+
+  static const String getChatSessionWithMessageApi =
+      "/api/v1/patient/ai/chat/sessions/{sessionId}";
 }

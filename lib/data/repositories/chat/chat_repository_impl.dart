@@ -4,6 +4,7 @@ import 'package:sijil_patient_portal/domain/entities/chat/request/create_new_cha
 import 'package:sijil_patient_portal/domain/entities/chat/request/send_message_to_ai_assistant_request/send_message_to_ai_assistant_request.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/create_new_chat_session_response/create_new_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/delete_all_chat_session_response/delete_all_chat_session_response.dart';
+import 'package:sijil_patient_portal/domain/entities/chat/response/get_chat_session_with_message_response/get_chat_session_with_message_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/list_chat_session_response/list_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/send_message_to_ai_assistant_response/send_message_to_ai_assistant_response.dart';
 import 'package:sijil_patient_portal/domain/repositories/chat/chat_repository.dart';
@@ -40,5 +41,12 @@ class ChatRepositoryImpl extends ChatRepository {
   @override
   Future<DeleteAllChatSessionResponse> deleteAllChatSessions() {
     return chatDataSource.deleteAllChatSessions();
+  }
+
+  @override
+  Future<GetChatSessionWithMessageResponse> getChatSessionWithMessage({
+    required String sessionId,
+  }) {
+    return chatDataSource.getChatSessionWithMessage(sessionId: sessionId);
   }
 }

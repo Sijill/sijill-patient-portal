@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/screen/reset_password.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/sign_in_screen.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/sign_up_screen.dart';
+import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chat_recent_with_message.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot_recent.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/send_message_to_chatbot.dart';
@@ -81,6 +82,7 @@ class AppRoutes {
   static const String remindersScreen = "/remindersScreen";
   static const String notificationDetailsScreen = "/notificationDetailsScreen";
   static const String sendMessageToChatbot = "/sendMessageToChatbot";
+  static const String chatRecentWithMessage = "/chatRecentWithMessage";
 
   static Map<String, Widget Function(BuildContext)> routeScreen = {
     AppRoutes.homeScreen: (context) => HomeScreen(),
@@ -129,5 +131,6 @@ class AppRoutes {
         NotificationDetailsScreen(),
     AppRoutes.chatbotRecent: (context) => ChatbotRecent(),
     AppRoutes.sendMessageToChatbot: (context) => SendMessageToChatbot(),
+    AppRoutes.chatRecentWithMessage: (context) => ChatRecentWithMessage(),
   };
 }
