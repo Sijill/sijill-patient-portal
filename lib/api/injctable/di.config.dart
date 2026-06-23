@@ -74,6 +74,8 @@ import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
 import '../../domain/use_cases/chat/create_new_chat_session_use_case.dart'
     as _i515;
+import '../../domain/use_cases/chat/delete_all_chat_session_use_case.dart'
+    as _i817;
 import '../../domain/use_cases/chat/list_chat_session_use_case.dart' as _i299;
 import '../../domain/use_cases/chat/send_message_to_ai_assistant_use_case.dart'
     as _i605;
@@ -382,6 +384,11 @@ extension GetItInjectableX on _i174.GetIt {
         chatRepository: gh<_i175.ChatRepository>(),
       ),
     );
+    gh.factory<_i817.DeleteAllChatSessionUseCase>(
+      () => _i817.DeleteAllChatSessionUseCase(
+        chatRepository: gh<_i175.ChatRepository>(),
+      ),
+    );
     gh.factory<_i299.ListChatSessionUseCase>(
       () => _i299.ListChatSessionUseCase(
         chatRepository: gh<_i175.ChatRepository>(),
@@ -499,6 +506,15 @@ extension GetItInjectableX on _i174.GetIt {
         medicalHistoryRepository: gh<_i287.MedicalHistoryRepository>(),
       ),
     );
+    gh.factory<_i605.ChatCubit>(
+      () => _i605.ChatCubit(
+        createNewChatSessionUseCase: gh<_i515.CreateNewChatSessionUseCase>(),
+        sendMessageToAiAssistantUseCase:
+            gh<_i605.SendMessageToAiAssistantUseCase>(),
+        listChatSessionUseCase: gh<_i299.ListChatSessionUseCase>(),
+        deleteAllChatSessionUseCase: gh<_i817.DeleteAllChatSessionUseCase>(),
+      ),
+    );
     gh.factory<_i407.HealthJournalCubit>(
       () => _i407.HealthJournalCubit(
         getHealthJournalDiagonseUseCase:
@@ -511,14 +527,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1032.HomeCubit>(
       () => _i1032.HomeCubit(notificationCubit: gh<_i332.NotificationCubit>()),
-    );
-    gh.factory<_i605.ChatCubit>(
-      () => _i605.ChatCubit(
-        createNewChatSessionUseCase: gh<_i515.CreateNewChatSessionUseCase>(),
-        sendMessageToAiAssistantUseCase:
-            gh<_i605.SendMessageToAiAssistantUseCase>(),
-        listChatSessionUseCase: gh<_i299.ListChatSessionUseCase>(),
-      ),
     );
     gh.factory<_i554.MedicalHistoryCubit>(
       () => _i554.MedicalHistoryCubit(

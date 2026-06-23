@@ -6,6 +6,7 @@ import 'package:sijil_patient_portal/domain/entities/chat/request/create_new_cha
 import 'package:sijil_patient_portal/domain/entities/chat/request/send_message_to_ai_assistant_request/send_message_to_ai_assistant_request.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/create_new_chat_session_response/session.dart';
 import 'package:sijil_patient_portal/domain/use_cases/chat/create_new_chat_session_use_case.dart';
+import 'package:sijil_patient_portal/domain/use_cases/chat/delete_all_chat_session_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/chat/list_chat_session_use_case.dart';
 import 'package:sijil_patient_portal/domain/use_cases/chat/send_message_to_ai_assistant_use_case.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/cubit/chat_state.dart';
@@ -15,10 +16,12 @@ class ChatCubit extends Cubit<ChatState> {
   final CreateNewChatSessionUseCase createNewChatSessionUseCase;
   final SendMessageToAiAssistantUseCase sendMessageToAiAssistantUseCase;
   final ListChatSessionUseCase listChatSessionUseCase;
+  final DeleteAllChatSessionUseCase deleteAllChatSessionUseCase;
   ChatCubit({
     required this.createNewChatSessionUseCase,
     required this.sendMessageToAiAssistantUseCase,
     required this.listChatSessionUseCase,
+    required this.deleteAllChatSessionUseCase,
   }) : super(ChatInitial());
 
   void createNewChatSession({
@@ -109,5 +112,29 @@ class ChatCubit extends Cubit<ChatState> {
     }).toList();
 
     emit(SearchChatSessionSuccess(filteredSessions: filtered));
+  }
+
+  void deleteAllChatSession() async {
+    emit(DeleteAllChatSessionLoading());
+    try {
+      final deleteAllChatSessionResponse = await deleteAllChatSessionUseCase
+          .invoke();
+      allSessions.clear();
+      emit(
+        DeleteAllChatSessionSuccess(
+          deleteAllChatSessionResponse: deleteAllChatSessionResponse,
+        ),
+      );
+      emit(SearchChatSessionSuccess(filteredSessions: []));
+    } on AppException catch (e) {
+      emit(DeleteAllChatSessionError(message: e.message));
+    } on DioException catch (e) {
+      final message = (e.error is AppException)
+          ? (e.error as AppException).message
+          : "Unexcepted error occurred";
+      emit(DeleteAllChatSessionError(message: message));
+    } catch (e) {
+      emit(DeleteAllChatSessionError(message: e.toString()));
+    }
   }
 }

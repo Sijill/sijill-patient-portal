@@ -1,5 +1,6 @@
 import 'package:sijil_patient_portal/domain/entities/chat/response/create_new_chat_session_response/create_new_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/create_new_chat_session_response/session.dart';
+import 'package:sijil_patient_portal/domain/entities/chat/response/delete_all_chat_session_response/delete_all_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/list_chat_session_response/list_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/send_message_to_ai_assistant_response/send_message_to_ai_assistant_response.dart';
 
@@ -48,4 +49,16 @@ class GetListChatSessionError extends ChatState {
 class SearchChatSessionSuccess extends ChatState {
   final List<Session> filteredSessions;
   SearchChatSessionSuccess({required this.filteredSessions});
+}
+
+class DeleteAllChatSessionLoading extends ChatState {}
+
+class DeleteAllChatSessionSuccess extends ChatState {
+  DeleteAllChatSessionResponse deleteAllChatSessionResponse;
+  DeleteAllChatSessionSuccess({required this.deleteAllChatSessionResponse});
+}
+
+class DeleteAllChatSessionError extends ChatState {
+  String message;
+  DeleteAllChatSessionError({required this.message});
 }

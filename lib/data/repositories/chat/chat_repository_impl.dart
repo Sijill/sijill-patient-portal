@@ -3,6 +3,7 @@ import 'package:sijil_patient_portal/data/data_sources/remote/chat/chat_data_sou
 import 'package:sijil_patient_portal/domain/entities/chat/request/create_new_chat_session_request/create_new_chat_session_request.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/request/send_message_to_ai_assistant_request/send_message_to_ai_assistant_request.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/create_new_chat_session_response/create_new_chat_session_response.dart';
+import 'package:sijil_patient_portal/domain/entities/chat/response/delete_all_chat_session_response/delete_all_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/list_chat_session_response/list_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/send_message_to_ai_assistant_response/send_message_to_ai_assistant_response.dart';
 import 'package:sijil_patient_portal/domain/repositories/chat/chat_repository.dart';
@@ -34,5 +35,10 @@ class ChatRepositoryImpl extends ChatRepository {
   @override
   Future<ListChatSessionResponse> getListChatSession() {
     return chatDataSource.getListChatSession();
+  }
+
+  @override
+  Future<DeleteAllChatSessionResponse> deleteAllChatSessions() {
+    return chatDataSource.deleteAllChatSessions();
   }
 }
