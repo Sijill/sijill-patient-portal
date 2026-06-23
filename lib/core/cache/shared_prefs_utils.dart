@@ -54,4 +54,10 @@ class SharedPrefsUtils {
   static List<String>? getStringList({required String key}) {
     return sharedPrefs.getStringList(key);
   }
+
+  //todo: logout
+  static Future<void> logout() async {
+    await sharedPrefs.remove("accessToken");
+    await sharedPrefs.remove("refreshToken");
+  }
 }
