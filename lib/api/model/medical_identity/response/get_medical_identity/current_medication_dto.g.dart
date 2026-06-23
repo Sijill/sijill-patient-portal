@@ -17,7 +17,9 @@ CurrentMedicationDto _$CurrentMedicationDtoFromJson(
   startDate: json['startDate'] == null
       ? null
       : DateTime.parse(json['startDate'] as String),
-  endDate: json['endDate'],
+  endDate: json['endDate'] == null
+      ? null
+      : DateTime.parse(json['endDate'] as String),
   prescribedBy: json['prescribedBy'] as String?,
   prescribedAt: json['prescribedAt'] == null
       ? null
@@ -33,7 +35,7 @@ Map<String, dynamic> _$CurrentMedicationDtoToJson(
   'form': instance.form,
   'frequency': instance.frequency,
   'startDate': instance.startDate?.toIso8601String(),
-  'endDate': instance.endDate,
+  'endDate': instance.endDate?.toIso8601String(),
   'prescribedBy': instance.prescribedBy,
   'prescribedAt': instance.prescribedAt?.toIso8601String(),
 };
