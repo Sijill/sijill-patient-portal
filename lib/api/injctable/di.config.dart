@@ -15,6 +15,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
 import '../../data/data_sources/remote/auth/auth_data_sources.dart' as _i697;
+import '../../data/data_sources/remote/chat/chat_data_source.dart' as _i517;
 import '../../data/data_sources/remote/health_journal/health_journal_data_sources.dart'
     as _i1045;
 import '../../data/data_sources/remote/home_tab/home_tab_data_sources.dart'
@@ -28,6 +29,7 @@ import '../../data/data_sources/remote/notification/notificatin_data_source.dart
 import '../../data/data_sources/remote/permission_token/permission_token_data_sources.dart'
     as _i32;
 import '../../data/repositories/auth/auth_repository_impl.dart' as _i24;
+import '../../data/repositories/chat/chat_repository_impl.dart' as _i1030;
 import '../../data/repositories/health_journal/health_journal_repository_impl.dart'
     as _i1058;
 import '../../data/repositories/home_tab/home_tab_repository_impl.dart'
@@ -41,6 +43,7 @@ import '../../data/repositories/notificatin/ntification_repository_impl.dart'
 import '../../data/repositories/permission_token/permission_token_repository_impl.dart'
     as _i324;
 import '../../domain/repositories/auth/auth_repository.dart' as _i660;
+import '../../domain/repositories/chat/chat_repository.dart' as _i175;
 import '../../domain/repositories/health_journal/health_journal_repository.dart'
     as _i1022;
 import '../../domain/repositories/home_tab/home_tab_repository.dart' as _i469;
@@ -57,6 +60,7 @@ import '../../domain/use_cases/auth/login/login_resend_otp_use_case.dart'
 import '../../domain/use_cases/auth/login/login_use_case.dart' as _i396;
 import '../../domain/use_cases/auth/login/login_verify_otp_use_case.dart'
     as _i255;
+import '../../domain/use_cases/auth/logout/logout_use_case.dart' as _i988;
 import '../../domain/use_cases/auth/password_reset/password_reset_confirm_use_case.dart'
     as _i846;
 import '../../domain/use_cases/auth/password_reset/password_reset_resend_otp_use_case.dart'
@@ -68,6 +72,15 @@ import '../../domain/use_cases/auth/register/register_resend_otp_use_case.dart'
 import '../../domain/use_cases/auth/register/register_use_case.dart' as _i350;
 import '../../domain/use_cases/auth/register/register_verify_otp_use_case.dart'
     as _i757;
+import '../../domain/use_cases/chat/create_new_chat_session_use_case.dart'
+    as _i515;
+import '../../domain/use_cases/chat/delete_all_chat_session_use_case.dart'
+    as _i817;
+import '../../domain/use_cases/chat/get_chat_session_with_message_use_case.dart'
+    as _i944;
+import '../../domain/use_cases/chat/list_chat_session_use_case.dart' as _i299;
+import '../../domain/use_cases/chat/send_message_to_ai_assistant_use_case.dart'
+    as _i605;
 import '../../domain/use_cases/health_journal/get_health_journal_diagonse_use_case.dart'
     as _i244;
 import '../../domain/use_cases/health_journal/get_health_journal_notes_diagonse_id_use_case.dart'
@@ -120,6 +133,7 @@ import '../../domain/use_cases/permission_token/permission_token_revoke/permissi
 import '../../features/auth/cubit/auth_cubit.dart' as _i698;
 import '../../features/home/cubit/home_cubit.dart' as _i1032;
 import '../../features/onboarding/cubit/onboarding_cubit.dart' as _i547;
+import '../../features/tabs/chatbot/cubit/chat_cubit.dart' as _i605;
 import '../../features/tabs/health_journal/cubit/health_journal_cubit.dart'
     as _i407;
 import '../../features/tabs/home_tab/cubit/home_tab_cubt.dart' as _i348;
@@ -131,6 +145,7 @@ import '../../features/tabs/medical_history/cubit/medical_history_cubit.dart'
 import '../../features/tabs/medical_identiti/cubit/medical_identity_cubit.dart'
     as _i495;
 import '../data_sources/remote/auth/auth_data_sources_impl.dart' as _i62;
+import '../data_sources/remote/chat/chat_data_source_impl.dart' as _i724;
 import '../data_sources/remote/health_journal/health_journal_data_sources_impl.dart'
     as _i496;
 import '../data_sources/remote/home_tab/home_tab_data_sources_impl.dart'
@@ -174,6 +189,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i410.WebService>(
       () => dioModule.provideWebService(gh<_i361.Dio>(instanceName: 'mainDio')),
     );
+    gh.factory<_i517.ChatDataSource>(
+      () => _i724.ChatDataSourceImpl(webService: gh<_i410.WebService>()),
+    );
     gh.factory<_i1029.NotificationDataSource>(
       () =>
           _i338.NotifiationDataSourcesImpl(webService: gh<_i410.WebService>()),
@@ -193,6 +211,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i697.AuthDataSources>(
       () => _i62.AuthDataSourcesImpl(webService: gh<_i410.WebService>()),
+    );
+    gh.factory<_i175.ChatRepository>(
+      () =>
+          _i1030.ChatRepositoryImpl(chatDataSource: gh<_i517.ChatDataSource>()),
     );
     gh.factory<_i880.MedicalHistoryDataSources>(
       () => _i238.MedicalHistoryDataSourcesImpl(
@@ -359,6 +381,31 @@ extension GetItInjectableX on _i174.GetIt {
         healthJournalRepository: gh<_i1022.HealthJournalRepository>(),
       ),
     );
+    gh.factory<_i515.CreateNewChatSessionUseCase>(
+      () => _i515.CreateNewChatSessionUseCase(
+        chatRepository: gh<_i175.ChatRepository>(),
+      ),
+    );
+    gh.factory<_i817.DeleteAllChatSessionUseCase>(
+      () => _i817.DeleteAllChatSessionUseCase(
+        chatRepository: gh<_i175.ChatRepository>(),
+      ),
+    );
+    gh.factory<_i944.GetChatSessionWithMessageUseCase>(
+      () => _i944.GetChatSessionWithMessageUseCase(
+        chatRepository: gh<_i175.ChatRepository>(),
+      ),
+    );
+    gh.factory<_i299.ListChatSessionUseCase>(
+      () => _i299.ListChatSessionUseCase(
+        chatRepository: gh<_i175.ChatRepository>(),
+      ),
+    );
+    gh.factory<_i605.SendMessageToAiAssistantUseCase>(
+      () => _i605.SendMessageToAiAssistantUseCase(
+        chatRepository: gh<_i175.ChatRepository>(),
+      ),
+    );
     gh.factory<_i495.MedicalIdentityCubit>(
       () => _i495.MedicalIdentityCubit(
         uploadProfileImageUseCase: gh<_i238.UploadProfileImageUseCase>(),
@@ -394,6 +441,9 @@ extension GetItInjectableX on _i174.GetIt {
         authRepository: gh<_i660.AuthRepository>(),
       ),
     );
+    gh.factory<_i988.LogoutUseCase>(
+      () => _i988.LogoutUseCase(authRepository: gh<_i660.AuthRepository>()),
+    );
     gh.factory<_i846.PasswordResetConfirmUseCase>(
       () => _i846.PasswordResetConfirmUseCase(
         authRepository: gh<_i660.AuthRepository>(),
@@ -422,6 +472,21 @@ extension GetItInjectableX on _i174.GetIt {
         authRepository: gh<_i660.AuthRepository>(),
       ),
     );
+    gh.factory<_i698.AuthCubit>(
+      () => _i698.AuthCubit(
+        registerUseCase: gh<_i350.RegisterUseCase>(),
+        registerResendOtpUseCase: gh<_i245.RegisterResendOtpUseCase>(),
+        registerVerifyOtpUseCase: gh<_i757.RegisterVerifyOtpUseCase>(),
+        loginUseCase: gh<_i396.LoginUseCase>(),
+        loginResendOtpUseCase: gh<_i553.LoginResendOtpUseCase>(),
+        loginVerifyOtpUseCase: gh<_i255.LoginVerifyOtpUseCase>(),
+        passwordResetUseCase: gh<_i801.PasswordResetUseCase>(),
+        passwordResetResendOtpUseCase:
+            gh<_i355.PasswordResetResendOtpUseCase>(),
+        passwordResetConfirmUseCase: gh<_i846.PasswordResetConfirmUseCase>(),
+        logoutUseCase: gh<_i988.LogoutUseCase>(),
+      ),
+    );
     gh.factory<_i182.PermissionTokenCubit>(
       () => _i182.PermissionTokenCubit(
         generatePermissionTokenUseCase:
@@ -448,6 +513,17 @@ extension GetItInjectableX on _i174.GetIt {
         medicalHistoryRepository: gh<_i287.MedicalHistoryRepository>(),
       ),
     );
+    gh.factory<_i605.ChatCubit>(
+      () => _i605.ChatCubit(
+        createNewChatSessionUseCase: gh<_i515.CreateNewChatSessionUseCase>(),
+        sendMessageToAiAssistantUseCase:
+            gh<_i605.SendMessageToAiAssistantUseCase>(),
+        listChatSessionUseCase: gh<_i299.ListChatSessionUseCase>(),
+        deleteAllChatSessionUseCase: gh<_i817.DeleteAllChatSessionUseCase>(),
+        getChatSessionWithMessageUseCase:
+            gh<_i944.GetChatSessionWithMessageUseCase>(),
+      ),
+    );
     gh.factory<_i407.HealthJournalCubit>(
       () => _i407.HealthJournalCubit(
         getHealthJournalDiagonseUseCase:
@@ -460,20 +536,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1032.HomeCubit>(
       () => _i1032.HomeCubit(notificationCubit: gh<_i332.NotificationCubit>()),
-    );
-    gh.factory<_i698.AuthCubit>(
-      () => _i698.AuthCubit(
-        registerUseCase: gh<_i350.RegisterUseCase>(),
-        registerResendOtpUseCase: gh<_i245.RegisterResendOtpUseCase>(),
-        registerVerifyOtpUseCase: gh<_i757.RegisterVerifyOtpUseCase>(),
-        loginUseCase: gh<_i396.LoginUseCase>(),
-        loginResendOtpUseCase: gh<_i553.LoginResendOtpUseCase>(),
-        loginVerifyOtpUseCase: gh<_i255.LoginVerifyOtpUseCase>(),
-        passwordResetUseCase: gh<_i801.PasswordResetUseCase>(),
-        passwordResetResendOtpUseCase:
-            gh<_i355.PasswordResetResendOtpUseCase>(),
-        passwordResetConfirmUseCase: gh<_i846.PasswordResetConfirmUseCase>(),
-      ),
     );
     gh.factory<_i554.MedicalHistoryCubit>(
       () => _i554.MedicalHistoryCubit(

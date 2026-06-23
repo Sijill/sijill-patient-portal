@@ -11,6 +11,7 @@ import 'package:sijil_patient_portal/core/utils/my_bloc_observer.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_theme.dart';
 import 'package:sijil_patient_portal/features/home/cubit/home_cubit.dart';
+import 'package:sijil_patient_portal/features/tabs/chatbot/cubit/chat_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/cubit/health_journal_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/home_tab_cubt.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
@@ -45,6 +46,7 @@ Future<void> main() async {
         BlocProvider(create: (context) => getIt<MedicalIdentityCubit>()),
         BlocProvider(create: (context) => getIt<HealthJournalCubit>()),
         BlocProvider(create: (context) => getIt<MedicalHistoryCubit>()),
+        BlocProvider(create: (context) => getIt<ChatCubit>()),
       ],
       child: MyApp(onboarding: onboarding, accessToken: accessToken),
     ),

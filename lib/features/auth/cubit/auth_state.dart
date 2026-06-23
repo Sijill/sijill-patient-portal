@@ -1,6 +1,7 @@
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_verify_otp_response.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/response/logout/logout_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_confirm_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_response.dart';
@@ -124,4 +125,16 @@ class PasswordResetConfirmErrorState extends AuthState {
 class PasswordResetConfirmSccessState extends AuthState {
   PasswordResetConfirmResponse passwordResetConfirmResponse;
   PasswordResetConfirmSccessState({required this.passwordResetConfirmResponse});
+}
+
+class LogoutLoadingState extends AuthState {}
+
+class LogoutErrorState extends AuthState {
+  String message;
+  LogoutErrorState({required this.message});
+}
+
+class LogoutSccessState extends AuthState {
+  LogoutResponse logoutResponse;
+  LogoutSccessState({required this.logoutResponse});
 }

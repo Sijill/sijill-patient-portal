@@ -17,6 +17,7 @@ import 'package:sijil_patient_portal/features/tabs/medical_identiti/widget/custo
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/widget/customed_medical_identity_item.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/widget/customed_medical_identity_title.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_identiti/widget/customed_peofile_picture.dart';
+import 'package:sijil_patient_portal/features/tabs/medical_identiti/widget/cutom_logout_button.dart';
 
 class MedicalIdentityTab extends StatefulWidget {
   const MedicalIdentityTab({super.key});
@@ -327,6 +328,10 @@ class _MedicalIdentityTabState extends State<MedicalIdentityTab> {
                           ),
                     itemCount: data.emergencyContacts?.length ?? 0,
                   ),
+                  SizedBox(height: 10.h),
+                  Divider(color: AppColors.tabBarUnSelectedColor),
+                  SizedBox(height: 10.h),
+                  CutomLogoutButton(),
                 ],
               ),
             ),

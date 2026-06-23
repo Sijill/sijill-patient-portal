@@ -58,6 +58,9 @@ class AppAssets {
   static const String clock = "assets/images/clock.png";
   static const String todayScheduleCheck =
       "assets/images/today_schedule_check.png";
+  static const String archive = "assets/images/archive.png";
+  static const String chatbot = "assets/images/chatbot.png";
+  static const String send = "assets/images/send.png";
 
   static const String onboarding1 = "assets/svg/onboarding1.svg";
   static const String onboarding2 = "assets/svg/onboarding2.svg";
@@ -68,4 +71,5 @@ class AppAssets {
   static const String energyLevel = "assets/images/energy_level.png";
   static const String healthSnapshot = "assets/images/health_snapshot.png";
   static const String trackNewSymptom = "assets/svg/track_new_symptom_img.svg";
+  static const String chatbotIcon = "assets/svg/chatbot_icon.svg";
 }

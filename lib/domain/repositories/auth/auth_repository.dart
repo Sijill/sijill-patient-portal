@@ -1,6 +1,7 @@
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_resend_otp_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/login/login_verfiy_otp_request.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/request/logout/logout_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_confirm_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_request.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/request/password_reset/password_reset_resend_otp_request.dart';
@@ -10,6 +11,7 @@ import 'package:sijil_patient_portal/domain/entities/auth/request/register/regis
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/login/login_verify_otp_response.dart';
+import 'package:sijil_patient_portal/domain/entities/auth/response/logout/logout_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_confirm_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_resend_otp_response.dart';
 import 'package:sijil_patient_portal/domain/entities/auth/response/password_reset/password_reset_response.dart';
@@ -49,4 +51,6 @@ abstract class AuthRepository {
   Future<PasswordResetConfirmResponse> passwordResetConfirm(
     PasswordResetConfirmRequest passwordResetConfirmRequest,
   );
+
+  Future<LogoutResponse> logout(LogoutRequest logoutRequest);
 }
