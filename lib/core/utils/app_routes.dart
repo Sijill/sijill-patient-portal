@@ -3,7 +3,7 @@ import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/s
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/sign_in_screen.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/sign_up_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot.dart';
-import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot_archive.dart';
+import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot_recent.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/send_message_to_chatbot.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/health_journal_tab.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/track_condition_type_diabets_screen.dart';
@@ -43,7 +43,7 @@ class AppRoutes {
   static const String healthJournalTab = "/healthJournalTab";
   static const String medicalHistoryTab = "/medicalHistoryTab";
   static const String chatbot = "/chatbot";
-  static const String chatbotArchive = "/chatbotArchive";
+  static const String chatbotRecent = "/chatbotRecent";
   static const String signInScreen = "/signInScreen";
   static const String signUpScreen = "/signUpScreen";
   static const String forgetPassword = "/forgetPassword";
@@ -127,7 +127,7 @@ class AppRoutes {
     AppRoutes.remindersScreen: (context) => RemindersScreen(),
     AppRoutes.notificationDetailsScreen: (context) =>
         NotificationDetailsScreen(),
-    AppRoutes.chatbotArchive: (context) => ChatbotArchive(),
+    AppRoutes.chatbotRecent: (context) => ChatbotRecent(),
     AppRoutes.sendMessageToChatbot: (context) => SendMessageToChatbot(),
   };
 }

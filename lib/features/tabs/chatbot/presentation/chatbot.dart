@@ -61,7 +61,7 @@ class _ChatbotState extends State<Chatbot> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed(AppRoutes.chatbotArchive);
+                    Navigator.of(context).pushNamed(AppRoutes.chatbotRecent);
                   },
                   child: Image.asset(
                     AppAssets.archive,

@@ -1,4 +1,6 @@
 import 'package:sijil_patient_portal/domain/entities/chat/response/create_new_chat_session_response/create_new_chat_session_response.dart';
+import 'package:sijil_patient_portal/domain/entities/chat/response/create_new_chat_session_response/session.dart';
+import 'package:sijil_patient_portal/domain/entities/chat/response/list_chat_session_response/list_chat_session_response.dart';
 import 'package:sijil_patient_portal/domain/entities/chat/response/send_message_to_ai_assistant_response/send_message_to_ai_assistant_response.dart';
 
 abstract class ChatState {}
@@ -29,4 +31,21 @@ class SendMessageToAiAssistantSuccess extends ChatState {
 class SendMessageToAiAssistantError extends ChatState {
   String message;
   SendMessageToAiAssistantError({required this.message});
+}
+
+class GetListChatSessionLoading extends ChatState {}
+
+class GetListChatSessionSuccess extends ChatState {
+  ListChatSessionResponse listChatSessionResponse;
+  GetListChatSessionSuccess({required this.listChatSessionResponse});
+}
+
+class GetListChatSessionError extends ChatState {
+  String message;
+  GetListChatSessionError({required this.message});
+}
+
+class SearchChatSessionSuccess extends ChatState {
+  final List<Session> filteredSessions;
+  SearchChatSessionSuccess({required this.filteredSessions});
 }
