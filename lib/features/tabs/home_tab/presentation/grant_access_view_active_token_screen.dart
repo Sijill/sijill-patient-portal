@@ -19,85 +19,93 @@ class GrantAccessViewActiveTokenScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     GrantAccessViewModel token =
         ModalRoute.of(context)!.settings.arguments as GrantAccessViewModel;
-    return Scaffold(
-      appBar: AppBar(
-        title: AutoSizeText(
-          "Permission Token",
-          style: AppStyle.semiBoldBlack20,
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        context.read<PermissionTokenCubit>().getPermissionToken();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: AutoSizeText(
+            "Permission Token",
+            style: AppStyle.semiBoldBlack20,
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomedPermissionTokenItem(
-                  accessEntity: token.accessTo,
-                  accessType: token.accessType,
-                  expertAt: token.experiseAt,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20.h),
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.w,
-                    vertical: 14.h,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomedPermissionTokenItem(
+                    accessEntity: token.accessTo,
+                    accessType: token.accessType,
+                    expertAt: token.experiseAt,
                   ),
-                  alignment: AlignmentGeometry.center,
-                  decoration: BoxDecoration(
-                    color: AppColors.tabBarUnSelectedColor,
-                    borderRadius: BorderRadius.circular(12.r),
+                  Container(
+                    margin: EdgeInsets.only(top: 20.h),
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 14.h,
+                    ),
+                    alignment: AlignmentGeometry.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.tabBarUnSelectedColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Text("xxxxxx", style: AppStyle.boldBlack18),
                   ),
-                  child: Text("1234586", style: AppStyle.boldBlack18),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 75.w,
-                    vertical: 30.h,
-                  ),
-                  child:
-                      BlocListener<PermissionTokenCubit, PermissionTokenState>(
-                        listener: (context, state) {
-                          if (state is PermissionTokenRevokeILoading) {
-                            DialogUtils.showLoading(context);
-                          } else if (state is PermissionTokenRevokeError) {
-                            DialogUtils.hideLoading(context);
-                            DialogUtils.showDialogMessage(
-                              message: state.message,
-                            );
-                          } else if (state is PermissionTokenRevokeSuccess) {
-                            DialogUtils.hideLoading(context);
-                            DialogUtils.showDialogMessage(
-                              message:
-                                  state.permissionTokenRevokeResponse.message,
-                              backgroundColor: AppColors.green,
-                            );
-                            Navigator.of(context)
-                              ..pop()
-                              ..pop();
-                          }
-                        },
-                        child: CustomedButton(
-                          textStyle: AppStyle.semiBoldBlack20.copyWith(
-                            fontSize: 18.sp,
-                          ),
-                          backgroundColor: AppColors.tabBarSelectedColor,
-                          vertical: 12.h,
-                          addItem: true,
-                          sufficImageName: AppAssets.revoke,
-                          spaceAfterText: 7.w,
-                          text: "REVOKE",
-                          onPressed: () {
-                            context
-                                .read<PermissionTokenCubit>()
-                                .permissionRevokeToken(tokenId: token.tokenId);
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 75.w,
+                      vertical: 30.h,
+                    ),
+                    child:
+                        BlocListener<
+                          PermissionTokenCubit,
+                          PermissionTokenState
+                        >(
+                          listener: (context, state) {
+                            if (state is PermissionTokenRevokeILoading) {
+                              DialogUtils.showLoading(context);
+                            } else if (state is PermissionTokenRevokeError) {
+                              DialogUtils.hideLoading(context);
+                              DialogUtils.showDialogMessage(
+                                message: state.message,
+                              );
+                            } else if (state is PermissionTokenRevokeSuccess) {
+                              DialogUtils.hideLoading(context);
+                              DialogUtils.showDialogMessage(
+                                message:
+                                    state.permissionTokenRevokeResponse.message,
+                                backgroundColor: AppColors.green,
+                              );
+                              Navigator.of(context).pop();
+                            }
                           },
+                          child: CustomedButton(
+                            textStyle: AppStyle.semiBoldBlack20.copyWith(
+                              fontSize: 18.sp,
+                            ),
+                            backgroundColor: AppColors.tabBarSelectedColor,
+                            vertical: 12.h,
+                            addItem: true,
+                            sufficImageName: AppAssets.revoke,
+                            spaceAfterText: 7.w,
+                            text: "REVOKE",
+                            onPressed: () {
+                              context
+                                  .read<PermissionTokenCubit>()
+                                  .permissionRevokeToken(
+                                    tokenId: token.tokenId,
+                                  );
+                            },
+                          ),
                         ),
-                      ),
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
