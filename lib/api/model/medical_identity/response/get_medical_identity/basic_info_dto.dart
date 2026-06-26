@@ -4,6 +4,10 @@ part 'basic_info_dto.g.dart';
 
 @JsonSerializable()
 class BasicInfoDto {
+  String? firstName;
+  String? middleName;
+  String? surname;
+  String? fullName;
   int? age;
   String? gender;
   String? bloodType;
@@ -12,6 +16,10 @@ class BasicInfoDto {
   double? bmi;
 
   BasicInfoDto({
+    this.firstName,
+    this.middleName,
+    this.surname,
+    this.fullName,
     this.age,
     this.gender,
     this.bloodType,

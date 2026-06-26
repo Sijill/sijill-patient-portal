@@ -8,12 +8,14 @@ import 'package:sijil_patient_portal/core/utils/app_routes.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 import 'package:sijil_patient_portal/core/utils/customed_button.dart';
 import 'package:sijil_patient_portal/features/home/cubit/home_cubit.dart';
+import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot.dart';
 
 class HealthSnapshotScreen extends StatelessWidget {
   const HealthSnapshotScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String note = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -45,15 +47,7 @@ class HealthSnapshotScreen extends StatelessWidget {
                     style: AppStyle.boldBlack22,
                   ),
                   SizedBox(height: 20.h),
-                  AutoSizeText(
-                    "It looks like you've maintained a consistent hydration goal this week. Taking these small moments for reflection is a powerful way to lower cortisol and improve your overall well-being.",
-                    style: AppStyle.meduimBlack14,
-                  ),
-                  SizedBox(height: 10.h),
-                  AutoSizeText(
-                    "Keep listening to your body's rhythm you're doing a wonderful job.",
-                    style: AppStyle.meduimBlack14,
-                  ),
+                  AutoSizeText(note, style: AppStyle.meduimBlack14),
 
                   Padding(
                     padding: EdgeInsets.only(
@@ -88,7 +82,13 @@ class HealthSnapshotScreen extends StatelessWidget {
                         child: CustomedButton(
                           backgroundColor: AppColors.tabBarSelectedColor,
                           text: "AI Assistant",
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => Chatbot(showAppBar: true),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],

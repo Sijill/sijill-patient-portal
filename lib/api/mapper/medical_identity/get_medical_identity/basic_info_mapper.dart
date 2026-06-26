@@ -4,6 +4,10 @@ import 'package:sijil_patient_portal/domain/entities/medical_identity/response/g
 extension BasicInfoMapper on BasicInfoDto {
   BasicInfo convertToBasicInfo() {
     return BasicInfo(
+      firstName: firstName,
+      middleName: middleName,
+      surname: surname,
+      fullName: fullName,
       age: age,
       bloodType: bloodType,
       bmi: bmi,

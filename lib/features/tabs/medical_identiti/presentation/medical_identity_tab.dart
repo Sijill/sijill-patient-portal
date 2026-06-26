@@ -67,7 +67,7 @@ class _MedicalIdentityTabState extends State<MedicalIdentityTab> {
                   SizedBox(height: 10.h),
                   Center(
                     child: AutoSizeText(
-                      "Mostafa Mahmoud Khedr",
+                      data.basicInfo?.fullName ?? "",
                       style: AppStyle.semiBoldBlack20.copyWith(fontSize: 16.sp),
                     ),
                   ),

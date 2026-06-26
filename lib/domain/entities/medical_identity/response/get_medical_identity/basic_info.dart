@@ -1,4 +1,8 @@
 class BasicInfo {
+  String? firstName;
+  String? middleName;
+  String? surname;
+  String? fullName;
   int? age;
   String? gender;
   String? bloodType;
@@ -7,6 +11,10 @@ class BasicInfo {
   double? bmi;
 
   BasicInfo({
+    this.firstName,
+    this.middleName,
+    this.surname,
+    this.fullName,
     this.age,
     this.gender,
     this.bloodType,

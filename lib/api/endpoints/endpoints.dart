@@ -97,4 +97,6 @@ class Endpoints {
 
   static const String getChatSessionWithMessageApi =
       "/api/v1/patient/ai/chat/sessions/{sessionId}";
+
+  static const String getPatientNameApi = "/api/v1/patient/name";
 }

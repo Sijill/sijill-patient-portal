@@ -44,7 +44,6 @@ class AppRoutes {
   static const String medicalIdentityTab = "/medicalIdentityTab";
   static const String healthJournalTab = "/healthJournalTab";
   static const String medicalHistoryTab = "/medicalHistoryTab";
-  static const String chatbot = "/chatbot";
   static const String chatbotRecent = "/chatbotRecent";
   static const String signInScreen = "/signInScreen";
   static const String signUpScreen = "/signUpScreen";
@@ -105,7 +104,6 @@ class AppRoutes {
     AppRoutes.medicalIdentityTab: (context) => MedicalIdentityTab(),
     AppRoutes.healthJournalTab: (context) => HealthJournalTab(),
     AppRoutes.medicalHistoryTab: (context) => MedicalHistoryTab(),
-    AppRoutes.chatbot: (context) => Chatbot(),
     AppRoutes.grantAccessScreen: (context) => GrantAccessScreen(),
     AppRoutes.grantAccessHealthcareProviderScreen: (context) =>
         GrantAccessHealthcareProviderScreen(),

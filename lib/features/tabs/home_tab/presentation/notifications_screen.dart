@@ -12,7 +12,6 @@ import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notifcaton_sta
 import 'package:sijil_patient_portal/features/tabs/home_tab/cubit/notification_cubit.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_notifications_item.dart';
 import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_read_message.dart';
-import 'package:sijil_patient_portal/features/tabs/home_tab/widget/customed_tab_bar.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationsScreen extends StatefulWidget {
@@ -72,9 +71,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 10.h),
-              CustomedTabBar(),
-              SizedBox(height: 10.h),
+
               CustomedReadMessage(),
               SizedBox(height: 10.h),
               BlocConsumer<NotificationCubit, NotifcatonState>(

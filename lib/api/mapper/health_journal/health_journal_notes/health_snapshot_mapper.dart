@@ -3,16 +3,6 @@ import 'package:sijil_patient_portal/domain/entities/health_journal/response/hea
 
 extension HealthSnapshotMapper on HealthSnapshotDto {
   HealthSnapshot convertToHealthSnapshot() {
-    return HealthSnapshot(
-      advice: advice,
-      disclaimer: disclaimer,
-      model: model,
-      status: status,
-      summary: summary,
-      unavailableReason: unavailableReason,
-      urgencyLevel: urgencyLevel,
-      watchouts: watchouts,
-      whenToContactDoctor: whenToContactDoctor,
-    );
+    return HealthSnapshot(note: note);
   }
 }
