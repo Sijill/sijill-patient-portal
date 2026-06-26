@@ -10,6 +10,7 @@ import 'package:sijil_patient_portal/features/tabs/medical_history/cubit/medical
 import 'package:sijil_patient_portal/features/tabs/medical_history/cubit/medical_history_state.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/widget/diagnoses_item.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/widget/prescribed_medications_item.dart';
+import 'package:sijil_patient_portal/features/tabs/medical_history/widget/print_pdf.dart';
 import 'package:sijil_patient_portal/features/tabs/medical_history/widget/symptoms_complains_item.dart';
 
 class MedicalHistroyDetails extends StatefulWidget {
@@ -293,6 +294,38 @@ class _MedicalHistroyDetailsState extends State<MedicalHistroyDetails> {
                                           0,
                                     ),
                                   ],
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.r),
+                                    ),
+                                    backgroundColor: AppColors.teal,
+                                  ),
+                                  onPressed: () async {
+                                    await printPdf(data);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    spacing: 8.w,
+                                    children: [
+                                      Icon(
+                                        Icons.download,
+                                        size: 24.sp,
+                                        color: AppColors.black,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "Medical History PDF",
+                                          style: AppStyle.boldBlack16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

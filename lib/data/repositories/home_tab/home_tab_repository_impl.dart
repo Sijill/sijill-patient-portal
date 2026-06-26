@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:sijil_patient_portal/data/data_sources/remote/home_tab/home_tab_data_sources.dart';
 import 'package:sijil_patient_portal/domain/entities/home_tab/response/home_reminder_counters_response/home_reminder_counters_response.dart';
+import 'package:sijil_patient_portal/domain/entities/home_tab/response/patient_name/patient_name_response.dart';
 import 'package:sijil_patient_portal/domain/entities/home_tab/response/today_schedule_response/today_schedule_response.dart';
 import 'package:sijil_patient_portal/domain/repositories/home_tab/home_tab_repository.dart';
 
@@ -16,5 +17,10 @@ class HomeTabRepositoryImpl extends HomeTabRepository {
   @override
   Future<TodayScheduleResponse> getTodaySchedule() {
     return homeTabDataSources.getTodaySchedule();
+  }
+
+  @override
+  Future<PatientNameResponse> getPatientName() {
+    return homeTabDataSources.getPatientName();
   }
 }

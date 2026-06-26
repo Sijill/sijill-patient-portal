@@ -33,6 +33,7 @@ import 'package:sijil_patient_portal/api/model/health_journal/response/get_healt
 import 'package:sijil_patient_portal/api/model/health_journal/response/get_health_journal_notes_diagones_id_response_dto/get_health_journal_notes_diagones_id_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/health_journal/response/health_journal_notes/health_journal_notes_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/home_tab/response/home_reminder_counters_response/home_reminder_counters_response_dto.dart';
+import 'package:sijil_patient_portal/api/model/home_tab/response/patient_name/patient_name_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/home_tab/response/today_schedule_response/today_schedule_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_history/response/get_list_medical_history_response/get_list_medical_history_response_dto.dart';
 import 'package:sijil_patient_portal/api/model/medical_history/response/get_medical_history_response_dto/get_medical_history_response_dto.dart';
@@ -242,4 +243,7 @@ abstract class WebService {
   Future<GetChatSessionWithMessageResponseDto> getChatSessionWithMessage(
     @Path("sessionId") String sessionId,
   );
+
+  @GET(Endpoints.getPatientNameApi)
+  Future<PatientNameResponseDto> getPatientName();
 }

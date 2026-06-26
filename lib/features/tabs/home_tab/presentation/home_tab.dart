@@ -31,6 +31,7 @@ class _HomeTabState extends State<HomeTab> {
     super.initState();
     context.read<HomeTabCubt>().homeReminderCounters();
     context.read<HomeTabCubt>().getTodaySchedule();
+    context.read<HomeTabCubt>().getPatientName();
   }
 
   @override
@@ -77,9 +78,19 @@ class _HomeTabState extends State<HomeTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AutoSizeText(
-                      "Hello Alex, How Are You \nDoing Today!",
-                      style: AppStyle.boldBlack20,
+                    BlocBuilder<HomeTabCubt, HomeTabState>(
+                      builder: (context, state) {
+                        final patientName = context
+                            .read<HomeTabCubt>()
+                            .patientNameResponse;
+                        if (state is GetPatientNameError) {
+                          DialogUtils.showDialogMessage(message: state.message);
+                        }
+                        return AutoSizeText(
+                          "Hello ${patientName?.name?.firstName ?? ""}, How Are You \nDoing Today!",
+                          style: AppStyle.boldBlack20,
+                        );
+                      },
                     ),
                     SizedBox(height: 8.h),
                     AutoSizeText(

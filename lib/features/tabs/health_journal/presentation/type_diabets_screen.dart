@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
@@ -56,7 +57,7 @@ class _TypeDiabetsScreenState extends State<TypeDiabetsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    "Monday, Oct 28",
+                    DateFormat('EEEE, MMM d').format(DateTime.now()),
                     style: AppStyle.mediumGray16.copyWith(fontSize: 18.sp),
                   ),
                   SizedBox(height: 30.h),
@@ -222,10 +223,15 @@ class _TypeDiabetsScreenState extends State<TypeDiabetsScreen> {
                         DialogUtils.hideLoading(context);
                         DialogUtils.showDialogMessage(message: state.message);
                       } else if (state is HealthJournalNotesSuccess) {
+                        final note = state
+                            .healthJournalNotesResponse
+                            .healthSnapshot!
+                            .note;
                         DialogUtils.hideLoading(context);
-                        Navigator.of(
-                          context,
-                        ).pushReplacementNamed(AppRoutes.healthSnapshotScreen);
+                        Navigator.of(context).pushReplacementNamed(
+                          AppRoutes.healthSnapshotScreen,
+                          arguments: note,
+                        );
                       }
                     },
                     child: Center(

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sijil_patient_portal/api/model/health_journal/response/health_journal_notes/health_snapshot_dto.dart';
 
 import 'entry_dto.dart';
-import 'health_snapshot_dto.dart';
 
 part 'health_journal_notes_response_dto.g.dart';
 

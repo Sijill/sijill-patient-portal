@@ -23,7 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
     HealthJournalTab(),
     MedicalHistoryTab(),
     MedicalIdentityTab(),
-    Chatbot(),
+    Chatbot(showAppBar: false),
   ];
 
   void changeTap(int index) {

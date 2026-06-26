@@ -7,6 +7,10 @@ part of 'basic_info_dto.dart';
 // **************************************************************************
 
 BasicInfoDto _$BasicInfoDtoFromJson(Map<String, dynamic> json) => BasicInfoDto(
+  firstName: json['firstName'] as String?,
+  middleName: json['middleName'] as String?,
+  surname: json['surname'] as String?,
+  fullName: json['fullName'] as String?,
   age: (json['age'] as num?)?.toInt(),
   gender: json['gender'] as String?,
   bloodType: json['bloodType'] as String?,
@@ -17,6 +21,10 @@ BasicInfoDto _$BasicInfoDtoFromJson(Map<String, dynamic> json) => BasicInfoDto(
 
 Map<String, dynamic> _$BasicInfoDtoToJson(BasicInfoDto instance) =>
     <String, dynamic>{
+      'firstName': instance.firstName,
+      'middleName': instance.middleName,
+      'surname': instance.surname,
+      'fullName': instance.fullName,
       'age': instance.age,
       'gender': instance.gender,
       'bloodType': instance.bloodType,

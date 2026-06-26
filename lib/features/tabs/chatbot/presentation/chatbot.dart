@@ -16,7 +16,8 @@ import 'package:sijil_patient_portal/features/tabs/chatbot/cubit/chat_state.dart
 import 'package:sijil_patient_portal/features/tabs/chatbot/widget/custom_suggestion.dart';
 
 class Chatbot extends StatefulWidget {
-  const Chatbot({super.key});
+  final bool showAppBar;
+  const Chatbot({super.key, required this.showAppBar});
 
   @override
   State<Chatbot> createState() => _ChatbotState();
@@ -52,6 +53,7 @@ class _ChatbotState extends State<Chatbot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: widget.showAppBar ? AppBar() : null,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
