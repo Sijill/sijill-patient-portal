@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
@@ -83,6 +84,10 @@ class _HomeTabState extends State<HomeTab> {
                         final patientName = context
                             .read<HomeTabCubt>()
                             .patientNameResponse;
+                        SharedPrefsUtils.saveData(
+                          key: "name",
+                          value: patientName?.name?.firstName ?? "",
+                        );
                         if (state is GetPatientNameError) {
                           DialogUtils.showDialogMessage(message: state.message);
                         }

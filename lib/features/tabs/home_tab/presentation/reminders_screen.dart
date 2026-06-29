@@ -145,6 +145,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                                   frequency: medicationData[index]
                                       .medication
                                       ?.frequency,
+                                  from: medicationData[index].medication?.form,
                                   endDate:
                                       medicationData[index]
                                               .medication!
