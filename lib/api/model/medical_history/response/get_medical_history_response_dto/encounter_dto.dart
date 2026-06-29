@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sijil_patient_portal/api/model/medical_history/response/get_medical_history_response_dto/symptoms_and_complaints_dto.dart';
 
 import 'diagnosis_dto.dart';
 import 'prescribed_medication_dto.dart';
@@ -14,7 +15,7 @@ class EncounterDto {
   DateTime? encounterDate;
   String? location;
   PrimaryDiagnosisDto? primaryDiagnosis;
-  List<dynamic>? symptomsAndComplaints;
+  List<SymptomsAndComplaintsDto>? symptomsAndComplaints;
   List<DiagnosisDto>? diagnoses;
   List<PrescribedMedicationDto>? prescribedMedications;
 

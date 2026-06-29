@@ -19,7 +19,9 @@ EncounterDto _$EncounterDtoFromJson(Map<String, dynamic> json) => EncounterDto(
       : PrimaryDiagnosisDto.fromJson(
           json['primaryDiagnosis'] as Map<String, dynamic>,
         ),
-  symptomsAndComplaints: json['symptomsAndComplaints'] as List<dynamic>?,
+  symptomsAndComplaints: (json['symptomsAndComplaints'] as List<dynamic>?)
+      ?.map((e) => SymptomsAndComplaintsDto.fromJson(e as Map<String, dynamic>))
+      .toList(),
   diagnoses: (json['diagnoses'] as List<dynamic>?)
       ?.map((e) => DiagnosisDto.fromJson(e as Map<String, dynamic>))
       .toList(),
