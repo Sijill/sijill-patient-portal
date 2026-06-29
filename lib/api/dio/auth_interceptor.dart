@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -16,7 +15,7 @@ class AuthInterceptor extends Interceptor {
   // ==============================
   // Decode JWT expiry
   // ==============================
-  int? _getTokenExpiry(String token) {
+  int? getTokenExpiry(String token) {
     try {
       final parts = token.split('.');
 
@@ -36,7 +35,7 @@ class AuthInterceptor extends Interceptor {
   // Refresh Token
   // ==============================
   Future<String?> _refreshToken() async {
-    if (_isRefreshing) return null;
+    if (_isRefreshing) return SharedPrefsUtils.getAccessToken();
 
     _isRefreshing = true;
 
@@ -69,8 +68,13 @@ class AuthInterceptor extends Interceptor {
         value: newRefreshToken,
       );
 
+      // مهم
+      dio.options.headers["Authorization"] = "Bearer $newAccessToken";
+
       return newAccessToken;
-    } catch (_) {
+    } catch (e) {
+      print("REFRESH ERROR => $e");
+
       await SharedPrefsUtils.logout();
 
       return null;
@@ -83,27 +87,13 @@ class AuthInterceptor extends Interceptor {
   // Before Request
   // ==============================
   @override
-  void onRequest(
+  Future<void> onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    String? token = SharedPrefsUtils.getAccessToken();
+    final token = SharedPrefsUtils.getAccessToken();
 
-    if (token != null && token.isNotEmpty) {
-      final exp = _getTokenExpiry(token);
-
-      final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-
-      if (exp != null && (exp - now) < 60) {
-        final refreshedToken = await _refreshToken();
-
-        if (refreshedToken != null) {
-          token = refreshedToken;
-        }
-      }
-
-      options.headers["Authorization"] = "Bearer $token";
-    }
+    options.headers["Authorization"] = "Bearer ${token ?? ""}";
 
     handler.next(options);
   }
@@ -112,10 +102,13 @@ class AuthInterceptor extends Interceptor {
   // Handle 401
   // ==============================
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
-    final requestOptions = err.requestOptions;
+  Future<void> onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    final request = err.requestOptions;
 
-    if (requestOptions.path.contains("refresh")) {
+    if (request.path.contains("refresh")) {
       return handler.next(err);
     }
 
@@ -123,36 +116,32 @@ class AuthInterceptor extends Interceptor {
       return handler.next(err);
     }
 
-    if (requestOptions.extra["retry"] == true) {
+    if (request.extra["retry"] == true) {
       await SharedPrefsUtils.logout();
 
       return handler.next(err);
     }
 
     try {
-      final newAccessToken = await _refreshToken();
+      final token = await _refreshToken();
 
-      if (newAccessToken == null) {
-        await SharedPrefsUtils.logout();
-
+      if (token == null) {
         return handler.next(err);
       }
 
-      final newRequest = requestOptions.copyWith(
-        headers: {
-          ...requestOptions.headers,
-          "Authorization": "Bearer $newAccessToken",
-        },
-        extra: {...requestOptions.extra, "retry": true},
-      );
+      request.headers["Authorization"] = "Bearer $token";
 
-      final response = await dio.fetch(newRequest);
+      request.extra["retry"] = true;
 
-      return handler.resolve(response);
-    } catch (_) {
+      final response = await dio.fetch(request);
+
+      handler.resolve(response);
+    } catch (e) {
+      print("401 RETRY ERROR => $e");
+
       await SharedPrefsUtils.logout();
 
-      return handler.next(err);
+      handler.next(err);
     }
   }
 }
