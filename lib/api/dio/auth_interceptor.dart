@@ -14,7 +14,7 @@ class AuthInterceptor extends Interceptor {
   bool _isRefreshing = false;
 
   // ==============================
-  // 🔹 Decode JWT expiry
+  // Decode JWT expiry
   // ==============================
   int? _getTokenExpiry(String token) {
     try {
@@ -27,13 +27,13 @@ class AuthInterceptor extends Interceptor {
       );
 
       return payload['exp'];
-    } catch (e) {
+    } catch (_) {
       return null;
     }
   }
 
   // ==============================
-  // 🔹 Refresh Token
+  // Refresh Token
   // ==============================
   Future<String?> _refreshToken() async {
     if (_isRefreshing) return null;
@@ -44,10 +44,10 @@ class AuthInterceptor extends Interceptor {
       final refreshToken = SharedPrefsUtils.getRefreshToken();
 
       if (refreshToken == null || refreshToken.isEmpty) {
+        await SharedPrefsUtils.logout();
         return null;
       }
 
-      // ❌ remove old auth header
       refreshDio.options.headers.remove("Authorization");
 
       final response = await refreshDio.post(
@@ -56,9 +56,9 @@ class AuthInterceptor extends Interceptor {
       );
 
       final newAccessToken = response.data["accessToken"];
+
       final newRefreshToken = response.data["refreshToken"];
 
-      // ✅ save new tokens
       await SharedPrefsUtils.saveData(
         key: "accessToken",
         value: newAccessToken,
@@ -70,7 +70,9 @@ class AuthInterceptor extends Interceptor {
       );
 
       return newAccessToken;
-    } catch (e) {
+    } catch (_) {
+      await SharedPrefsUtils.logout();
+
       return null;
     } finally {
       _isRefreshing = false;
@@ -78,7 +80,7 @@ class AuthInterceptor extends Interceptor {
   }
 
   // ==============================
-  // 🔹 Before Request
+  // Before Request
   // ==============================
   @override
   void onRequest(
@@ -92,7 +94,6 @@ class AuthInterceptor extends Interceptor {
 
       final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-      // ⏳ لو التوكن قرب يخلص
       if (exp != null && (exp - now) < 60) {
         final refreshedToken = await _refreshToken();
 
@@ -108,38 +109,35 @@ class AuthInterceptor extends Interceptor {
   }
 
   // ==============================
-  // 🔹 Handle 401 Errors
+  // Handle 401
   // ==============================
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     final requestOptions = err.requestOptions;
 
-    //  ignore refresh endpoint
     if (requestOptions.path.contains("refresh")) {
       return handler.next(err);
     }
 
-    //  only handle 401
     if (err.response?.statusCode != 401) {
       return handler.next(err);
     }
 
-    //  prevent infinite loop
     if (requestOptions.extra["retry"] == true) {
+      await SharedPrefsUtils.logout();
+
       return handler.next(err);
     }
 
     try {
       final newAccessToken = await _refreshToken();
 
-      //  refresh failed
       if (newAccessToken == null) {
+        await SharedPrefsUtils.logout();
+
         return handler.next(err);
       }
 
-      // ==============================
-      // 🔹 Retry Original Request
-      // ==============================
       final newRequest = requestOptions.copyWith(
         headers: {
           ...requestOptions.headers,
@@ -151,7 +149,9 @@ class AuthInterceptor extends Interceptor {
       final response = await dio.fetch(newRequest);
 
       return handler.resolve(response);
-    } catch (e) {
+    } catch (_) {
+      await SharedPrefsUtils.logout();
+
       return handler.next(err);
     }
   }

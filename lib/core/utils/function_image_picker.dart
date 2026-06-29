@@ -13,26 +13,29 @@ class FunctionImagePicker {
     }
   }
 
-  static Future<File?> galluryicker({XFile? image}) async {
+  static Future<File?> galluryicker() async {
     PermissionStatus status;
+
     if (Platform.isAndroid) {
-      final androidnfo = await DeviceInfoPlugin().androidInfo;
-      if (androidnfo.version.sdkInt <= 32) {
-        status = await Permission.storage.request();
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+
+      if (androidInfo.version.sdkInt >= 33) {
+        status = await Permission.photos.request();
       } else {
-        status = await Permission.phone.request();
+        status = await Permission.storage.request();
       }
     } else {
-      status = await Permission.phone.request();
+      status = await Permission.photos.request();
     }
+
     if (status.isGranted) {
-      image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
       if (image != null) {
         return File(image.path);
-      } else {
-        return null;
       }
     }
+
     return null;
   }
 }

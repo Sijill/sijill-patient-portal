@@ -157,10 +157,28 @@ class _MedicalHistroyDetailsState extends State<MedicalHistroyDetails> {
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
                                       itemBuilder: (context, index) =>
-                                          SymptomsComplainsItem(),
+                                          SymptomsComplainsItem(
+                                            title:
+                                                data
+                                                    .encounter
+                                                    ?.symptomsAndComplaints?[index]
+                                                    .title ??
+                                                "",
+                                            description:
+                                                data
+                                                    .encounter
+                                                    ?.symptomsAndComplaints?[index]
+                                                    .description ??
+                                                "",
+                                          ),
                                       separatorBuilder: (context, index) =>
                                           SizedBox(height: 16.h),
-                                      itemCount: 2,
+                                      itemCount:
+                                          data
+                                              .encounter
+                                              ?.symptomsAndComplaints
+                                              ?.length ??
+                                          0,
                                     ),
                                   ],
                                 ),

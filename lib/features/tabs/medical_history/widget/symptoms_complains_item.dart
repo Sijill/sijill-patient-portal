@@ -5,10 +5,14 @@ import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_style.dart';
 
 class SymptomsComplainsItem extends StatelessWidget {
-  final String? title;
-  final String? subTitle;
+  final String title;
+  final String description;
 
-  const SymptomsComplainsItem({super.key, this.title, this.subTitle});
+  const SymptomsComplainsItem({
+    super.key,
+    required this.title,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +31,11 @@ class SymptomsComplainsItem extends StatelessWidget {
         spacing: 5.h,
         children: [
           AutoSizeText(
-            title ?? "Occasional headaches",
+            title,
             style: AppStyle.boldBlack16.copyWith(fontSize: 13.sp),
           ),
           AutoSizeText(
-            subTitle ?? "Typically in the mornings, lasts 30 minutes to 1 hour",
+            description,
             style: AppStyle.semiBoldBlack20.copyWith(fontSize: 12.sp),
           ),
         ],
