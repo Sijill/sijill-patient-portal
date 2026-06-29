@@ -348,7 +348,7 @@ class NotificationCubit extends Cubit<NotifcatonState> {
   Set<String> _seenNotifications = {};
 
   void startPendingNotificationsPolling({
-    Duration interval = const Duration(seconds: 40),
+    Duration interval = const Duration(seconds: 5),
   }) {
     _pendingTimer?.cancel();
 

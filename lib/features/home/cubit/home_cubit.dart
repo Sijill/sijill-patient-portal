@@ -37,7 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
     print('Polling Started');
     _appTimer?.cancel();
 
-    _appTimer = Timer.periodic(const Duration(seconds: 60), (_) {
+    _appTimer = Timer.periodic(const Duration(seconds: 5), (_) {
       notificationCubit.getPendingNotifications();
     });
   }
