@@ -3,7 +3,6 @@ import 'package:sijil_patient_portal/features/auth/presentation/forgetpassword/s
 import 'package:sijil_patient_portal/features/auth/presentation/sign_in/screen/sign_in_screen.dart';
 import 'package:sijil_patient_portal/features/auth/presentation/sign_up/screen/sign_up_screen.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chat_recent_with_message.dart';
-import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/chatbot_recent.dart';
 import 'package:sijil_patient_portal/features/tabs/chatbot/presentation/send_message_to_chatbot.dart';
 import 'package:sijil_patient_portal/features/tabs/health_journal/presentation/health_journal_tab.dart';

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sijil_patient_portal/core/cache/shared_prefs_utils.dart';
 import 'package:sijil_patient_portal/core/utils/app_assets.dart';
 import 'package:sijil_patient_portal/core/utils/app_colors.dart';
 import 'package:sijil_patient_portal/core/utils/app_routes.dart';
@@ -82,7 +83,7 @@ class _ChatbotState extends State<Chatbot> {
                 SizedBox(height: 20.h),
                 Center(
                   child: AutoSizeText(
-                    "How Can I Help You [X]",
+                    "How Can I Help You ${SharedPrefsUtils.getData(key: "name")}",
                     style: AppStyle.meduimBlack20,
                   ),
                 ),
@@ -115,14 +116,14 @@ class _ChatbotState extends State<Chatbot> {
                       Divider(),
                       CustomSuggestion(
                         icon: Icons.science_outlined,
-                        title: "Show my latest lab reslts? ",
-                        onTap: () => fillMessage("Show my latest lab results?"),
+                        title: "Show my latest lab reslts",
+                        onTap: () => fillMessage("Show my latest lab results"),
                       ),
                       Divider(),
                       CustomSuggestion(
                         icon: Icons.health_and_safety_outlined,
-                        title: "Exlain may diagnosis? ",
-                        onTap: () => fillMessage("Explain my diagnosis?"),
+                        title: "Explain may diagnosis",
+                        onTap: () => fillMessage("Explain my diagnosis"),
                       ),
                     ],
                   ),

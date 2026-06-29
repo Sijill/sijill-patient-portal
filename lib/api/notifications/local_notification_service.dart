@@ -25,6 +25,14 @@ class LocalNotificationService {
       onDidReceiveBackgroundNotificationResponse: onTap,
       onDidReceiveNotificationResponse: onTap,
     );
+    final android = flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+
+    await android?.requestNotificationsPermission();
+
+    await android?.requestExactAlarmsPermission();
   }
 
   //todo: Basic notification
@@ -110,7 +118,7 @@ class LocalNotificationService {
       // tz.TZDateTime(tz.local, 2026, 6, 8, 18, 32),
       tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
       notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exact,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
@@ -154,7 +162,7 @@ class LocalNotificationService {
       scheduledTime,
       // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
       notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exact,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );

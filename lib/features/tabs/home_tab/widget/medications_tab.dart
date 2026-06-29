@@ -22,6 +22,7 @@ class MedicationsTab extends StatefulWidget {
   final String? frequency;
   final String? startDate;
   final String? endDate;
+  final String? from;
   final int index;
   const MedicationsTab({
     super.key,
@@ -34,6 +35,7 @@ class MedicationsTab extends StatefulWidget {
     this.endDate,
     this.reminderTime,
     this.reminderId,
+    this.from,
   });
 
   @override
@@ -74,7 +76,7 @@ class _MedicationsTabState extends State<MedicationsTab> {
               ),
               SizedBox(height: 8.h),
               AutoSizeText(
-                "${widget.dosageAmount} ${widget.dosageUnit} · Capsule · ${widget.frequency}",
+                "${widget.dosageAmount} ${widget.dosageUnit} , ${widget.from} , ${widget.frequency}",
                 style: AppStyle.mediumBlack16.copyWith(fontSize: 12.sp),
               ),
               SizedBox(height: 8.h),
